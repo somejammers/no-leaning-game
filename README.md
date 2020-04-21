@@ -2,7 +2,7 @@ https://github.com/thisIsTeamSwag/endless_runner.git
 
 instructions to push:
 
-git add (file)
+git add (file) //or you can do 'git add .' to add every file in your current directory
 
 git commit -am "message"
 
