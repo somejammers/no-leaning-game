@@ -1,17 +1,20 @@
 // https://aithehuman.github.io/sicksite/rocket.html
+let canvas_width = 720;
+let canvas_height = 720;
+
 let config = {
     type: Phaser.CANVAS,
-    width: 640,
-    height: 480, //I ran python -m SimpleHTTPServer
-    scene: [ Menu, Play     ], //array, order matters
-    "transparent": true,
+    width: canvas_width,
+    height: canvas_height,
+    physics: {
+        default: 'arcade'
+    },
+    scene: [ Menu, Play ], //array, order matters
 };
 
 let game = new Phaser.Game(config);
 
 // define game settings
-game.settings = {
-}
 
 //reserve some keyboard variables
-let keyF, keyLEFT, keyRIGHT;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN;
