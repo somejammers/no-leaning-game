@@ -18,3 +18,11 @@ let game = new Phaser.Game(config);
 
 //reserve some keyboard variables
 let keyLEFT, keyRIGHT, keyUP, keyDOWN;
+let resistance_keyDOWN, resistance_keyUP, 
+    resistance_keyLEFT, resistance_keyRIGHT;
+
+let stageLeftBound, stageRightBound, stageUpperBound, stageLowerBound;
+
+let playerstats = new PlayerStats();
+
+let faller_x_on_barrier, faller_y_on_barrier;

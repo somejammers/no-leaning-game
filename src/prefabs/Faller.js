@@ -16,11 +16,17 @@ class Faller extends Phaser.GameObjects.Sprite {
     update() {
        
         //Controls
-        if (keyLEFT.isDown) {
-            this.x -= 5;
+        if (keyLEFT.isDown && this.x > stageLeftBound) {
+            this.x -= 5 * resistance_keyLEFT;
         }
-        if (keyRIGHT.isDown) {
-            this.x += 5;
+        if (keyRIGHT.isDown && this.x < stageRightBound) {
+            this.x += 5 * resistance_keyRIGHT;
+        }
+        if (keyUP.isDown && this.y > stageUpperBound) {
+            this.y -= 5 * resistance_keyUP;
+        }
+        if (keyDOWN.isDown && this.y < stageLowerBound) {
+            this.y += 5 * resistance_keyDOWN;
         }
     }
 
