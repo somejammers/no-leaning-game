@@ -4,10 +4,11 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-
+        
         this.load.image('faller', './assets/faller.png');
         this.load.image('bg_air', './assets/bg_air.png');
         this.load.image('barrier', './assets/barrier.png');
+
         this.load.audio('bgm', './assets/editjo_techno.wav');
 
     }

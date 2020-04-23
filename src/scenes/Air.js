@@ -80,7 +80,7 @@ class Air extends Phaser.Scene {
         this.box_below_barrier.setVisible(false);
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
-        this.speed_modifier = 1;
+        this.speed_modifier = 5;
             
         //PLAYER CHARACTER
         //Basically, the faller_instance is the sprite, faller_phys is the physics version,
@@ -151,6 +151,7 @@ class Air extends Phaser.Scene {
         if (this.barrierTouched == false) 
             this.physics.add.overlap(this.faller_instance, this.barrier, this.worldSwap, null, this);
             this.barrierTouched = true;
+
     }
 
     worldSwap() {
@@ -160,15 +161,18 @@ class Air extends Phaser.Scene {
         
         //AUDIO
         this.bgm.stop();
+        this.sound.play('barrierSmash', {volume: 0.2});
         
         shakeOnNextWorld = true;
+
+        //MANAGE SCENE
+        //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scenemanager/
         this.scene.stop("airScene");
         //even though this scene stops, worldSwap() is still carried out
         //later order this better to make it more seamless
         this.scene.start("airScene");
         // change to this.scene.start("fireScene");
         //change to this.scene.stop("airScene"); later
-        console.log("this message should not be seen");
     }
 
     reset() {
