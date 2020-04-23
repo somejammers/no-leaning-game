@@ -35,37 +35,44 @@ class Play extends Phaser.Scene {
         stageLowerBound = canvas_height;
 
         //BACKGROUND
+        //this rectangle is for debugging
         this.add.rectangle( 
             canvas_width / 2, canvas_height / 2, canvas_width / 2, -canvas_height, 0x000000
             );
 
-        //load backgrounds sequentially, move em up one
-        // after another then delete them when they leave the canvas
-        //this.background_deck[];
-
-    
-        //top = 1080, bottom = -360
         //have two backgrounds that loop finitely, rather than endlessly scroll using tileSprite
         this.bg_air_1 = this.add.sprite(
             canvas_width / 2, -(canvas_height / 2), 'bg_air');
         this.bg_air_2 = this.add.sprite(
             canvas_width / 2, canvas_height / 2, 'bg_air');
 
+        //BACKGROUND VARIABLE DEFINITIONS
         this.bg_air_1_amnt_looped = 0;
         this.bg_air_2_amnt_looped = 0;
-
         this.bg_loop_max = 1;
+        this.bg_scroll_speed = 3;
 
         //BARRIER
         this.barrierPlaced = false;
         this.barrier = this.add.sprite(
-            canvas_width / 2, 360, 'barrier');
+            canvas_width / 2, 1200, 'barrier'); //put off screen for now
+        this.barrier.setDepth(2);
+
+        //WHITE BOXES: for covering other objects
+        this.box_below_barrier = this.add.rectangle(
+            canvas_width / 2, 1200, canvas_width / 2, canvas_height, 0xFFFFFF
+        );
+        this.box_below_barrier.setDepth(1);
+        this.box_below_barrier.setVisible(false);
+
+        //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
+        this.speed_modifier = 1;
             
         //PLAYER CHARACTER
         this.faller_instance = new Faller(
             this, game.config.width/2, 431, 'faller').setOrigin(0,0);
         //this sets the faller to be in front of everything else
-        this.faller_instance.setDepth(2);
+        this.faller_instance.setDepth(3);
 
         
         //this.bg_deck = new Array();
@@ -83,31 +90,44 @@ class Play extends Phaser.Scene {
 
     update() {
         
-        //FINITE BACKGROUND LOOP: If backgrounds fall off screen, put them back at start
-        if(this.bg_air_1.y == -(canvas_height / 2) 
-            && this.bg_air_1_amnt_looped < this.bg_loop_max) {
+        //PLAYER MOVEMENT
+        this.faller_instance.update();
+
+        //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
+        if (this.bg_air_1.y == -(canvas_height / 2) ) 
+            {
 
                 this.bg_air_1.y = canvas_height * 1.5;
-                this.bg_air_1_amnt_looped ++;
+                this.bg_air_1_amnt_looped += 1;
         }
 
-        if(this.bg_air_2.y == -(canvas_height / 2) 
-            && this.bg_air_2_amnt_looped < this.bg_loop_max) {
-            
+        if (this.bg_air_2.y == -(canvas_height / 2) ) 
+            {
                 this.bg_air_2.y = canvas_height * 1.5;
                 this.bg_air_2_amnt_looped ++;
+
+                //CONDITION: finished looping, place barrier
+                if (this.bg_air_2_amnt_looped == this.bg_loop_max)
+                {
+                    this.barrier.y = 2 * canvas_height; //canvas_height + barrier size
+                    this.barrierPlaced = true;
+
+                    this.box_below_barrier.y = this.barrier.y + canvas_height / 2;
+                    this.box_below_barrier.setVisible(true);
+                }
         }
 
-        //BARRIER: create after
-
-        //Update Instances
-        this.faller_instance.update();
+        //BARRIER MOVEMENT
+        if (this.barrierPlaced) 
+        {
+            this.barrier.y -= this.bg_scroll_speed * this.speed_modifier / 2;
+            this.box_below_barrier.y -= this.bg_scroll_speed * this.speed_modifier / 2;
+        }
         
         //Update Background
         //this.bg_air.tilePositionY += 5;
-        
-        this.bg_air_1.y -= 3;
-        this.bg_air_2.y -= 3;
+        this.bg_air_1.y -= this.bg_scroll_speed * this.speed_modifier;
+        this.bg_air_2.y -= this.bg_scroll_speed * this.speed_modifier;
 
 
     }
