@@ -1,10 +1,10 @@
 //TO DO:
-// add flash to worldSwap()
 // add placeholder bgm and sfx
+// add obstacles, see nathans
 // add horizontal world
-// add worldSwap() functionality
-// add obstacles
 // do start scene
+// add the distance/speed mechanic
+// add barrier breaking particles
 
 
 class Air extends Phaser.Scene {
@@ -17,7 +17,6 @@ class Air extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.setBackgroundColor('#FFFFFF');
         //CONTROLS
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/keyboardevents/
         //and http://ex-artist.com/CMPM120/Phaser%203%20Rocket%20Patrol%20Tutorial.html
@@ -26,6 +25,10 @@ class Air extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+
+        //MUSIC
+        this.bgm = this.sound.add('bgm', bgmConfig);
+        this.bgm.play();
 
         //STAGE-SPECIFIC MOVEMENT
         resistance_keyDOWN = 1;
@@ -59,6 +62,7 @@ class Air extends Phaser.Scene {
 
         //BARRIER
         this.barrierPlaced = false;
+        this.barrierTouched = false;
         this.barrier = this.physics.add.sprite(canvas_width / 2, 1500, 'barrier'); //put off screen for now
         this.barrier.setDepth(2);
         //make barrier physics body
@@ -92,7 +96,13 @@ class Air extends Phaser.Scene {
         //this sets the faller to be in front of everything else
         this.faller_instance.setDepth(3);
 
-
+        //ENTRY EFFECTS
+        //they are not persistent from scene to scene, hence written in create()
+        if (shakeOnNextWorld == true) 
+        {
+            this.cameras.main.flash(700);
+            this.cameras.main.shake(1000, 0.03, 0.00, 0, false); 
+        }
     }
 
 
@@ -138,10 +148,30 @@ class Air extends Phaser.Scene {
         this.bg_air_2.y -= this.bg_scroll_speed * this.speed_modifier;
 
         //PLAYER COLLISIONS
-        this.physics.add.overlap(this.faller_instance, this.barrier, this.worldSwap, null, this);
+        if (this.barrierTouched == false) 
+            this.physics.add.overlap(this.faller_instance, this.barrier, this.worldSwap, null, this);
+            this.barrierTouched = true;
     }
 
     worldSwap() {
+        //CAMERA
+        this.cameras.main.shake(200); // this at start of scene
+        //this.cameras.main.flash(0xFFFFFF, 500);
+        
+        //AUDIO
+        this.bgm.stop();
+        
+        shakeOnNextWorld = true;
+        this.scene.stop("airScene");
+        //even though this scene stops, worldSwap() is still carried out
+        //later order this better to make it more seamless
         this.scene.start("airScene");
+        // change to this.scene.start("fireScene");
+        //change to this.scene.stop("airScene"); later
+        console.log("this message should not be seen");
+    }
+
+    reset() {
+        shakeOnNextWorld = false;
     }
 }

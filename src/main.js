@@ -9,25 +9,32 @@ let physicsConfig = {
     }
 }
 
+//SOUND CONFIG
+let bgmConfig = {
+    volume: 0.7,
+    loop: true,
+}
+
 let config = {
     type: Phaser.CANVAS,
     width: canvas_width,
     height: canvas_height,
     physics: physicsConfig,
-    scene: [ Menu, Air ], //array, order matters
+    transparent: true, //removes black background
+    scene: [ Boot, Menu, Air ], //array, order matters
 };
 
 let game = new Phaser.Game(config);
-
+let playerstats = new PlayerStats();
 // define game settings
 
 //reserve some keyboard variables
 let keyLEFT, keyRIGHT, keyUP, keyDOWN;
 let resistance_keyDOWN, resistance_keyUP, 
     resistance_keyLEFT, resistance_keyRIGHT;
-
 let stageLeftBound, stageRightBound, stageUpperBound, stageLowerBound;
-
-let playerstats = new PlayerStats();
-
 let faller_x_on_barrier, faller_y_on_barrier;
+let playAirOnBoot = true;
+let shakeOnNextWorld = false;
+let bgmAir;
+
