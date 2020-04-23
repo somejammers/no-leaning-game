@@ -37,4 +37,6 @@ let faller_x_on_barrier, faller_y_on_barrier;
 let playAirOnBoot = true;
 let shakeOnNextWorld = false;
 let bgmAir;
+let timeTillObstacles = 2500, obstacleWidth, obstacleHeight;
+
 

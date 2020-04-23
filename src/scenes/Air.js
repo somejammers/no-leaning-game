@@ -1,11 +1,13 @@
 //TO DO:
-// add placeholder bgm and sfx
+//  xx add placeholder bgm and sfx
 // add obstacles, see nathans
 // add horizontal world
 // do start scene
 // add the distance/speed mechanic
 // add barrier breaking particles
-
+// add broken barrer to new levels
+//better game feel movement
+// add start scene
 
 class Air extends Phaser.Scene {
     constructor() {
@@ -13,10 +15,15 @@ class Air extends Phaser.Scene {
     }
 
     preload() {
-        
+     //MUSIC
+        this.bgm = this.sound.add('bgm', bgmConfig);
+        this.bgm.play();   
     }
 
     create() {
+        //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
+        this.speed_modifier = 1;
+
         //CONTROLS
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/keyboardevents/
         //and http://ex-artist.com/CMPM120/Phaser%203%20Rocket%20Patrol%20Tutorial.html
@@ -26,10 +33,6 @@ class Air extends Phaser.Scene {
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
-        //MUSIC
-        this.bgm = this.sound.add('bgm', bgmConfig);
-        this.bgm.play();
-
         //STAGE-SPECIFIC MOVEMENT
         resistance_keyDOWN = 1;
         resistance_keyUP = 1;
@@ -38,9 +41,9 @@ class Air extends Phaser.Scene {
 
         //STAGE BOUNDS DO TIHS
         stageLeftBound = canvas_width / 4;
-        stageRightBound = 3 * canvas_width / 4;
+        stageRightBound = 3 * canvas_width / 4 - 35;
         stageUpperBound = 0;
-        stageLowerBound = canvas_height;
+        stageLowerBound = canvas_height - 20;
 
         //BACKGROUND
         //this rectangle is for debugging
@@ -63,7 +66,8 @@ class Air extends Phaser.Scene {
         //BARRIER
         this.barrierPlaced = false;
         this.barrierTouched = false;
-        this.barrier = this.physics.add.sprite(canvas_width / 2, 1500, 'barrier'); //put off screen for now
+        this.barrierSpeed = this.bg_scroll_speed * this.speed_modifier / 2;
+        this.barrier = this.physics.add.sprite(canvas_width / 2, 1800, 'barrier'); //put off screen for now
         this.barrier.setDepth(2);
         //make barrier physics body
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-world/
@@ -71,16 +75,12 @@ class Air extends Phaser.Scene {
         //and https://github.com/nathanaltice/MovementStudies/blob/master/scenes/Runner.js
         this.barrier_body = this.barrier.body;
         //this.barrier_body.setEnable();
-
         //WHITE BOXES: for covering other objects
         this.box_below_barrier = this.add.rectangle(
             canvas_width / 2, 1200, canvas_width / 2, canvas_height, 0xFFFFFF
         );
         this.box_below_barrier.setDepth(1);
         this.box_below_barrier.setVisible(false);
-
-        //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
-        this.speed_modifier = 5;
             
         //PLAYER CHARACTER
         //Basically, the faller_instance is the sprite, faller_phys is the physics version,
@@ -96,6 +96,8 @@ class Air extends Phaser.Scene {
         //this sets the faller to be in front of everything else
         this.faller_instance.setDepth(3);
 
+        this.isInvincible = false;
+
         //ENTRY EFFECTS
         //they are not persistent from scene to scene, hence written in create()
         if (shakeOnNextWorld == true) 
@@ -103,8 +105,31 @@ class Air extends Phaser.Scene {
             this.cameras.main.flash(700);
             this.cameras.main.shake(1000, 0.03, 0.00, 0, false); 
         }
+
+        this.time.delayedCall(timeTillObstacles, () => { this.addObstacle(); });
+
+        // //OBSTACLES
+        obstacleWidth = 0;
+        obstacleHeight = 0;
+
+        this.obstacleGroup = this.add.group({
+            runChildUpdate: true
+        });
     }
 
+    addObstacle() {
+        //constructor(
+        //scene, x_spawnFrom, y_spawnFrom, 
+        //x_velocity, y_velocity, orientation, texture, frame)
+        //see stage bounds
+        console.log("obstacle spawned");
+
+        let obstacle = new Obstacle(
+            this, Phaser.Math.Between(stageLeftBound, stageRightBound),
+            canvas_height, //or obstacle_height if horizontal stage
+            0, this.barrierSpeed, 1, 'air_obstacle');
+        this.obstacleGroup.add(obstacle);
+    }
 
     update() {
         
@@ -129,6 +154,8 @@ class Air extends Phaser.Scene {
                 {
                     this.barrier.y = 2 * canvas_height; //canvas_height + barrier size
                     this.barrierPlaced = true;
+                    console.log("barrier placed");
+
 
                     this.box_below_barrier.y = this.barrier.y + canvas_height / 2;
                     this.box_below_barrier.setVisible(true);
@@ -138,8 +165,8 @@ class Air extends Phaser.Scene {
         //BARRIER MOVEMENT
         if (this.barrierPlaced) 
         {
-            this.barrier.y -= this.bg_scroll_speed * this.speed_modifier / 2;
-            this.box_below_barrier.y -= this.bg_scroll_speed * this.speed_modifier / 2;
+            this.barrier.y -= this.barrierSpeed;
+            this.box_below_barrier.y -= this.barrierSpeed;
         }
         
         //Update Background
@@ -148,22 +175,57 @@ class Air extends Phaser.Scene {
         this.bg_air_2.y -= this.bg_scroll_speed * this.speed_modifier;
 
         //PLAYER COLLISIONS
-        if (this.barrierTouched == false) 
+        if (this.barrierTouched == false)
+        {
             this.physics.add.overlap(this.faller_instance, this.barrier, this.worldSwap, null, this);
             this.barrierTouched = true;
+        }
+        
+        if (this.faller_instance.isInvincible == false)
+        { 
+            this.physics.add.overlap(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);     
+            
+        }
+    }
+
+    fallerCollidesObstacle() {
+        this.cameras.main.shake(100, 0.01, 0.00, 0, false); 
+
+        this.setInvincibility(true);
+
+        //play animation here of flickering fallre
+        this.time.delayedCall(1000, () => { this.setInvincibility(false); });
 
     }
 
+    setInvincibility(bool) {
+        this.faller_instance.isInvincible = bool;
+    }
+
     worldSwap() {
-        //CAMERA
+        console.log("world swapped");
+        this.barrierTouched = true;
+        //ENTRY EFFECTS
         this.cameras.main.shake(200); // this at start of scene
         //this.cameras.main.flash(0xFFFFFF, 500);
         
         //AUDIO
         this.bgm.stop();
         this.sound.play('barrierSmash', {volume: 0.2});
-        
         shakeOnNextWorld = true;
+
+        //FIRST OBSTACLE'S SPAWN SCALING
+        if (playerstats.currStagesComplete >= 1) 
+        {    
+            timeTillObstacles = 1000 / playerstats.currStagesComplete * this.speed_modifier;
+            playerstats.currStagesComplete++;
+        } 
+        else
+        //first clear
+        {
+            timeTillObstacles = 1000 / this.speed_modifier;
+            playerstats.currStagesComplete = 1;
+        }
 
         //MANAGE SCENE
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scenemanager/
@@ -177,5 +239,7 @@ class Air extends Phaser.Scene {
 
     reset() {
         shakeOnNextWorld = false;
+        timeTillObstacles = 2500;
+        playerstats.currStagesComplete = 0;
     }
 }

@@ -6,6 +6,7 @@ class Faller extends Phaser.GameObjects.Sprite {
 
         this.isIncSpeed = false;
         this.isDecSpeed = false;
+        this.isInvincible = false;
 
     }
 
