@@ -1,10 +1,15 @@
 //TO DO:
-//efficient way of setting timer, and updating background without checking every frame
-//add bounds to sides of stages
+// add flash to worldSwap()
+// add placeholder bgm and sfx
+// add horizontal world
+// add worldSwap() functionality
+// add obstacles
+// do start scene
 
-class Play extends Phaser.Scene {
+
+class Air extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("airScene");
     }
 
     preload() {
@@ -54,9 +59,14 @@ class Play extends Phaser.Scene {
 
         //BARRIER
         this.barrierPlaced = false;
-        this.barrier = this.add.sprite(
-            canvas_width / 2, 1200, 'barrier'); //put off screen for now
+        this.barrier = this.physics.add.sprite(canvas_width / 2, 1500, 'barrier'); //put off screen for now
         this.barrier.setDepth(2);
+        //make barrier physics body
+        //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-world/
+        //and https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
+        //and https://github.com/nathanaltice/MovementStudies/blob/master/scenes/Runner.js
+        this.barrier_body = this.barrier.body;
+        //this.barrier_body.setEnable();
 
         //WHITE BOXES: for covering other objects
         this.box_below_barrier = this.add.rectangle(
@@ -69,20 +79,18 @@ class Play extends Phaser.Scene {
         this.speed_modifier = 1;
             
         //PLAYER CHARACTER
+        //Basically, the faller_instance is the sprite, faller_phys is the physics version,
+        //faller_body is the physics body(the box around the sprite)
+        //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
             this, game.config.width/2, 431, 'faller').setOrigin(0,0);
+
+        //turn faller into Dynmaic physics obj
+        this.faller_phys = this.physics.add.existing(this.faller_instance, 0);
+        this.faller_body = this.faller_phys.body;
+        this.faller_body.setImmovable();
         //this sets the faller to be in front of everything else
         this.faller_instance.setDepth(3);
-
-        
-        //this.bg_deck = new Array();
-        //initialize deck https://stackoverflow.com/questions/15742442/declaring-array-of-objects
-        //when a bg reaches canvas_height, pop one and put it right below the last, and setdepth 1
-        // for(let i=0; i<bg_count; i++) {
-        //     this.bg_deck.push( this.add.sprite(canvas_width / 2, canvas_height / 2, 'bg_air') );
-        // }
-        // this.topBG = this.bg_deck.pop();
-        // this.frameCounter = 0;
 
 
     }
@@ -106,7 +114,7 @@ class Play extends Phaser.Scene {
                 this.bg_air_2.y = canvas_height * 1.5;
                 this.bg_air_2_amnt_looped ++;
 
-                //CONDITION: finished looping, place barrier
+                //CONDITION: finished looping, place barrier and cover the background
                 if (this.bg_air_2_amnt_looped == this.bg_loop_max)
                 {
                     this.barrier.y = 2 * canvas_height; //canvas_height + barrier size
@@ -129,6 +137,11 @@ class Play extends Phaser.Scene {
         this.bg_air_1.y -= this.bg_scroll_speed * this.speed_modifier;
         this.bg_air_2.y -= this.bg_scroll_speed * this.speed_modifier;
 
+        //PLAYER COLLISIONS
+        this.physics.add.overlap(this.faller_instance, this.barrier, this.worldSwap, null, this);
+    }
 
+    worldSwap() {
+        this.scene.start("airScene");
     }
 }
