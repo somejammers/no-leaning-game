@@ -57,9 +57,15 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
     }
 
+
+
     explode() {
         //do animation of being destroyed here
+        this.scene.sound.play('obstacleCollision', {volume: 0.2});
+
         this.phys_body.enable = false;
         this.visible = false;
+        playerstats.currHP--;
+        console.log(playerstats.currHP);
     }
 }

@@ -2,11 +2,12 @@
 //  xx add placeholder bgm and sfx
 // add obstacles, see nathans
 // add horizontal world
+// add borders
 // do start scene
 // add the distance/speed mechanic
 // add barrier breaking particles
 // add broken barrer to new levels
-//better game feel movement
+// better game feel movement
 // add start scene
 
 class Air extends Phaser.Scene {
@@ -15,14 +16,20 @@ class Air extends Phaser.Scene {
     }
 
     preload() {
-     //MUSIC
-        this.bgm = this.sound.add('bgm', bgmConfig);
-        this.bgm.play();   
+
     }
 
     create() {
+        //MUSIC
+        this.bgm = this.sound.add('bgm', bgmConfig);
+        this.bgm.play();   
+
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
         this.speed_modifier = 1;
+
+        //WIDTH AND LENGTH OF FALLER SPRITE
+        this.fallerOffsetX = 35;
+        this.fallerOffsetY = 20;
 
         //CONTROLS
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/keyboardevents/
@@ -41,17 +48,22 @@ class Air extends Phaser.Scene {
 
         //STAGE BOUNDS DO TIHS
         stageLeftBound = canvas_width / 4;
-        stageRightBound = 3 * canvas_width / 4 - 35;
+        stageRightBound = 3 * canvas_width / 4 - this.fallerOffsetX;
         stageUpperBound = 0;
-        stageLowerBound = canvas_height - 20;
+        stageLowerBound = canvas_height - this.fallerOffsetY;
 
         //BACKGROUND
-        //this rectangle is for debugging
-        this.add.rectangle( 
-            canvas_width / 2, canvas_height / 2, canvas_width / 2, -canvas_height, 0x000000
-            );
+        this.side_box_1 = this.add.rectangle( 
+            0, canvas_height / 2 , canvas_width / 2, canvas_height, 0xFFFFFF
+        );
+        this.side_box_1.setDepth(5);
 
-        //have two backgrounds that loop finitely, rather than endlessly scroll using tileSprite
+        this.side_box_2 = this.add.rectangle( 
+            3 * canvas_width / 4, canvas_height / 2 , canvas_width / 2, canvas_height, 0xFFFFFF
+        );
+        this.side_box_1.setDepth(5);
+
+        //have two backgrounds that loop 
         this.bg_air_1 = this.add.sprite(
             canvas_width / 2, -(canvas_height / 2), 'bg_air');
         this.bg_air_2 = this.add.sprite(
@@ -81,6 +93,8 @@ class Air extends Phaser.Scene {
         );
         this.box_below_barrier.setDepth(1);
         this.box_below_barrier.setVisible(false);
+
+        //BROKEN BARRIER
             
         //PLAYER CHARACTER
         //Basically, the faller_instance is the sprite, faller_phys is the physics version,
@@ -97,6 +111,30 @@ class Air extends Phaser.Scene {
         this.faller_instance.setDepth(3);
 
         this.isInvincible = false;
+
+        //PARTICLES
+        this.player_particles = this.add.particles('flares');
+        this.player_particles.setDepth(1);
+        this.emitter = this.player_particles.createEmitter(
+        {
+                frame: 'blue',
+                alpha: { start: 255, end: 0 },
+                scale: { start: 0.5, end: 2.5 },
+                //tint: { start: 0xff945e, end: 0xff945e },
+                speed: { min: 200, max: 400},
+                accelerationY: -400,
+                angle: { min: -70, max: -110 },
+                rotate: { min: -180, max: 180 },
+                lifespan: { min: 1000, max: 1100 },
+                blendMode: 'ADD',
+                frequency: 11,
+                maxParticles: 10,
+                scale: { start: 0.6, end: 0, ease: 'Power3' },
+                x: this.faller_instance.x,
+                y: 400,
+                gravityY: -50,
+                maxParticles: 0, //unlimited
+        });
 
         //ENTRY EFFECTS
         //they are not persistent from scene to scene, hence written in create()
@@ -135,6 +173,21 @@ class Air extends Phaser.Scene {
         
         //PLAYER MOVEMENT
         this.faller_instance.update();
+        //PLAYER PARTICLES FOLLOW
+        this.emitter.setPosition(this.faller_instance.x + this.fallerOffsetX/2, this.faller_instance.y + this.fallerOffsetY/2);
+        //HP CHANGES
+        if (playerstats.currHP == 3) {
+            this.emitter.setFrame("green");
+        } 
+        else if (playerstats.currHP == 2) {
+            this.emitter.setFrame("yellow");
+        } 
+        else if (playerstats.currHP == 1) {
+            this.emitter.setFrame("red");
+        } 
+        else {
+            //TRIGGER LOSE
+        }
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
         if (this.bg_air_1.y == -(canvas_height / 2) ) 
@@ -177,20 +230,23 @@ class Air extends Phaser.Scene {
         //PLAYER COLLISIONS
         if (this.barrierTouched == false)
         {
-            this.physics.add.overlap(this.faller_instance, this.barrier, this.worldSwap, null, this);
+            this.physics.add.collider(this.faller_instance, this.barrier, this.worldSwap, null, this);
             this.barrierTouched = true;
         }
         
         if (this.faller_instance.isInvincible == false)
         { 
-            this.physics.add.overlap(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);     
+            this.physics.add.collider(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);     
             
         }
+
+        
     }
 
     fallerCollidesObstacle() {
+        //if you want things to trigger only once, go to destroy() in Obstacle. This is due to a desync btween
+        //  the scene's collider function and the Obstacle's
         this.cameras.main.shake(100, 0.01, 0.00, 0, false); 
-
         this.setInvincibility(true);
 
         //play animation here of flickering fallre

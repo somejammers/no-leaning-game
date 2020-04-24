@@ -6,8 +6,14 @@ class Menu extends Phaser.Scene {
     preload() {
         
         this.load.image('faller', './assets/faller.png');
+        this.load.image('hp_bar_3', './assets/hp_bar_3.png');
+        this.load.image('hp_bar_2', './assets/hp_bar_2.png');
+        this.load.image('hp_bar_1', './assets/hp_bar_1.png');
+        this.load.image('hp_bar_0', './assets/hp_bar_0.png');
+
         this.load.image('bg_air', './assets/bg_air.png');
         this.load.image('barrier', './assets/barrier.png');
+        
 
         this.load.audio('bgm', './assets/editjo_techno.wav');
 

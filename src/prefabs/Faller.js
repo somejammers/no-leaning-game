@@ -10,8 +10,12 @@ class Faller extends Phaser.GameObjects.Sprite {
 
     }
 
-    create() {
+    preload() {
 
+    }
+
+    create() {
+        
     }
 
     update() {

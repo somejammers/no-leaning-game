@@ -7374,3 +7374,61 @@ Falling back to node net library..
 (discord:28018): libnotify-WARNING **: 20:12:38.771: Failed to connect to proxy
 
 (discord:28018): libnotify-WARNING **: 20:12:38.773: Failed to connect to proxy
+16:33:07 INFO: Opening in existing instance
+Discord 0.0.10
+Starting app.
+Starting updater.
+[Modules] Modules initializing
+[Modules] Distribution: remote
+[Modules] Host updates: enabled
+[Modules] Module updates: enabled
+[Modules] Module install path: /home/a/.config/discord/0.0.10/modules
+[Modules] Module installed file path: /home/a/.config/discord/0.0.10/modules/installed.json
+[Modules] Module download path: /home/a/.config/discord/0.0.10/modules/pending
+[8242:0423/163316.448481:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] No updates to install
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+[8242:0423/163317.276639:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] Starting to install discord_krisp...
+[Modules] Fetching discord_krisp@0 from https://discordapp.com/api/modules/stable/discord_krisp/0
+[Modules] Streaming discord_krisp@0 to /home/a/.config/discord/0.0.10/modules/pending/discord_krisp-0.zip
+(electron) 'isAccessibilitySupportEnabled function' is deprecated and will be removed. Please use 'accessibilitySupportEnabled property' instead.
+Error downloading with electron net: HTTP Error: Status Code 403
+Falling back to node net library..
+(electron) 'setBadgeCount function' is deprecated and will be removed. Please use 'badgeCount property' instead.
+[Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
+[Modules] Finished module downloads. [success: 0] [failure: 1]
+17:17:57 INFO: Opening in existing instance
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+17:47:27 INFO: Opening in existing instance
+[WebContents] crashed... reloading
+[17382:0423/175451.565566:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[17382:0423/175451.604586:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+Feature redeclared; is this a duplicate flag?  voice_panning
+Feature redeclared; is this a duplicate flag?  voice_multiple_connections
+Feature redeclared; is this a duplicate flag?  media_devices
+Feature redeclared; is this a duplicate flag?  media_video
+Feature redeclared; is this a duplicate flag?  debug_logging
+Feature redeclared; is this a duplicate flag?  set_audio_device_by_id
+Feature redeclared; is this a duplicate flag?  set_video_device_by_id
+Feature redeclared; is this a duplicate flag?  loopback
+Feature redeclared; is this a duplicate flag?  experiment_config
+Feature redeclared; is this a duplicate flag?  remote_locus_network_control
+[Modules] Starting to install discord_krisp...
+[Modules] Fetching discord_krisp@0 from https://discordapp.com/api/modules/stable/discord_krisp/0
+[Modules] Streaming discord_krisp@0 to /home/a/.config/discord/0.0.10/modules/pending/discord_krisp-0.zip
+Error downloading with electron net: net::ERR_FAILED
+Falling back to node net library..
+[Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
+[Modules] Finished module downloads. [success: 0] [failure: 1]
+XIO:  fatal IO error 2 (No such file or directory) on X server ":0"
+      after 147696 requests (147696 known processed) with 0 events remaining.
+terminate called without an active exception
+XIO:  fatal IO error 11 (Resource temporarily unavailable) on X server ":0"
+      after 16 requests (16 known processed) with 0 events remaining.
