@@ -120,11 +120,6 @@ class Air extends Phaser.Scene {
         );
         this.box_below_barrier.setDepth(1);
         this.box_below_barrier.setVisible(false);
-
-        //BROKEN BARRIER
-        this.barrier_broken = this.add.sprite(
-            canvas_width / 2, 30, 'barrier_broken'); //30 represents the height of the sprite/2
-        if (!shakeOnNextWorld) this.barrier_broken.setVisible(false);
             
         //TRIMMING
         this.trimming_behind = this.add.image(canvas_width / 2, 50, 'trimming_behind');
@@ -152,10 +147,17 @@ class Air extends Phaser.Scene {
 
         this.isInvincible = false;
 
-        //FALLER ANIMATION
+        //FALLER ANIMATIONS
         this.a_faller_default = this.anims.create({
             key: 'a_faller_default',
-            frames: this.anims.generateFrameNumbers('faller'),
+            frames: this.anims.generateFrameNumbers('faller_default'),
+            frameRate: 4,
+            repeat: 999
+        });
+
+        this.a_faller_hurt = this.anims.create({
+            key: 'a_faller_hurt',
+            frames: this.anims.generateFrameNumbers('faller_hurt'),
             frameRate: 4,
             repeat: 999
         });
@@ -217,7 +219,6 @@ class Air extends Phaser.Scene {
         //scene, x_spawnFrom, y_spawnFrom, 
         //x_velocity, y_velocity, orientation, texture, frame)
         //see stage bounds
-        console.log("obstacle spawned");
 
         let obstacle = new Obstacle(
             this, Phaser.Math.Between(stageLeftBound, stageRightBound),
@@ -226,10 +227,18 @@ class Air extends Phaser.Scene {
         this.obstacleGroup.add(obstacle);
     }
 
+    play_a_faller_default() {
+        this.faller_instance.anims.play(this.a_faller_default);
+    }
+
+    play_a_faller_hurt() {
+        this.faller_instance.anims.play(this.a_faller_hurt);
+    }
+
     update() {
 
         if (this.resetHit && 
-            (this.deaccelerationFrame < this.deaccelerationLength) ) {
+            (this.deaccelerationFrame < this.deaccelerationLength * 2) ) {
             //SLOW OBJECTS DOWN RAPIDLY
             this.bg_scroll_speed -= this.bg_scroll_speed_deacceleration;
             this.barrierSpeed -= this.barrierSpeedDeacceleration;
@@ -257,13 +266,14 @@ class Air extends Phaser.Scene {
         }
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
-        if (this.bg_air_1.y <= -(canvas_height / 2) ) 
+        if (!this.resetHit) {
+            if (this.bg_air_1.y <= -(canvas_height / 2) ) 
             {
                 this.bg_air_1.y = canvas_height * 1.5;
                 this.bg_air_1_amnt_looped += 1;
-        }
+            }
 
-        if (this.bg_air_2.y <= -(canvas_height / 2) ) 
+            if (this.bg_air_2.y <= -(canvas_height / 2) ) 
             {
                 this.bg_air_2.y = canvas_height * 1.5;
                 this.bg_air_2_amnt_looped ++;
@@ -273,13 +283,54 @@ class Air extends Phaser.Scene {
                 {
                     this.barrier.y = 2 * canvas_height; //canvas_height + barrier size
                     this.barrierPlaced = true;
-                    console.log("barrier placed");
 
 
                     this.box_below_barrier.y = this.barrier.y + canvas_height / 2;
                     this.box_below_barrier.setVisible(true);
                 }
+            }
+
+            //BORDERS MOVEMENT
+            if (this.border_1_first.y <= -(canvas_height / 2)) {
+                this.border_1_first.y = canvas_height * 1.5;
+            }
+            if (this.border_1_second.y <= -(canvas_height / 2)) {
+                this.border_1_second.y = canvas_height * 1.5;
+            }
+    
+            if (this.border_2_first.y <= -(canvas_height / 2)) {
+                this.border_2_first.y = canvas_height * 1.5;
+            }
+            if (this.border_2_second.y <= -(canvas_height / 2)) {
+                this.border_2_second.y = canvas_height * 1.5;
+            }
         }
+        else //resetting: reverse background & borders
+        {
+            //REVERSE BG MOVEMENT
+            if (this.bg_air_1.y >= canvas_height * 1.5 ) {
+                this.bg_air_1.y = -(canvas_height / 2);
+            }
+            if (this.bg_air_2.y >= canvas_height * 1.5 ) {
+                this.bg_air_2.y = -(canvas_height / 2);
+            }
+            
+            //REVERSE BORDERS MOVEMENT
+            if (this.border_1_first.y >= canvas_height * 1.5) {
+                this.border_1_first.y = -(canvas_height) / 2;
+            }
+            if (this.border_1_second.y >= canvas_height * 1.5) {
+                this.border_1_second.y = -(canvas_height) / 2;
+            }
+    
+            if (this.border_2_first.y >= canvas_height * 1.5) {
+                this.border_2_first.y = -(canvas_height) / 2;
+            }
+            if (this.border_2_second.y >= canvas_height * 1.5) {
+                this.border_2_second.y = -(canvas_height) / 2;
+            }
+        }
+
 
         //BARRIER MOVEMENT
         if (this.barrierPlaced) 
@@ -288,21 +339,6 @@ class Air extends Phaser.Scene {
             this.box_below_barrier.y -= this.barrierSpeed;
         }
 
-        //BORDERS MOVEMENT
-        //LOOP
-        if (this.border_1_first.y <= -(canvas_height / 2)) {
-            this.border_1_first.y = canvas_height * 1.5;
-        }
-        if (this.border_1_second.y <= -(canvas_height / 2)) {
-            this.border_1_second.y = canvas_height * 1.5;
-        }
-
-        if (this.border_2_first.y <= -(canvas_height / 2)) {
-            this.border_2_first.y = canvas_height * 1.5;
-        }
-        if (this.border_2_second.y <= -(canvas_height / 2)) {
-            this.border_2_second.y = canvas_height * 1.5;
-        }
 
         //SCROLLING
         this.border_1_first.y -= this.barrierSpeed;
@@ -310,8 +346,6 @@ class Air extends Phaser.Scene {
 
         this.border_2_first.y -= this.barrierSpeed;
         this.border_2_second.y -= this.barrierSpeed;
-
-        this.barrier_broken.y -= this.barrierSpeed;
         
         //Update Background
         //this.bg_air.tilePositionY += 5;
@@ -325,26 +359,24 @@ class Air extends Phaser.Scene {
             this.barrierTouched = true;
         }
         
-        if (this.faller_instance.isInvincible == false)
-        { 
-            this.physics.add.collider(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);     
-        }
+        //this.physics.add.collider(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);
     }
 
     fallerCollidesObstacle() {
-        //if you want things to trigger only once, go to destroy() in Obstacle. This is due to a desync btween
-        //  the scene's collider function and the Obstacle's
-        this.cameras.main.shake(100, 0.01, 0.00, 0, false); 
-        this.setInvincibility(true);
-        // add the distance/speed mechanic
+        if (!this.isInvincible) 
+        {
+            //if you want things to trigger only once, go to destroy() in Obstacle. This is due to a desync btween
+            //  the scene's collider function and the Obstacle's 
+            // add the distance/speed mechanic
 
-        //play animation here of flickering fallre
-        this.time.delayedCall(1000, () => { this.setInvincibility(false); });
+            //play animation here of flickering fallre
+        }
 
     }
 
     setInvincibility(bool) {
-        this.faller_instance.isInvincible = bool;
+        this.isInvincible = bool;
+        console.log("no longer invinc");
     }
 
     worldSwap() {
@@ -353,8 +385,12 @@ class Air extends Phaser.Scene {
         //ENTRY EFFECTS
         this.cameras.main.shake(200); // this at start of scene
         this.cameras.main.flash(0xFFFFFF, 500);        
+
         //AUDIO
         this.bgm.stop();
+
+        //PlAYER
+        this.isInvincible = false;
 
         this.scene.stop("airScene");
 
@@ -385,6 +421,10 @@ class Air extends Phaser.Scene {
     }
 
     reset() {
+
+        //pause animations
+        this.anims.pauseAll();
+
         //this triggers all deacceleration slowdowns->stops
         this.resetHit = true;
 

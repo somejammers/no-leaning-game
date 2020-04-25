@@ -7432,3 +7432,125 @@ XIO:  fatal IO error 2 (No such file or directory) on X server ":0"
 terminate called without an active exception
 XIO:  fatal IO error 11 (Resource temporarily unavailable) on X server ":0"
       after 16 requests (16 known processed) with 0 events remaining.
+Discord 0.0.10
+Starting app.
+Starting updater.
+[Modules] Modules initializing
+[Modules] Distribution: remote
+[Modules] Host updates: enabled
+[Modules] Module updates: enabled
+[Modules] Module install path: /home/a/.config/discord/0.0.10/modules
+[Modules] Module installed file path: /home/a/.config/discord/0.0.10/modules/installed.json
+[Modules] Module download path: /home/a/.config/discord/0.0.10/modules/pending
+[16714:0425/122822.479079:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] No updates to install
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+[16714:0425/122823.026961:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] Starting to install discord_krisp...
+[Modules] Fetching discord_krisp@0 from https://discordapp.com/api/modules/stable/discord_krisp/0
+[Modules] Streaming discord_krisp@0 to /home/a/.config/discord/0.0.10/modules/pending/discord_krisp-0.zip
+Error downloading with electron net: HTTP Error: Status Code 403
+Falling back to node net library..
+(electron) 'isAccessibilitySupportEnabled function' is deprecated and will be removed. Please use 'accessibilitySupportEnabled property' instead.
+[Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
+[Modules] Finished module downloads. [success: 0] [failure: 1]
+(electron) 'setBadgeCount function' is deprecated and will be removed. Please use 'badgeCount property' instead.
+
+(discord:16657): libnotify-WARNING **: 12:29:54.910: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:29:54.914: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:29:54.919: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:32:52.408: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:32:52.412: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:32:52.414: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:38:57.849: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:38:57.859: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:38:57.864: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:39:02.734: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:39:02.737: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:39:02.741: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:39:04.589: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:39:04.592: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:39:04.596: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:41:57.095: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:41:57.099: Failed to connect to proxy
+
+(discord:16657): libnotify-WARNING **: 12:41:57.101: Failed to connect to proxy
+Discord 0.0.10
+Starting app.
+Starting updater.
+[Modules] Modules initializing
+[Modules] Distribution: remote
+[Modules] Host updates: enabled
+[Modules] Module updates: enabled
+[Modules] Module install path: /home/a/.config/discord/0.0.10/modules
+[Modules] Module installed file path: /home/a/.config/discord/0.0.10/modules/installed.json
+[Modules] Module download path: /home/a/.config/discord/0.0.10/modules/pending
+[10437:0425/130251.330981:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] No updates to install
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+[10437:0425/130251.892102:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] Starting to install discord_krisp...
+[Modules] Fetching discord_krisp@0 from https://discordapp.com/api/modules/stable/discord_krisp/0
+[Modules] Streaming discord_krisp@0 to /home/a/.config/discord/0.0.10/modules/pending/discord_krisp-0.zip
+Error downloading with electron net: HTTP Error: Status Code 403
+Falling back to node net library..
+(electron) 'isAccessibilitySupportEnabled function' is deprecated and will be removed. Please use 'accessibilitySupportEnabled property' instead.
+(electron) 'setBadgeCount function' is deprecated and will be removed. Please use 'badgeCount property' instead.
+[Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
+[Modules] Finished module downloads. [success: 0] [failure: 1]
+
+(discord:10408): libnotify-WARNING **: 13:03:38.121: Failed to connect to proxy
+
+(discord:10408): libnotify-WARNING **: 13:03:38.125: Failed to connect to proxy
+
+(discord:10408): libnotify-WARNING **: 13:03:38.128: Failed to connect to proxy
+[10437:0425/130447.108686:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+Discord 0.0.10
+Starting app.
+Starting updater.
+[Modules] Modules initializing
+[Modules] Distribution: remote
+[Modules] Host updates: enabled
+[Modules] Module updates: enabled
+[Modules] Module install path: /home/a/.config/discord/0.0.10/modules
+[Modules] Module installed file path: /home/a/.config/discord/0.0.10/modules/installed.json
+[Modules] Module download path: /home/a/.config/discord/0.0.10/modules/pending
+[20928:0425/132756.591944:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] No updates to install
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+[20928:0425/132758.018403:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] Starting to install discord_krisp...
+[Modules] Fetching discord_krisp@0 from https://discordapp.com/api/modules/stable/discord_krisp/0
+[Modules] Streaming discord_krisp@0 to /home/a/.config/discord/0.0.10/modules/pending/discord_krisp-0.zip
+Error downloading with electron net: HTTP Error: Status Code 403
+Falling back to node net library..
+(electron) 'isAccessibilitySupportEnabled function' is deprecated and will be removed. Please use 'accessibilitySupportEnabled property' instead.
+(electron) 'setBadgeCount function' is deprecated and will be removed. Please use 'badgeCount property' instead.
+[Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
+[Modules] Finished module downloads. [success: 0] [failure: 1]
+13:28:20 INFO: Opening in existing instance

@@ -54,7 +54,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         super.update();
 
         if (this.scene.resetHit && 
-            this.deaccelerationFrame < this.scene.deaccelerationLength) {
+            this.deaccelerationFrame < this.scene.deaccelerationLength * 2) {
             this.tt++;
             console.log(this.tt);
             this.x_velocity -= this.deacceleration_x;
@@ -87,11 +87,29 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
     explode() {
         //do animation of being destroyed here
-        this.scene.sound.play('obstacleCollision', {volume: 0.2});
+        if (!this.scene.isInvincible) 
+        {    
+            this.scene.isInvincible = true;
 
-        this.phys_body.enable = false;
-        this.visible = false;
-        playerstats.currHP--;
-        console.log(playerstats.currHP);
+            this.scene.cameras.main.shake(100, 0.01, 0.00, 0, false);
+
+            this.scene.sound.play('obstacleCollision', {volume: 0.2});
+            this.phys_body.enable = false;
+            this.visible = false;
+            playerstats.currHP--;
+            console.log(playerstats.currHP);
+
+            this.scene.faller_instance.anims.play(this.scene.a_faller_hurt);
+
+            this.scene.time.delayedCall(1000, () => { this.disableInvincibility(false); });
+
+        }
     }
+
+    disableInvincibility(bool) {
+        this.scene.isInvincible = bool;
+        this.scene.faller_instance.anims.play(this.scene.a_faller_default);
+        console.log("no longer invinc");
+    }
+
 }
