@@ -7554,3 +7554,5 @@ Falling back to node net library..
 [Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
 [Modules] Finished module downloads. [success: 0] [failure: 1]
 13:28:20 INFO: Opening in existing instance
+14:04:29 INFO: Opening in existing instance
+14:04:55 INFO: Opening in existing instance
