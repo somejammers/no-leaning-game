@@ -9,6 +9,11 @@ class Boot extends Phaser.Scene {
         this.load.image('bg_air', './assets/bg_air.png');
         this.load.image('barrier', './assets/barrier.png');
         this.load.image('barrier_broken', './assets/barrier_broken.png');
+        this.load.spritesheet('border_air', './assets/border.png', 
+        {frameWidth: 60, frameHeight: 720}); 
+        this.load.image('trimming_behind', './assets/trimming_behind.png');
+        this.load.image('trimming_front', './assets/trimming_front.png');
+
 
         this.load.image('air_obstacle', './assets/air_obstacle.ping');
         this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');

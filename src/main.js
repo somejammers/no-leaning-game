@@ -39,4 +39,3 @@ let shakeOnNextWorld = false;
 let bgmAir;
 let timeTillObstacles = 2500, obstacleWidth, obstacleHeight;
 
-

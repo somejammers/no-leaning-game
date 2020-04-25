@@ -17,6 +17,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setImmovable();
         this.newObstacle = true;
+        this.rotationAngle = (Math.random() * 0.1) - 0.05;
         
         //The switch() is to prevent this obstacle from overlapping with the barrier
         //orientation: 1 = player falling down, 2 = player falling up
@@ -37,6 +38,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
             default:
                 console.log("The coder made a mistake.");
         }
+        
     }
 
     update() {
@@ -50,11 +52,12 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
             this.newObstacle = false;
             this.scene.addObstacle();
         }
+
+        this.rotation += this.rotationAngle;
         
         //this can do a function from the scene or here
         this.scene.physics.add.overlap(this, this.scene.faller_instance, this.explode, null, this);
-
-
+        
     }
 
 

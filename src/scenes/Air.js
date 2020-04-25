@@ -9,6 +9,11 @@
 // add broken barrer to new levels
 // better game feel movement
 // add start scene
+//rotate obstacles in ran direction slowly at center
+// add another thing to make gameplay more engaging, like an end 
+//screen w dimension hop count, like individual level obstacles. I like the
+// idea of a "laser" that goes in the non-scrolling direction, to cover player up/down vs left/right
+// add collectible
 
 class Air extends Phaser.Scene {
     constructor() {
@@ -16,20 +21,54 @@ class Air extends Phaser.Scene {
     }
 
     preload() {
-
     }
 
     create() {
+
+        //WIDTH AND LENGTH OF FALLER SPRITE
+        this.fallerOffsetX = 35;
+        this.fallerOffsetY = 20;
+
+        //STAGE BOUNDS
+        stageLeftBound = canvas_width / 4;
+        stageRightBound = 3 * canvas_width / 4 - this.fallerOffsetX;
+        stageUpperBound = 0;
+        stageLowerBound = canvas_height - this.fallerOffsetY;
+
+        //ANIMATION
+        this.borderAnimation = this.anims.create({
+            key: 'sway',
+            frames: this.anims.generateFrameNumbers('border_air'),
+            frameRate: 60, //i think this is how many frames per sec
+            repeat: 0
+        });
+        //Placing the animation
+        this.border_1_first = this.add.sprite(stageLeftBound, canvas_height / 2, 'border_air');
+        this.border_1_first.setDepth(8);
+        this.border_1_first.play('sway');
+        this.border_1_first.anims.setRepeat(999);
+
+        this.border_1_second = this.add.sprite(stageLeftBound, canvas_height * 1.5, 'border_air');
+        this.border_1_second.setDepth(8);
+        this.border_1_second.play('sway');
+        this.border_1_second.anims.setRepeat(999);
+
+        this.border_2_first = this.add.sprite(stageRightBound + this.fallerOffsetX, canvas_height / 2, 'border_air');
+        this.border_2_first.setDepth(8);
+        this.border_2_first.play('sway');
+        this.border_2_first.anims.setRepeat(999);
+
+        this.border_2_second = this.add.sprite(stageRightBound + this.fallerOffsetX, canvas_height * 1.5, 'border_air');
+        this.border_2_second.setDepth(8);
+        this.border_2_second.play('sway');
+        this.border_2_second.anims.setRepeat(999);
+
         //MUSIC
         this.bgm = this.sound.add('bgm', bgmConfig);
         this.bgm.play();   
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
         this.speed_modifier = 1;
-
-        //WIDTH AND LENGTH OF FALLER SPRITE
-        this.fallerOffsetX = 35;
-        this.fallerOffsetY = 20;
 
         //CONTROLS
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/keyboardevents/
@@ -45,12 +84,6 @@ class Air extends Phaser.Scene {
         resistance_keyUP = 1;
         resistance_keyLEFT = 1;
         resistance_keyRIGHT = 1;
-
-        //STAGE BOUNDS DO TIHS
-        stageLeftBound = canvas_width / 4;
-        stageRightBound = 3 * canvas_width / 4 - this.fallerOffsetX;
-        stageUpperBound = 0;
-        stageLowerBound = canvas_height - this.fallerOffsetY;
 
         //BACKGROUND
         this.side_box_1 = this.add.rectangle( 
@@ -72,13 +105,13 @@ class Air extends Phaser.Scene {
         //BACKGROUND VARIABLE DEFINITIONS
         this.bg_air_1_amnt_looped = 0;
         this.bg_air_2_amnt_looped = 0;
-        this.bg_loop_max = 1;
-        this.bg_scroll_speed = 3;
+        this.bg_loop_max = 2;
+        this.bg_scroll_speed = 3 * this.speed_modifier;
 
         //BARRIER
         this.barrierPlaced = false;
         this.barrierTouched = false;
-        this.barrierSpeed = this.bg_scroll_speed * this.speed_modifier / 2;
+        this.barrierSpeed = this.bg_scroll_speed / 2;
         this.barrier = this.physics.add.sprite(canvas_width / 2, 1800, 'barrier'); //put off screen for now
         this.barrier.setDepth(2);
         //make barrier physics body
@@ -95,13 +128,23 @@ class Air extends Phaser.Scene {
         this.box_below_barrier.setVisible(false);
 
         //BROKEN BARRIER
+        this.barrier_broken = this.add.sprite(
+            canvas_width / 2, 30, 'barrier_broken'); //30 represents the height of the sprite/2
+        if (!shakeOnNextWorld) this.barrier_broken.setVisible(false);
             
+        //TRIMMING
+        this.trimming_behind = this.add.image(canvas_width / 2, 50, 'trimming_behind');
+        this.trimming_behind.setDepth(9);
+        this.trimming_front = this.add.image(canvas_width / 2, canvas_height - 50, 'trimming_front');
+        this.trimming_front.setScale(1, -1);
+        this.trimming_front.setDepth(9);
+
         //PLAYER CHARACTER
         //Basically, the faller_instance is the sprite, faller_phys is the physics version,
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, game.config.width/2, 431, 'faller').setOrigin(0,0);
+            this, game.config.width/2, canvas_height/8, 'faller').setOrigin(0,0);
 
         //turn faller into Dynmaic physics obj
         this.faller_phys = this.physics.add.existing(this.faller_instance, 0);
@@ -190,14 +233,13 @@ class Air extends Phaser.Scene {
         }
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
-        if (this.bg_air_1.y == -(canvas_height / 2) ) 
+        if (this.bg_air_1.y <= -(canvas_height / 2) ) 
             {
-
                 this.bg_air_1.y = canvas_height * 1.5;
                 this.bg_air_1_amnt_looped += 1;
         }
 
-        if (this.bg_air_2.y == -(canvas_height / 2) ) 
+        if (this.bg_air_2.y <= -(canvas_height / 2) ) 
             {
                 this.bg_air_2.y = canvas_height * 1.5;
                 this.bg_air_2_amnt_looped ++;
@@ -221,11 +263,38 @@ class Air extends Phaser.Scene {
             this.barrier.y -= this.barrierSpeed;
             this.box_below_barrier.y -= this.barrierSpeed;
         }
+
+        //BORDERS MOVEMENT
+        //LOOP
+        if (this.border_1_first.y <= -(canvas_height / 2)) {
+            this.border_1_first.y = canvas_height * 1.5;
+        }
+        if (this.border_1_second.y <= -(canvas_height / 2)) {
+            this.border_1_second.y = canvas_height * 1.5;
+        }
+
+        if (this.border_2_first.y <= -(canvas_height / 2)) {
+            this.border_2_first.y = canvas_height * 1.5;
+        }
+        if (this.border_2_second.y <= -(canvas_height / 2)) {
+            this.border_2_second.y = canvas_height * 1.5;
+        }
+
+        //SCROLLING
+        this.border_1_first.y -= this.barrierSpeed;
+        this.border_1_second.y -= this.barrierSpeed;
+
+        this.border_2_first.y -= this.barrierSpeed;
+        this.border_2_second.y -= this.barrierSpeed;
+
+        this.barrier_broken.y -= this.barrierSpeed;
         
         //Update Background
         //this.bg_air.tilePositionY += 5;
-        this.bg_air_1.y -= this.bg_scroll_speed * this.speed_modifier;
-        this.bg_air_2.y -= this.bg_scroll_speed * this.speed_modifier;
+        this.bg_air_1.y -= this.bg_scroll_speed;
+        this.bg_air_2.y -= this.bg_scroll_speed;
+
+
 
         //PLAYER COLLISIONS
         if (this.barrierTouched == false)
@@ -237,10 +306,7 @@ class Air extends Phaser.Scene {
         if (this.faller_instance.isInvincible == false)
         { 
             this.physics.add.collider(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);     
-            
         }
-
-        
     }
 
     fallerCollidesObstacle() {
@@ -263,10 +329,12 @@ class Air extends Phaser.Scene {
         this.barrierTouched = true;
         //ENTRY EFFECTS
         this.cameras.main.shake(200); // this at start of scene
-        //this.cameras.main.flash(0xFFFFFF, 500);
-        
+        this.cameras.main.flash(0xFFFFFF, 500);        
         //AUDIO
         this.bgm.stop();
+
+        this.scene.stop("airScene");
+
         this.sound.play('barrierSmash', {volume: 0.2});
         shakeOnNextWorld = true;
 

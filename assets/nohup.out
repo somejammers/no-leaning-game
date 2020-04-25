@@ -37,3 +37,252 @@ Falling back to node net library..
 (electron) 'setBadgeCount function' is deprecated and will be removed. Please use 'badgeCount property' instead.
 [Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
 [Modules] Finished module downloads. [success: 0] [failure: 1]
+Discord 0.0.10
+Starting app.
+Starting updater.
+[Modules] Modules initializing
+[Modules] Distribution: remote
+[Modules] Host updates: enabled
+[Modules] Module updates: enabled
+[Modules] Module install path: /home/a/.config/discord/0.0.10/modules
+[Modules] Module installed file path: /home/a/.config/discord/0.0.10/modules/installed.json
+[Modules] Module download path: /home/a/.config/discord/0.0.10/modules/pending
+[12345:0424/135815.860293:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] No updates to install
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+[12345:0424/135816.584222:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] Starting to install discord_krisp...
+[Modules] Fetching discord_krisp@0 from https://discordapp.com/api/modules/stable/discord_krisp/0
+[Modules] Streaming discord_krisp@0 to /home/a/.config/discord/0.0.10/modules/pending/discord_krisp-0.zip
+Error downloading with electron net: HTTP Error: Status Code 403
+Falling back to node net library..
+(electron) 'isAccessibilitySupportEnabled function' is deprecated and will be removed. Please use 'accessibilitySupportEnabled property' instead.
+(electron) 'setBadgeCount function' is deprecated and will be removed. Please use 'badgeCount property' instead.
+[Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
+[Modules] Finished module downloads. [success: 0] [failure: 1]
+
+(discord:12291): libnotify-WARNING **: 14:04:17.478: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:04:17.484: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:04:17.488: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:06:31.560: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:06:31.565: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:06:31.572: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:11:07.994: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:11:07.999: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:11:08.004: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:14:43.490: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:14:43.505: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:14:43.512: Failed to connect to proxy
+14:17:21 INFO: Opening in existing instance
+
+(discord:12291): libnotify-WARNING **: 14:27:20.085: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:27:20.091: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:27:20.093: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:27:23.825: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:27:23.827: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:27:23.830: Failed to connect to proxy
+Gtk-Message: 14:38:16.921: GtkDialog mapped without a transient parent. This is discouraged.
+
+(discord:12291): libnotify-WARNING **: 14:40:59.738: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:40:59.740: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:40:59.751: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:41:44.626: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:41:44.629: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:41:44.631: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:51:29.351: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:51:29.355: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:51:29.358: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:52:59.053: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:52:59.056: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:52:59.060: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:12291): libnotify-WARNING **: 14:58:59.051: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:58:59.054: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:58:59.057: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:59:05.928: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:59:05.933: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 14:59:05.935: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:13.557: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:13.560: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:13.561: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:21.364: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:21.367: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:21.368: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:34.036: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:34.038: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:12:34.040: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:13:02.746: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:13:02.752: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:13:02.755: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:37:06.085: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:37:06.089: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:37:06.093: Failed to connect to proxy
+[12345:0424/154905.788877:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+
+(discord:12291): libnotify-WARNING **: 15:50:12.275: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:50:12.280: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:50:12.281: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:51:07.825: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:51:07.829: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:51:07.831: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:51:14.519: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:51:14.522: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:51:14.523: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:52:28.543: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:52:28.547: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:52:28.553: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:52:32.848: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:52:32.851: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:52:32.854: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:53:18.335: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:53:18.340: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 15:53:18.344: Failed to connect to proxy
+[12345:0424/155744.276071:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:12291): libnotify-WARNING **: 16:10:29.372: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:10:29.375: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:10:29.377: Failed to connect to proxy
+[12345:0424/161216.103657:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+
+(discord:12291): libnotify-WARNING **: 16:22:52.678: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:22:52.683: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:22:52.687: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:23:01.380: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:23:01.382: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:23:01.383: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:23:10.835: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:23:10.837: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:23:10.839: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:26:52.878: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:26:52.881: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:26:52.884: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:32:33.655: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:32:33.657: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:32:33.661: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:37:46.467: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:37:46.473: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 16:37:46.477: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:12291): libnotify-WARNING **: 17:54:04.768: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 17:54:04.770: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 17:54:04.775: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:12291): libnotify-WARNING **: 18:45:16.308: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 18:45:16.310: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 18:45:16.313: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 18:45:28.497: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 18:45:28.499: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 18:45:28.501: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
