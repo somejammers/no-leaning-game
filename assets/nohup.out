@@ -292,3 +292,143 @@ Gtk-Message: 14:38:16.921: GtkDialog mapped without a transient parent. This is 
 (discord:12291): libnotify-WARNING **: 19:39:19.233: Failed to connect to proxy
 
 (discord:12291): libnotify-WARNING **: 19:39:19.238: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:12291): libnotify-WARNING **: 20:32:53.434: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:32:53.437: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:32:53.440: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:32:57.359: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:32:57.361: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:32:57.363: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:33:01.213: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:33:01.217: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:33:01.219: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:33:24.657: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:33:24.660: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 20:33:24.662: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:12291): libnotify-WARNING **: 21:06:15.013: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:06:15.015: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:06:15.019: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:10:32.140: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:10:32.144: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:10:32.147: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:16:54.667: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:16:54.670: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:16:54.673: Failed to connect to proxy
+21:28:24 INFO: Opening in existing instance
+
+(discord:12291): libnotify-WARNING **: 21:28:29.385: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:28:29.388: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:28:29.394: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:28:41.594: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:28:41.600: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:28:41.605: Failed to connect to proxy
+21:32:09 INFO: Opening in existing instance
+
+(discord:12291): libnotify-WARNING **: 21:40:13.182: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:40:13.186: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:40:13.189: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:40:13.792: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:40:13.794: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:40:13.796: Failed to connect to proxy
+[12345:0424/214535.685122:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[12345:0424/214536.380231:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+
+(discord:12291): libnotify-WARNING **: 21:56:45.269: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:56:45.275: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 21:56:45.277: Failed to connect to proxy
+[12345:0424/215713.973670:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:12291): libnotify-WARNING **: 22:00:37.966: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:00:37.970: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:00:37.974: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:01:04.682: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:01:04.688: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:01:04.691: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:05:33.428: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:05:33.430: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:05:33.437: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:05:34.512: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:05:34.515: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:05:34.518: Failed to connect to proxy
+[12345:0424/220537.740527:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+
+(discord:12291): libnotify-WARNING **: 22:07:50.130: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:07:50.137: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:07:50.141: Failed to connect to proxy
+22:10:53 INFO: Opening in existing instance
+22:10:54 INFO: Opening in existing instance
+
+(discord:12291): libnotify-WARNING **: 22:14:04.681: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:14:04.687: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:14:04.692: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:15:19.143: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:15:19.147: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:15:19.150: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:17:26.740: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:17:26.745: Failed to connect to proxy
+
+(discord:12291): libnotify-WARNING **: 22:17:26.748: Failed to connect to proxy

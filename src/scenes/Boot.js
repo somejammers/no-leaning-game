@@ -5,7 +5,7 @@ class Boot extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('faller', './assets/faller.png');
+        this.load.spritesheet('faller', './assets/faller.png', {frameWidth: 48, frameHeight: 28});
         this.load.image('bg_air', './assets/bg_air.png');
         this.load.image('barrier', './assets/barrier.png');
         this.load.image('barrier_broken', './assets/barrier_broken.png');

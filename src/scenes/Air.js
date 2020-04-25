@@ -3,7 +3,6 @@
 // add obstacles, see nathans
 // add horizontal world
 // do start scene
-// add the distance/speed mechanic
 // add barrier breaking particles
 // add broken barrer to new levels
 // better game feel movement
@@ -25,8 +24,8 @@ class Air extends Phaser.Scene {
     create() {
 
         //WIDTH AND LENGTH OF FALLER SPRITE
-        this.fallerOffsetX = 35;
-        this.fallerOffsetY = 20;
+        this.fallerOffsetX = 48;
+        this.fallerOffsetY = 28;
 
         //STAGE BOUNDS
         stageLeftBound = canvas_width / 4;
@@ -39,35 +38,31 @@ class Air extends Phaser.Scene {
             key: 'sway',
             frames: this.anims.generateFrameNumbers('border_air'),
             frameRate: 60, //i think this is how many frames per sec
-            repeat: 0
+            repeat: 999
         });
         //Placing the animation
         this.border_1_first = this.add.sprite(stageLeftBound, canvas_height / 2, 'border_air');
         this.border_1_first.setDepth(8);
         this.border_1_first.play('sway');
-        this.border_1_first.anims.setRepeat(999);
 
         this.border_1_second = this.add.sprite(stageLeftBound, canvas_height * 1.5, 'border_air');
         this.border_1_second.setDepth(8);
         this.border_1_second.play('sway');
-        this.border_1_second.anims.setRepeat(999);
 
         this.border_2_first = this.add.sprite(stageRightBound + this.fallerOffsetX, canvas_height / 2, 'border_air');
         this.border_2_first.setDepth(8);
         this.border_2_first.play('sway');
-        this.border_2_first.anims.setRepeat(999);
 
         this.border_2_second = this.add.sprite(stageRightBound + this.fallerOffsetX, canvas_height * 1.5, 'border_air');
         this.border_2_second.setDepth(8);
         this.border_2_second.play('sway');
-        this.border_2_second.anims.setRepeat(999);
 
         //MUSIC
         this.bgm = this.sound.add('bgm', bgmConfig);
         this.bgm.play();   
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
-        this.speed_modifier = 1;
+        this.speed_modifier = global_speed;
 
         //CONTROLS
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/keyboardevents/
@@ -145,14 +140,27 @@ class Air extends Phaser.Scene {
         this.faller_instance = new Faller(
             this, game.config.width/2, canvas_height/8, 'faller').setOrigin(0,0);
 
+        //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
+
         //turn faller into Dynmaic physics obj
         this.faller_phys = this.physics.add.existing(this.faller_instance, 0);
         this.faller_body = this.faller_phys.body;
         this.faller_body.setImmovable();
+        this.faller_body.setCircle(14, 14, 0);
         //this sets the faller to be in front of everything else
         this.faller_instance.setDepth(3);
 
         this.isInvincible = false;
+
+        //FALLER ANIMATION
+        this.a_faller_default = this.anims.create({
+            key: 'a_faller_default',
+            frames: this.anims.generateFrameNumbers('faller'),
+            frameRate: 4,
+            repeat: 999
+        });
+
+        this.faller_instance.anims.play(this.a_faller_default);
 
         //PARTICLES
         this.player_particles = this.add.particles('flares');
@@ -173,7 +181,7 @@ class Air extends Phaser.Scene {
                 maxParticles: 10,
                 scale: { start: 0.6, end: 0, ease: 'Power3' },
                 x: this.faller_instance.x,
-                y: 400,
+                y: this.faller_instance.y,
                 gravityY: -50,
                 maxParticles: 0, //unlimited
         });
@@ -195,6 +203,12 @@ class Air extends Phaser.Scene {
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
         });
+
+        //OTHER
+        this.resetHit = false;
+        this.barrierSpeedDeacceleration = this.barrierSpeed / 60;
+        this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / 60;
+        this.deaccelerationFrame = 0;
     }
 
     addObstacle() {
@@ -212,7 +226,14 @@ class Air extends Phaser.Scene {
     }
 
     update() {
-        
+
+        if (this.resetHit && this.deaccelerationFrame < 60) {
+            //SLOW OBJECTS DOWN RAPIDLY
+            this.bg_scroll_speed -= this.bg_scroll_speed_deacceleration;
+            this.barrierSpeed -= this.barrierSpeedDeacceleration;
+            this.deaccelerationFrame++;
+        }
+
         //PLAYER MOVEMENT
         this.faller_instance.update();
         //PLAYER PARTICLES FOLLOW
@@ -228,7 +249,7 @@ class Air extends Phaser.Scene {
             this.emitter.setFrame("red");
         } 
         else {
-            //TRIGGER LOSE
+            this.reset();
         }
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
@@ -306,6 +327,8 @@ class Air extends Phaser.Scene {
         { 
             this.physics.add.collider(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);     
         }
+
+
     }
 
     fallerCollidesObstacle() {
@@ -313,6 +336,7 @@ class Air extends Phaser.Scene {
         //  the scene's collider function and the Obstacle's
         this.cameras.main.shake(100, 0.01, 0.00, 0, false); 
         this.setInvincibility(true);
+        // add the distance/speed mechanic
 
         //play animation here of flickering fallre
         this.time.delayedCall(1000, () => { this.setInvincibility(false); });
@@ -361,8 +385,15 @@ class Air extends Phaser.Scene {
     }
 
     reset() {
+        this.resetHit = true;
+
+        //pause all moving objects and do like a screen freeze/rewind effect, and the player blips out
+        this.sound.stopAll();
+
+        console.log("resetting");
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
         playerstats.currStagesComplete = 0;
+        playerstats.currHP = 3;
     }
 }
