@@ -432,3 +432,4 @@ Gtk-Message: 14:38:16.921: GtkDialog mapped without a transient parent. This is 
 (discord:12291): libnotify-WARNING **: 22:17:26.745: Failed to connect to proxy
 
 (discord:12291): libnotify-WARNING **: 22:17:26.748: Failed to connect to proxy
+22:46:43 INFO: Opening in existing instance
