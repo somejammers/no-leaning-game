@@ -206,8 +206,9 @@ class Air extends Phaser.Scene {
 
         //OTHER
         this.resetHit = false;
-        this.barrierSpeedDeacceleration = this.barrierSpeed / 60;
-        this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / 60;
+        this.deaccelerationLength = 60;
+        this.barrierSpeedDeacceleration = this.barrierSpeed / this.deaccelerationLength;
+        this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / this.deaccelerationLength;
         this.deaccelerationFrame = 0;
     }
 
@@ -227,7 +228,8 @@ class Air extends Phaser.Scene {
 
     update() {
 
-        if (this.resetHit && this.deaccelerationFrame < 60) {
+        if (this.resetHit && 
+            (this.deaccelerationFrame < this.deaccelerationLength) ) {
             //SLOW OBJECTS DOWN RAPIDLY
             this.bg_scroll_speed -= this.bg_scroll_speed_deacceleration;
             this.barrierSpeed -= this.barrierSpeedDeacceleration;
@@ -235,7 +237,9 @@ class Air extends Phaser.Scene {
         }
 
         //PLAYER MOVEMENT
-        this.faller_instance.update();
+        if (!this.resetHit)
+            this.faller_instance.update();
+            
         //PLAYER PARTICLES FOLLOW
         this.emitter.setPosition(this.faller_instance.x + this.fallerOffsetX/2, this.faller_instance.y + this.fallerOffsetY/2);
         //HP CHANGES
@@ -314,8 +318,6 @@ class Air extends Phaser.Scene {
         this.bg_air_1.y -= this.bg_scroll_speed;
         this.bg_air_2.y -= this.bg_scroll_speed;
 
-
-
         //PLAYER COLLISIONS
         if (this.barrierTouched == false)
         {
@@ -327,8 +329,6 @@ class Air extends Phaser.Scene {
         { 
             this.physics.add.collider(this.faller_instance, this.obstacleGroup, this.fallerCollidesObstacle, null, this);     
         }
-
-
     }
 
     fallerCollidesObstacle() {
@@ -385,15 +385,21 @@ class Air extends Phaser.Scene {
     }
 
     reset() {
+        //this triggers all deacceleration slowdowns->stops
         this.resetHit = true;
 
         //pause all moving objects and do like a screen freeze/rewind effect, and the player blips out
         this.sound.stopAll();
+
+        //kill particles
+        this.player_particles.destroy();
 
         console.log("resetting");
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
         playerstats.currStagesComplete = 0;
         playerstats.currHP = 3;
+        this.faller_body.setEnable(false);
+        
     }
 }

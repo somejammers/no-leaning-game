@@ -38,4 +38,4 @@ let playAirOnBoot = true;
 let shakeOnNextWorld = false;
 let bgmAir;
 let timeTillObstacles = 2500, obstacleWidth, obstacleHeight;
-let global_speed = 1;
+let global_speed = 3;

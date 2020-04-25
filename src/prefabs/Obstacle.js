@@ -28,30 +28,49 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         //             3 = player falling left, 4 = player falling right
         switch(orientation) {
             case 1:
-                if (this.y >= this.scene.barrier.y) this.destroy();
+                if (this.y >= scene.barrier.y) this.destroy();
                 break;
             case 2: 
-                if (this.y <= this.scene.barrier.y) this.destroy();
+                if (this.y <= scene.barrier.y) this.destroy();
                 break;
             case 3: 
-                if (this.y <= this.scene.barrier.x) this.destroy();
+                if (this.y <= scene.barrier.x) this.destroy();
                 break;
             case 4: 
-                if (this.y <= this.scene.barrier.x) this.destroy();
+                if (this.y <= scene.barrier.x) this.destroy();
                 break;
             default:
                 console.log("The coder made a mistake.");
         }
-        
+
+        this.deacceleration_x = this.x_velocity / scene.deaccelerationLength;
+        this.deacceleration_y = this.y_velocity / scene.deaccelerationLength;
+        this.deacceleration_rotation = this.rotationAngle / scene.deaccelerationLength;
+        this.deaccelerationFrame = 0;
+        this.tt = 0;
     }
 
     update() {
         super.update();
 
-        this.x += this.x_velocity;
-        this.y -= this.y_velocity;
+        if (this.scene.resetHit && 
+            this.deaccelerationFrame < this.scene.deaccelerationLength) {
+            this.tt++;
+            console.log(this.tt);
+            this.x_velocity -= this.deacceleration_x;
+            this.y_velocity -= this.deacceleration_y;
+            this.rotationAngle -= this.deacceleration_rotation;
+            this.deaccelerationFrame++;
+                
+        }
 
-        if(this.newObstacle && this.y < canvas_height / 2) {
+        this.x += this.x_velocity * this.scene.speed_modifier;
+        this.y -= this.y_velocity * this.scene.speed_modifier;
+        
+
+        if(this.newObstacle &&
+             (this.y < (canvas_height / 2 ) / this.scene.speed_modifier) ) 
+        {
             console.log("test");
             this.newObstacle = false;
             this.scene.addObstacle();
