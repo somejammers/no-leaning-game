@@ -16,6 +16,10 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setImmovable();
+
+        this.setScale(2,2);
+        this.setCircle(15, 0.5, 0);
+
         this.newObstacle = true;
         this.rotationAngle = (Math.random() * 0.1) - 0.05;
         

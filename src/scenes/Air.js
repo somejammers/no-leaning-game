@@ -2,7 +2,6 @@
 //  xx add placeholder bgm and sfx
 // add obstacles, see nathans
 // add horizontal world
-// add borders
 // do start scene
 // add the distance/speed mechanic
 // add barrier breaking particles
