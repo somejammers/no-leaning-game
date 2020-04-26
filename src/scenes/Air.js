@@ -83,10 +83,10 @@ class Air extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
         //STAGE-SPECIFIC MOVEMENT
-        resistance_keyDOWN = 1.2;
+        resistance_keyDOWN = 2;
         resistance_keyUP = 1;
-        resistance_keyLEFT = 1;
-        resistance_keyRIGHT = 1;
+        resistance_keyLEFT = 1.3;
+        resistance_keyRIGHT = 1.3;
 
         //BACKGROUND
         this.side_box_1 = this.add.rectangle( 
@@ -245,9 +245,9 @@ class Air extends Phaser.Scene {
 
         
         let obstacle = new Obstacle(
-            this, Phaser.Math.Between(stageLeftBound, stageRightBound),
+            this, Phaser.Math.Between(stageLeftBound + 40, stageRightBound),
             canvas_height, //or obstacle_height if horizontal stage
-            0, this.barrierSpeed, 1, false, 'air_obstacle');
+            0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle');
 
         //because when u destroy() the object it deletes the animation, apparently
         let obstacle_anim = this.a_air_obstacle;
@@ -423,7 +423,7 @@ class Air extends Phaser.Scene {
         //PlAYER
         this.isInvincible = false;
 
-        this.scene.stop("airScene");
+        this.scene.stop("waterScene");
 
         this.sound.play('barrierSmash', {volume: 0.2});
         shakeOnNextWorld = true;
@@ -467,6 +467,10 @@ class Air extends Phaser.Scene {
         //kill particles
         this.player_particles.destroy();
 
+        //fade to white
+        this.cameras.main.fade(5000, 255, 255, 255);
+        console.log("fade?");
+
         console.log("resetting");
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
@@ -474,6 +478,8 @@ class Air extends Phaser.Scene {
         playerstats.currHP = 3;
         this.faller_body.setEnable(false);
         
+        //go to menu for debug
+        this.time.delayedCall(6000, () => { this.scene.start("menuScene") });;
 
     }
 }

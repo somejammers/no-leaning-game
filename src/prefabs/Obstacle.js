@@ -28,24 +28,32 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         switch(orientation) {
             case 1:
                 if (this.y >= scene.barrier.y) {
+                    this.x_velocity = 0;
+                    this.y_velocity = 0;
                     this.visible = false;
                     this.enable = false;
                 }
                 break;
             case 2: 
                 if (this.y <= scene.barrier.y) {
+                    this.x_velocity = 0;
+                    this.y_velocity = 0;
                     this.visible = false;
                     this.enable = false;
                 }
                 break;
             case 3: 
                 if (this.y <= scene.barrier.x) {
+                    this.x_velocity = 0;
+                    this.y_velocity = 0;
                     this.visible = false;
                     this.enable = false;
                 }
                 break;
             case 4: 
                 if (this.y <= scene.barrier.x) {
+                    this.x_velocity = 0;
+                    this.y_velocity = 0;
                     this.visible = false;
                     this.enable = false;
                 }
@@ -67,7 +75,6 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         if (this.scene.resetHit && 
             this.deaccelerationFrame < this.scene.deaccelerationLength * 2) {
             this.tt++;
-            console.log(this.tt);
             this.x_velocity -= this.deacceleration_x;
             this.y_velocity -= this.deacceleration_y;
             this.rotationAngle -= this.deacceleration_rotation;
@@ -82,7 +89,6 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         if(this.newObstacle &&
              (this.y < (canvas_height / 2 ) / this.scene.speed_modifier) ) 
         {
-            console.log("test");
             this.newObstacle = false;
             this.scene.addObstacle();
         }
@@ -109,7 +115,6 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
             this.phys_body.enable = false;
             this.visible = false;
             playerstats.currHP--;
-            console.log(playerstats.currHP);
 
             this.scene.faller_instance.anims.play(this.scene.a_faller_hurt);
 
