@@ -11,18 +11,21 @@ class Boot extends Phaser.Scene {
         this.load.image('bg_air', './assets/bg_air.png');
         this.load.image('barrier', './assets/barrier.png');
         this.load.image('barrier_broken', './assets/barrier_broken.png');
-        this.load.spritesheet('border_air', './assets/border.png', 
-        {frameWidth: 60, frameHeight: 720}); 
+        this.load.spritesheet('border_air', './assets/border.png', {frameWidth: 60, frameHeight: 720}); 
+        this.load.spritesheet('rewind', './assets/rewind-Sheet.png', {frameWidth: 720, frameHeight: 720});
+
+        
         this.load.image('trimming_behind', './assets/trimming_behind.png');
         this.load.image('trimming_front', './assets/trimming_front.png');
 
 
-        this.load.image('air_obstacle', './assets/air_obstacle.ping');
+        this.load.spritesheet('air_obstacle', './assets/air_obstacle.png', {frameWidth: 80, frameHeight: 80});
         this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
         
         this.load.audio('bgm', './assets/editjo_techno.wav');
         this.load.audio('barrierSmash', './assets/explosion38.wav');
         this.load.audio('obstacleCollision', './assets/explosion38.wav');
+        this.load.audio('sfx_rewind', './assets/sfx_rewind.wav');
 
     }
 

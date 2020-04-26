@@ -7556,3 +7556,10 @@ Falling back to node net library..
 13:28:20 INFO: Opening in existing instance
 14:04:29 INFO: Opening in existing instance
 14:04:55 INFO: Opening in existing instance
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+Discord 0.0.10
+Starting app.
+Another instance exists. Quitting.

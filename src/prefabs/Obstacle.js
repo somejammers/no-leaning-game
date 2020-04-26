@@ -1,7 +1,7 @@
 class Obstacle extends Phaser.Physics.Arcade.Sprite {
     constructor(
         scene, x_spawnFrom, y_spawnFrom, 
-        x_velocity, y_velocity, orientation, texture, frame
+        x_velocity, y_velocity, orientation, rotating, texture, frame
         ) {
         // call Phaser Physics Sprite constructor
         super(scene, x_spawnFrom, y_spawnFrom, texture, frame);
@@ -16,11 +16,10 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setImmovable();
-
-        this.setScale(2,2);
-        this.setCircle(15, 0.5, 0);
+        this.setCircle(25, 15, 10);
 
         this.newObstacle = true;
+        this.isRotating = rotating;
         this.rotationAngle = (Math.random() * 0.1) - 0.05;
         
         //The switch() is to prevent this obstacle from overlapping with the barrier
@@ -28,16 +27,28 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         //             3 = player falling left, 4 = player falling right
         switch(orientation) {
             case 1:
-                if (this.y >= scene.barrier.y) this.destroy();
+                if (this.y >= scene.barrier.y) {
+                    this.visible = false;
+                    this.enable = false;
+                }
                 break;
             case 2: 
-                if (this.y <= scene.barrier.y) this.destroy();
+                if (this.y <= scene.barrier.y) {
+                    this.visible = false;
+                    this.enable = false;
+                }
                 break;
             case 3: 
-                if (this.y <= scene.barrier.x) this.destroy();
+                if (this.y <= scene.barrier.x) {
+                    this.visible = false;
+                    this.enable = false;
+                }
                 break;
             case 4: 
-                if (this.y <= scene.barrier.x) this.destroy();
+                if (this.y <= scene.barrier.x) {
+                    this.visible = false;
+                    this.enable = false;
+                }
                 break;
             default:
                 console.log("The coder made a mistake.");
@@ -76,7 +87,8 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
             this.scene.addObstacle();
         }
 
-        this.rotation += this.rotationAngle;
+        if(this.isRotating)
+            this.rotation += this.rotationAngle;
         
         //this can do a function from the scene or here
         this.scene.physics.add.overlap(this, this.scene.faller_instance, this.explode, null, this);
@@ -109,7 +121,6 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
     disableInvincibility(bool) {
         this.scene.isInvincible = bool;
         this.scene.faller_instance.anims.play(this.scene.a_faller_default);
-        console.log("no longer invinc");
     }
 
 }

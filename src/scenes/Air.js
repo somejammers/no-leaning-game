@@ -12,6 +12,7 @@
 //screen w dimension hop count, like individual level obstacles. I like the
 // idea of a "laser" that goes in the non-scrolling direction, to cover player up/down vs left/right
 // add collectible
+// add pause
 
 class Air extends Phaser.Scene {
     constructor() {
@@ -22,6 +23,14 @@ class Air extends Phaser.Scene {
     }
 
     create() {
+
+        //OBSTACLE ANIMATION
+        this.a_air_obstacle = this.anims.create({
+            key: 'a_air_obstacle',
+            frames: this.anims.generateFrameNumbers('air_obstacle'),
+            frameRate: 1,
+            repeat: 999
+        });
 
         //WIDTH AND LENGTH OF FALLER SPRITE
         this.fallerOffsetX = 48;
@@ -74,7 +83,7 @@ class Air extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
         //STAGE-SPECIFIC MOVEMENT
-        resistance_keyDOWN = 1;
+        resistance_keyDOWN = 1.2;
         resistance_keyUP = 1;
         resistance_keyLEFT = 1;
         resistance_keyRIGHT = 1;
@@ -83,12 +92,12 @@ class Air extends Phaser.Scene {
         this.side_box_1 = this.add.rectangle( 
             0, canvas_height / 2 , canvas_width / 2, canvas_height, 0xFFFFFF
         );
-        this.side_box_1.setDepth(5);
+        this.side_box_1.setDepth(7);
 
         this.side_box_2 = this.add.rectangle( 
-            3 * canvas_width / 4, canvas_height / 2 , canvas_width / 2, canvas_height, 0xFFFFFF
+            canvas_width, canvas_height / 2 , canvas_width / 2, canvas_height, 0xFFFFFF
         );
-        this.side_box_1.setDepth(5);
+        this.side_box_2.setDepth(7);
 
         //have two backgrounds that loop 
         this.bg_air_1 = this.add.sprite(
@@ -143,7 +152,7 @@ class Air extends Phaser.Scene {
         this.faller_body.setImmovable();
         this.faller_body.setCircle(14, 14, 0);
         //this sets the faller to be in front of everything else
-        this.faller_instance.setDepth(3);
+        this.faller_instance.setDepth(6);
 
         this.isInvincible = false;
 
@@ -163,6 +172,18 @@ class Air extends Phaser.Scene {
         });
 
         this.faller_instance.anims.play(this.a_faller_default);
+
+        //REWIND
+        this.a_rewind = this.anims.create({
+            key: 'a_rewind',
+            frames: this.anims.generateFrameNumbers('rewind'),
+            frameRate: 30,
+            repeat: 999
+        });
+
+        this.rewind = this.add.sprite(canvas_width / 2, canvas_height / 2,);
+        this.rewind.setDepth(3);
+
 
         //PARTICLES
         this.player_particles = this.add.particles('flares');
@@ -198,6 +219,7 @@ class Air extends Phaser.Scene {
 
         this.time.delayedCall(timeTillObstacles, () => { this.addObstacle(); });
 
+
         // //OBSTACLES
         obstacleWidth = 0;
         obstacleHeight = 0;
@@ -205,6 +227,7 @@ class Air extends Phaser.Scene {
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
         });
+
 
         //OTHER
         this.resetHit = false;
@@ -220,10 +243,18 @@ class Air extends Phaser.Scene {
         //x_velocity, y_velocity, orientation, texture, frame)
         //see stage bounds
 
+        
         let obstacle = new Obstacle(
             this, Phaser.Math.Between(stageLeftBound, stageRightBound),
             canvas_height, //or obstacle_height if horizontal stage
-            0, this.barrierSpeed, 1, 'air_obstacle');
+            0, this.barrierSpeed, 1, false, 'air_obstacle');
+
+        //because when u destroy() the object it deletes the animation, apparently
+        let obstacle_anim = this.a_air_obstacle;
+
+        obstacle.anims.play(obstacle_anim);
+
+
         this.obstacleGroup.add(obstacle);
     }
 
@@ -423,13 +454,15 @@ class Air extends Phaser.Scene {
     reset() {
 
         //pause animations
-        this.anims.pauseAll();
+        this.rewind.anims.play(this.a_rewind);
 
         //this triggers all deacceleration slowdowns->stops
         this.resetHit = true;
 
         //pause all moving objects and do like a screen freeze/rewind effect, and the player blips out
+        this.bgm.stop();
         this.sound.stopAll();
+        this.sound.play('sfx_rewind', {volume: 0.2});
 
         //kill particles
         this.player_particles.destroy();
@@ -441,5 +474,6 @@ class Air extends Phaser.Scene {
         playerstats.currHP = 3;
         this.faller_body.setEnable(false);
         
+
     }
 }
