@@ -21,7 +21,7 @@ let config = {
     height: canvas_height,
     physics: physicsConfig,
     transparent: true, //removes black background
-    scene: [ Boot, Menu, Water, Air ], //array, order matters
+    scene: [ Boot, Menu, Air, Water], //array, order matters
 };
 
 let game = new Phaser.Game(config);
