@@ -9,9 +9,14 @@ class Menu extends Phaser.Scene {
         this.load.image('creditsButton', './assets/creditsButton.png');
         this.load.image('rulesButton', './assets/rulesButton.png');
 
+        this.load.image('rules', './assets/rules.png');
+        //this.load.image('credits', './assets/credits.png');
+
+
         // load spritesheet
         this.load.spritesheet('menuBG', './assets/menuScreen.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
         this.load.spritesheet('menuP', './assets/menuScreenPlay.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
+        this.load.spritesheet('creditsP', './assets/menuScreenCredits.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
 
     }
 
@@ -36,6 +41,14 @@ class Menu extends Phaser.Scene {
             
         });
 
+        this.anims.create({
+            key: 'creditsPlay',
+            frames: this.anims.generateFrameNumbers('creditsP', {start: 0, end: 15, first: 0}), 
+            frameRate: 10,
+            repeat: -1
+            
+        });
+
         let boom = this.add.sprite(0, 0, 'menuBG').setOrigin(0,0);
 
         boom.anims.play('menuBack');
@@ -53,6 +66,8 @@ class Menu extends Phaser.Scene {
 
         // make buttons interactive
         buttonOne.setInteractive();
+        //buttonTwo.setInteractive();
+        buttonThree.setInteractive();
 
         buttonOne.on('pointerdown', function(event){
 
@@ -66,6 +81,26 @@ class Menu extends Phaser.Scene {
                 
 
         }, this);
+
+        buttonThree.on('pointerdown', function(event){
+
+            let creditsPlay = this.add.sprite(0, 0, 'creditsP').setOrigin(0,0);
+
+            creditsPlay.anims.play('creditsPlay');
+
+            var depth = creditsPlay.depth;
+
+            creditsPlay.setInteractive();
+
+            creditsPlay.on('pointerdown', function(event){
+            
+                creditsPlay.depth = -1;
+
+            }, this);
+
+        }, this);
+
+        
     }
 
 
