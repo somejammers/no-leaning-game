@@ -11,6 +11,8 @@ class Menu extends Phaser.Scene {
 
         // load spritesheet
         this.load.spritesheet('menuBG', './assets/menuScreen.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
+        this.load.spritesheet('menuP', './assets/menuScreenPlay.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
+
     }
 
     create() {
@@ -22,9 +24,16 @@ class Menu extends Phaser.Scene {
         // animation config
         this.anims.create({
             key: 'menuBack',
-            frames: this.anims.generateFrameNumbers('menuBG', {start: 0, end: 3, first: 0}), 
+            frames: this.anims.generateFrameNumbers('menuBG', {start: 0, end: 15, first: 0}), 
             frameRate: 10,
             repeat: -1
+        });
+
+        this.anims.create({
+            key: 'menuPlay',
+            frames: this.anims.generateFrameNumbers('menuP', {start: 0, end: 15, first: 0}), 
+            frameRate: 10,
+            
         });
 
         let boom = this.add.sprite(0, 0, 'menuBG').setOrigin(0,0);
@@ -46,13 +55,18 @@ class Menu extends Phaser.Scene {
         buttonOne.setInteractive();
 
         buttonOne.on('pointerdown', function(event){
-            this.scene.start('airScene');
+
+            let booom = this.add.sprite(0, 0, 'menuP').setOrigin(0,0);
+
+            booom.anims.play('menuPlay');
+
+            booom.on('animationcomplete', function(event){
+                this.scene.start("airScene");
+            }, this);
+                
+
         }, this);
     }
 
 
-    update(){
-
-
-    }
 }
