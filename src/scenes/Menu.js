@@ -16,3 +16,4 @@ class Menu extends Phaser.Scene {
         console.log("in play");
     }
 }
+
