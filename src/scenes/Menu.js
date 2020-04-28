@@ -25,7 +25,7 @@ class Menu extends Phaser.Scene {
 
 
         this.load.image('barrier_broken', './assets/barrier_broken.png');
-        this.load.spritesheet('border_air', './assets/border.png', {frameWidth: 60, frameHeight: 720}); 
+        this.load.spritesheet('border_air', './assets/border_air.png', {frameWidth: 60, frameHeight: 720}); 
         this.load.spritesheet('border_water', './assets/border_water.png', {frameWidth: 720, frameHeight: 60}); 
 
         this.load.spritesheet('rewind', './assets/rewind-Sheet.png', {frameWidth: 720, frameHeight: 720});
