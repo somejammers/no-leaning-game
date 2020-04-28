@@ -29,7 +29,7 @@ let playerstats = new PlayerStats();
 // define game settings
 
 //reserve some keyboard variables
-let keyLEFT, keyRIGHT, keyUP, keyDOWN;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN, keyX;
 let resistance_keyDOWN, resistance_keyUP, 
     resistance_keyLEFT, resistance_keyRIGHT;
 let stageLeftBound, stageRightBound, stageUpperBound, stageLowerBound;
