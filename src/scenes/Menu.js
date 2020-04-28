@@ -124,7 +124,7 @@ class Menu extends Phaser.Scene {
             booom.anims.play('menuPlay');
 
             booom.on('animationcomplete', function(event){
-                this.scene.start("waterScene");
+                this.scene.start("airScene");
             }, this);
                 
 
