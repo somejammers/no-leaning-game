@@ -5,7 +5,7 @@ let canvas_height = 720;
 let physicsConfig = {
     default: 'arcade',
     arcade: {
-        debug: true
+        debug: false //true if u wanna show bounding boxes
     }
 }
 
@@ -29,7 +29,7 @@ let playerstats = new PlayerStats();
 // define game settings
 
 //reserve some keyboard variables
-let keyLEFT, keyRIGHT, keyUP, keyDOWN, keyX;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN;
 let resistance_keyDOWN, resistance_keyUP, 
     resistance_keyLEFT, resistance_keyRIGHT;
 let stageLeftBound, stageRightBound, stageUpperBound, stageLowerBound;

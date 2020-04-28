@@ -38,7 +38,7 @@ class Air extends Phaser.Scene {
 
         //STAGE BOUNDS
         stageLeftBound = canvas_width / 4;
-        stageRightBound = 3 * canvas_width / 4 - this.fallerOffsetX;
+        stageRightBound = 3 * canvas_width / 4;
         stageUpperBound = 0;
         stageLowerBound = canvas_height - this.fallerOffsetY;
 
@@ -58,11 +58,11 @@ class Air extends Phaser.Scene {
         this.border_1_second.setDepth(8);
         this.border_1_second.play('sway');
 
-        this.border_2_first = this.add.sprite(stageRightBound + this.fallerOffsetX, canvas_height / 2, 'border_air');
+        this.border_2_first = this.add.sprite(stageRightBound, canvas_height / 2, 'border_air');
         this.border_2_first.setDepth(8);
         this.border_2_first.play('sway');
 
-        this.border_2_second = this.add.sprite(stageRightBound + this.fallerOffsetX, canvas_height * 1.5, 'border_air');
+        this.border_2_second = this.add.sprite(stageRightBound, canvas_height * 1.5, 'border_air');
         this.border_2_second.setDepth(8);
         this.border_2_second.play('sway');
 
@@ -84,7 +84,7 @@ class Air extends Phaser.Scene {
 
         //STAGE-SPECIFIC MOVEMENT
         resistance_keyDOWN = 2;
-        resistance_keyUP = 1;
+        resistance_keyUP = 1.3;
         resistance_keyLEFT = 1.3;
         resistance_keyRIGHT = 1.3;
 
@@ -221,8 +221,8 @@ class Air extends Phaser.Scene {
 
 
         // //OBSTACLES
-        obstacleWidth = 0;
-        obstacleHeight = 0;
+        obstacleWidth = 80;
+        obstacleHeight = 80;
 
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
@@ -245,7 +245,7 @@ class Air extends Phaser.Scene {
 
         
         let obstacle = new Obstacle(
-            this, Phaser.Math.Between(stageLeftBound + 40, stageRightBound),
+            this, Phaser.Math.Between(stageLeftBound + 40, stageRightBound - 40),
             canvas_height, //or obstacle_height if horizontal stage
             0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle');
 
@@ -394,15 +394,11 @@ class Air extends Phaser.Scene {
     }
 
     fallerCollidesObstacle() {
-        if (!this.isInvincible) 
-        {
-            //if you want things to trigger only once, go to destroy() in Obstacle. This is due to a desync btween
-            //  the scene's collider function and the Obstacle's 
-            // add the distance/speed mechanic
+        this.faller_instance.anims.play(this.a_faller_hurt);
+    }
 
-            //play animation here of flickering fallre
-        }
-
+    fallerSetDefault() {
+        this.faller_instance.anims.play(this.a_faller_default);
     }
 
     setInvincibility(bool) {
@@ -446,7 +442,7 @@ class Air extends Phaser.Scene {
         this.scene.stop("airScene");
         //even though this scene stops, worldSwap() is still carried out
         //later order this better to make it more seamless
-        this.scene.start("airScene");
+        this.scene.start("waterScene");
         // change to this.scene.start("fireScene");
         //change to this.scene.stop("airScene"); later
     }

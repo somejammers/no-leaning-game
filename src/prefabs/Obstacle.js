@@ -10,6 +10,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);       // add physics body
 
         this.phys_body = this.body;
+        this.orientation = orientation;
 
         this.x_velocity = x_velocity;
         this.y_velocity = y_velocity;
@@ -51,7 +52,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
                 }
                 break;
             case 4: 
-                if (this.y <= scene.barrier.x) {
+                if (this.y >= scene.barrier.x) {
                     this.x_velocity = 0;
                     this.y_velocity = 0;
                     this.visible = false;
@@ -82,15 +83,21 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
                 
         }
 
-        this.x += this.x_velocity * this.scene.speed_modifier;
+        this.x -= this.x_velocity * this.scene.speed_modifier;
         this.y -= this.y_velocity * this.scene.speed_modifier;
         
 
-        if(this.newObstacle &&
-             (this.y < (canvas_height / 2 ) / this.scene.speed_modifier) ) 
-        {
-            this.newObstacle = false;
-            this.scene.addObstacle();
+        if (this.newObstacle) {
+
+            if (this.orientation == 1 && this.y < (canvas_height / 2 ) / this.scene.speed_modifier) {
+                this.newObstacle = false;
+                this.scene.addObstacle();
+            } 
+            else if (this.orientation == 4 && this.x < (canvas_width / 2 ) / this.scene.speed_modifier) {
+                this.newObstacle = false;
+                this.scene.addObstacle();
+                console.log("ob spawned");
+            }
         }
 
         if(this.isRotating)
@@ -116,7 +123,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
             this.visible = false;
             playerstats.currHP--;
 
-            this.scene.faller_instance.anims.play(this.scene.a_faller_hurt);
+            this.scene.fallerCollidesObstacle();
 
             this.scene.time.delayedCall(1000, () => { this.disableInvincibility(false); });
 
@@ -125,7 +132,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
     disableInvincibility(bool) {
         this.scene.isInvincible = bool;
-        this.scene.faller_instance.anims.play(this.scene.a_faller_default);
+        this.scene.fallerSetDefault();
     }
 
 }

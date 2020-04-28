@@ -4,6 +4,52 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+        //play loading image
+        this.loading = this.add.image(canvas_width/2, canvas_height/2, 'loading');
+
+
+        this.load.spritesheet('faller_default', './assets/faller.png', {frameWidth: 48, frameHeight: 28});
+        this.load.spritesheet('faller_hurt', './assets/faller_hurt.png', {frameWidth: 48, frameHeight: 28});
+        this.load.spritesheet('faller_r_default', './assets/faller_r_default.png', {frameWidth: 28, frameHeight: 48});
+        this.load.spritesheet('faller_r_hurt', './assets/faller_r_hurt.png', {frameWidth: 28, frameHeight: 48});
+        this.load.spritesheet('faller_u_default', './assets/faller_u_default.png', {frameWidth: 48, frameHeight: 28});        
+        this.load.spritesheet('faller_u_hurt', './assets/faller_u_hurt.png', {frameWidth: 48, frameHeight: 28});
+        this.load.spritesheet('faller_l_default', './assets/faller_l_default.png', {frameWidth: 28, frameHeight: 48});
+        this.load.spritesheet('faller_l_hurt', './assets/faller_l_hurt.png', {frameWidth: 28, frameHeight: 48});
+
+        this.load.image('bg_air', './assets/bg_air.png');
+        this.load.image('bg_water', './assets/bg_water.png');
+
+        this.load.image('barrier', './assets/barrier.png');
+        this.load.image('barrier_water', './assets/barrier_water.png');
+
+
+        this.load.image('barrier_broken', './assets/barrier_broken.png');
+        this.load.spritesheet('border_air', './assets/border.png', {frameWidth: 60, frameHeight: 720}); 
+        this.load.spritesheet('border_water', './assets/border_water.png', {frameWidth: 720, frameHeight: 60}); 
+
+        this.load.spritesheet('rewind', './assets/rewind-Sheet.png', {frameWidth: 720, frameHeight: 720});
+        
+        this.load.image('trimming_behind', './assets/trimming_behind.png');
+        this.load.image('trimming_behind_l', './assets/trimming_behind_l.png');
+        this.load.image('trimming_behind_r', './assets/trimming_behind_r.png');
+
+        this.load.image('trimming_front', './assets/trimming_front.png');
+        this.load.image('trimming_front_l', './assets/trimming_front_l.png');
+        this.load.image('trimming_front_r', './assets/trimming_front_r.png');
+
+        this.load.spritesheet('air_obstacle', './assets/air_obstacle.png', {frameWidth: 80, frameHeight: 80});
+        this.load.spritesheet('water_obstacle', './assets/water_obstacle.png', {frameWidth: 80, frameHeight: 80});
+
+        this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
+        
+        this.load.audio('bgm', './assets/editjo_techno.wav');
+        this.load.audio('barrierSmash', './assets/explosion38.wav');
+        this.load.audio('obstacleCollision', './assets/explosion38.wav');
+        this.load.audio('sfx_rewind', './assets/sfx_rewind.wav');
+
+
+        
         // load images/tile sprites
         this.load.image('playButton', './assets/playButton.png');
         this.load.image('creditsButton', './assets/creditsButton.png');
@@ -21,6 +67,8 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+
+        this.closeLoading();
         
         //this.test = 4;
         //this.add.text(20, 20, "Rocket Patrol Play");
@@ -76,7 +124,7 @@ class Menu extends Phaser.Scene {
             booom.anims.play('menuPlay');
 
             booom.on('animationcomplete', function(event){
-                this.scene.start("airScene");
+                this.scene.start("waterScene");
             }, this);
                 
 
@@ -98,15 +146,10 @@ class Menu extends Phaser.Scene {
 
             }, this);
 
-        }, this);
-
-        
+        }, this);   
     }
-<<<<<<< HEAD
+
+    closeLoading() {
+        this.loading.destroy();
+    }
 }
-
-=======
-
-
-}
->>>>>>> d446aa85e5137edac9965f434faa597e4a415ca4
