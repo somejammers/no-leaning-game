@@ -43,11 +43,13 @@ class Menu extends Phaser.Scene {
 
         this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
         
-        this.load.audio('bgm', './assets/editjo_techno.wav');
+        this.load.audio('bgm', './assets/ES_Free_Tonight.wav');
+        this.load.audio('menu_bgm', './assets/ES_Free_Tonight_Menu.wav');
         this.load.audio('barrierSmash', './assets/explosion38.wav');
         this.load.audio('obstacleCollision', './assets/explosion38.wav');
         this.load.audio('sfx_rewind', './assets/sfx_rewind.wav');
         this.load.audio('button_click', './assets/beep.wav');
+        this.load.audio('wood_break', './assets/ES_Wood_Break.wav');
 
 
         
@@ -75,6 +77,10 @@ class Menu extends Phaser.Scene {
         //this.test = 4;
         //this.add.text(20, 20, "Rocket Patrol Play");
         //this.menuBackground = this.add.tileSprite(0, 0, 720, 720, 'menuBG').setOrigin(0,0);
+
+        var music = this.sound.add('menu_bgm');
+        music.setLoop(true);
+        music.play();
 
         // animation config
         this.anims.create({
@@ -128,13 +134,16 @@ class Menu extends Phaser.Scene {
         buttonThree.setInteractive();
 
         buttonOne.on('pointerdown', function(event){
+            this.sound.play('wood_break');
             this.sound.play('button_click');
 
             let booom = this.add.sprite(0, 0, 'menuP').setOrigin(0,0);
 
             booom.anims.play('menuPlay');
+            
 
             booom.on('animationcomplete', function(event){
+                
                 this.scene.start("airScene");
             }, this);
                 
