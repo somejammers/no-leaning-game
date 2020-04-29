@@ -47,6 +47,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('barrierSmash', './assets/explosion38.wav');
         this.load.audio('obstacleCollision', './assets/explosion38.wav');
         this.load.audio('sfx_rewind', './assets/sfx_rewind.wav');
+        this.load.audio('button_click', './assets/beep.wav');
 
 
         
@@ -63,6 +64,7 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet('menuBG', './assets/menuScreen.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
         this.load.spritesheet('menuP', './assets/menuScreenPlay.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
         this.load.spritesheet('creditsP', './assets/menuScreenCredits.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
+        this.load.spritesheet('rulesP', './assets/menuScreenRules.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
 
     }
 
@@ -97,6 +99,14 @@ class Menu extends Phaser.Scene {
             
         });
 
+        this.anims.create({
+            key: 'rulesPlay',
+            frames: this.anims.generateFrameNumbers('rulesP', {start: 0, end: 15, first: 0}), 
+            frameRate: 10,
+            repeat: -1
+            
+        });
+
         let boom = this.add.sprite(0, 0, 'menuBG').setOrigin(0,0);
 
         boom.anims.play('menuBack');
@@ -114,10 +124,11 @@ class Menu extends Phaser.Scene {
 
         // make buttons interactive
         buttonOne.setInteractive();
-        //buttonTwo.setInteractive();
+        buttonTwo.setInteractive();
         buttonThree.setInteractive();
 
         buttonOne.on('pointerdown', function(event){
+            this.sound.play('button_click');
 
             let booom = this.add.sprite(0, 0, 'menuP').setOrigin(0,0);
 
@@ -130,7 +141,29 @@ class Menu extends Phaser.Scene {
 
         }, this);
 
+        buttonTwo.on('pointerdown', function(event){
+            this.sound.play('button_click');
+
+            let rulesPlay = this.add.sprite(0, 0, 'rulesP').setOrigin(0,0);
+
+            rulesPlay.anims.play('rulesPlay');
+
+            var depth = rulesPlay.depth;
+
+            rulesPlay.setInteractive();
+
+            rulesPlay.on('pointerdown', function(event){
+                this.sound.play('button_click');
+            
+                rulesPlay.depth = -1;
+
+            }, this);
+                
+
+        }, this);
+
         buttonThree.on('pointerdown', function(event){
+            this.sound.play('button_click');
 
             let creditsPlay = this.add.sprite(0, 0, 'creditsP').setOrigin(0,0);
 
@@ -141,6 +174,7 @@ class Menu extends Phaser.Scene {
             creditsPlay.setInteractive();
 
             creditsPlay.on('pointerdown', function(event){
+                this.sound.play('button_click');
             
                 creditsPlay.depth = -1;
 
