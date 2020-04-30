@@ -45,11 +45,13 @@ class Menu extends Phaser.Scene {
         
         this.load.audio('bgm', './assets/ES_Free_Tonight.wav');
         this.load.audio('menu_bgm', './assets/ES_Free_Tonight_Menu.wav');
-        this.load.audio('barrierSmash', './assets/explosion38.wav');
+        this.load.audio('barrierSmash', './assets/barrier_break_sound3.wav');
         this.load.audio('obstacleCollision', './assets/explosion38.wav');
         this.load.audio('sfx_rewind', './assets/sfx_rewind.wav');
         this.load.audio('button_click', './assets/beep.wav');
         this.load.audio('wood_break', './assets/ES_Wood_Break.wav');
+        
+        
 
 
         
