@@ -25,7 +25,7 @@ class Menu extends Phaser.Scene {
         this.load.image('barrier_water', './assets/barrier_water.png');
 
         this.load.image('barrier_broken', './assets/barrier_broken.png');
-        this.load.spritesheet('border_air', './assets/border.png', {frameWidth: 60, frameHeight: 720}); 
+        this.load.spritesheet('border_air', './assets/border_air.png', {frameWidth: 60, frameHeight: 720}); 
         this.load.spritesheet('border_water', './assets/border_water.png', {frameWidth: 720, frameHeight: 60}); 
         this.load.spritesheet('border_fire', './assets/border_fire.png', {frameWidth: 60, frameHeight: 720}); 
         this.load.spritesheet('border_earth', './assets/border_earth.png', {frameWidth: 720, frameHeight: 60}); 
@@ -48,19 +48,6 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet('earth_obstacle', './assets/earth_obstacle.png', {frameWidth: 80, frameHeight: 80});
 
         this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
-        
-        this.load.audio('bgm', './assets/editjo_techno.wav');
-        this.load.audio('barrierSmash', './assets/explosion38.wav');
-        this.load.audio('obstacleCollision', './assets/explosion38.wav');
-        this.load.audio('sfx_rewind', './assets/sfx_rewind.wav');
-        
-        // load images/tile sprites
-        this.load.image('playButton', './assets/playButton.png');
-        this.load.image('creditsButton', './assets/creditsButton.png');
-        this.load.image('rulesButton', './assets/rulesButton.png');
-
-        this.load.image('rules', './assets/rules.png');
-        //this.load.image('credits', './assets/credits.png');
 
 
         // load spritesheet

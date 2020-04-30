@@ -50,19 +50,19 @@ class Air extends Phaser.Scene {
             repeat: 999
         });
         //Placing the animation
-        this.border_1_first = this.add.sprite(stageLeftBound-obstacleWidth/2, canvas_height / 2, 'border_air');
+        this.border_1_first = this.add.sprite(stageLeftBound, canvas_height / 2, 'border_air');
         this.border_1_first.setDepth(8);
         this.border_1_first.play('sway');
 
-        this.border_1_second = this.add.sprite(stageLeftBound-obstacleWidth/2, canvas_height * 1.5, 'border_air');
+        this.border_1_second = this.add.sprite(stageLeftBound, canvas_height * 1.5, 'border_air');
         this.border_1_second.setDepth(8);
         this.border_1_second.play('sway');
 
-        this.border_2_first = this.add.sprite(stageRightBoun+obstacleWidth/2, canvas_height / 2, 'border_air');
+        this.border_2_first = this.add.sprite(stageRightBound, canvas_height / 2, 'border_air');
         this.border_2_first.setDepth(8);
         this.border_2_first.play('sway');
 
-        this.border_2_second = this.add.sprite(stageRightBound+obstacleWidth/2, canvas_height * 1.5, 'border_air');
+        this.border_2_second = this.add.sprite(stageRightBound, canvas_height * 1.5, 'border_air');
         this.border_2_second.setDepth(8);
         this.border_2_second.play('sway');
 
