@@ -9878,4 +9878,39 @@ Another instance exists. Quitting.
   "app": "http://www.aseprite.org/",
   "version": "1.x-dev",
   "format": "RGBA8888",
-  "size": { "w": 160, "h": 80 }
+  "size": { "w": 160, "h": 80 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
+{ "frames": {
+   "Sprite-0001.": {
+    "frame": { "x": 0, "y": 0, "w": 180, "h": 180 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 180, "h": 180 },
+    "sourceSize": { "w": 180, "h": 180 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "format": "RGBA8888",
+  "size": { "w": 180, "h": 180 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

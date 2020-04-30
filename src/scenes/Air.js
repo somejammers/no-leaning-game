@@ -50,19 +50,19 @@ class Air extends Phaser.Scene {
             repeat: 999
         });
         //Placing the animation
-        this.border_1_first = this.add.sprite(stageLeftBound, canvas_height / 2, 'border_air');
+        this.border_1_first = this.add.sprite(stageLeftBound-obstacleWidth/2, canvas_height / 2, 'border_air');
         this.border_1_first.setDepth(8);
         this.border_1_first.play('sway');
 
-        this.border_1_second = this.add.sprite(stageLeftBound, canvas_height * 1.5, 'border_air');
+        this.border_1_second = this.add.sprite(stageLeftBound-obstacleWidth/2, canvas_height * 1.5, 'border_air');
         this.border_1_second.setDepth(8);
         this.border_1_second.play('sway');
 
-        this.border_2_first = this.add.sprite(stageRightBound, canvas_height / 2, 'border_air');
+        this.border_2_first = this.add.sprite(stageRightBoun+obstacleWidth/2, canvas_height / 2, 'border_air');
         this.border_2_first.setDepth(8);
         this.border_2_first.play('sway');
 
-        this.border_2_second = this.add.sprite(stageRightBound, canvas_height * 1.5, 'border_air');
+        this.border_2_second = this.add.sprite(stageRightBound+obstacleWidth/2, canvas_height * 1.5, 'border_air');
         this.border_2_second.setDepth(8);
         this.border_2_second.play('sway');
 
@@ -231,6 +231,7 @@ class Air extends Phaser.Scene {
 
         //OTHER
         this.resetHit = false;
+        this.resetHit_bg = false;
         this.deaccelerationLength = 60;
         this.barrierSpeedDeacceleration = this.barrierSpeed / this.deaccelerationLength;
         this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / this.deaccelerationLength;
@@ -250,9 +251,9 @@ class Air extends Phaser.Scene {
             0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle');
 
         //because when u destroy() the object it deletes the animation, apparently
-        let obstacle_anim = this.a_air_obstacle;
+        // let obstacle_anim = this.a_air_obstacle;
 
-        obstacle.anims.play(obstacle_anim);
+        // obstacle.anims.play(obstacle_anim);
 
 
         this.obstacleGroup.add(obstacle);
@@ -267,6 +268,8 @@ class Air extends Phaser.Scene {
     }
 
     update() {
+
+        if (this.resetHit) console.log("no");
 
         if (this.resetHit && 
             (this.deaccelerationFrame < this.deaccelerationLength * 2) ) {
@@ -297,7 +300,7 @@ class Air extends Phaser.Scene {
         }
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
-        if (!this.resetHit) {
+        if (!this.resetHit_bg) {
             if (this.bg_air_1.y <= -(canvas_height / 2) ) 
             {
                 this.bg_air_1.y = canvas_height * 1.5;
@@ -407,44 +410,51 @@ class Air extends Phaser.Scene {
     }
 
     worldSwap() {
-        console.log("world swapped");
-        this.barrierTouched = true;
-        //ENTRY EFFECTS
-        this.cameras.main.shake(200); // this at start of scene
-        this.cameras.main.flash(0xFFFFFF, 500);        
-
-        //AUDIO
-        this.bgm.stop();
-
-        //PlAYER
-        this.isInvincible = false;
-
-        this.scene.stop("waterScene");
-
-        this.sound.play('barrierSmash', {volume: 0.2});
-        shakeOnNextWorld = true;
-
-        //FIRST OBSTACLE'S SPAWN SCALING
-        if (playerstats.currStagesComplete >= 1) 
-        {    
-            timeTillObstacles = 1000 / playerstats.currStagesComplete * this.speed_modifier;
-            playerstats.currStagesComplete++;
-        } 
-        else
-        //first clear
+        if (!this.resetHit)
         {
-            timeTillObstacles = 1000 / this.speed_modifier;
-            playerstats.currStagesComplete = 1;
-        }
+            console.log("world swapped");
+            this.barrierTouched = true;
+            //ENTRY EFFECTS
+            this.cameras.main.shake(200); // this at start of scene
+            this.cameras.main.flash(0xFFFFFF, 500);        
 
-        //MANAGE SCENE
-        //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scenemanager/
-        this.scene.stop("airScene");
-        //even though this scene stops, worldSwap() is still carried out
-        //later order this better to make it more seamless
-        this.scene.start("waterScene");
-        // change to this.scene.start("fireScene");
-        //change to this.scene.stop("airScene"); later
+            //AUDIO
+            this.bgm.stop();
+
+            //PlAYER
+            this.isInvincible = false;
+
+            this.scene.stop("waterScene");
+
+            this.sound.play('barrierSmash', {volume: 0.2});
+            shakeOnNextWorld = true;
+
+            //FIRST OBSTACLE'S SPAWN SCALING
+            if (playerstats.currStagesComplete >= 1) 
+            {    
+                timeTillObstacles = 1000 / playerstats.currStagesComplete * this.speed_modifier;
+                playerstats.currStagesComplete++;
+            } 
+            else
+            //first clear
+            {
+                timeTillObstacles = 1000 / this.speed_modifier;
+                playerstats.currStagesComplete = 1;
+            }
+
+            //MANAGE SCENE
+            //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scenemanager/
+            this.scene.stop("airScene");
+            //even though this scene stops, worldSwap() is still carried out
+            //later order this better to make it more seamless
+            this.scene.start("waterScene");
+            // change to this.scene.start("fireScene");
+            //change to this.scene.stop("airScene"); later
+        }
+    }
+
+    reverseBgLoop() {
+        this.resetHit_bg = true;
     }
 
     reset() {
@@ -454,6 +464,9 @@ class Air extends Phaser.Scene {
 
         //this triggers all deacceleration slowdowns->stops
         this.resetHit = true;
+
+        this.time.delayedCall(1000, () => { this.reverseBgLoop() });;
+
 
         //pause all moving objects and do like a screen freeze/rewind effect, and the player blips out
         this.bgm.stop();
@@ -475,7 +488,9 @@ class Air extends Phaser.Scene {
         this.faller_body.setEnable(false);
         
         //go to menu for debug
-        this.time.delayedCall(6000, () => { this.scene.start("menuScene") });;
+        this.time.delayedCall(6000, () => { 
+            this.scene.start("menuScene") 
+        });
 
     }
 }

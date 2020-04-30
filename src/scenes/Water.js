@@ -1,18 +1,6 @@
 //TO DO:
-//  xx add placeholder bgm and sfx
-// add obstacles, see nathans
-// add horizontal world
-// do start scene
-// add barrier breaking particles
-// add broken barrer to new levels
-// better game feel movement
-// add start scene
-//rotate obstacles in ran direction slowly at center
-// add another thing to make gameplay more engaging, like an end 
-//screen w dimension hop count, like individual level obstacles. I like the
-// idea of a "laser" that goes in the non-scrolling direction, to cover player up/down vs left/right
-// add collectible
-// add pause
+//  fix sprite
+// borders
 
 class Water extends Phaser.Scene {
     constructor() {
@@ -42,30 +30,30 @@ class Water extends Phaser.Scene {
         stageUpperBound = canvas_height / 4;
         stageLowerBound = 3 * canvas_height / 4;
 
-        //ANIMATION
-        this.borderAnimation_water = this.anims.create({
-            key: 'sway_water',
+       //ANIMATION
+        this.borderAnimation = this.anims.create({
+            key: 'a_border_water',
             frames: this.anims.generateFrameNumbers('border_water'),
-            frameRate: 60, //i think this is how many frames per sec
+            frameRate: 1, //i think this is how many frames per sec
             repeat: 999
         });
         //Placing the animation
         //starts on frame
         this.border_1_first = this.add.sprite(canvas_width / 2, stageUpperBound, 'border_water');
         this.border_1_first.setDepth(8);
-        this.border_1_first.play('sway_water');
+        this.border_1_first.play('a_border_water');
 
         this.border_1_second = this.add.sprite(canvas_width * 1.5, stageUpperBound, 'border_water');
         this.border_1_second.setDepth(8);
-        this.border_1_second.play('sway_water');
+        this.border_1_second.play('a_border_water');
 
-        this.border_2_first = this.add.sprite(canvas_width / 2, stageUpperBound, 'border_water');
+        this.border_2_first = this.add.sprite(canvas_width / 2, stageLowerBound, 'border_water');
         this.border_2_first.setDepth(8);
-        this.border_2_first.play('sway_water');
+        this.border_2_first.play('a_border_water');
 
-        this.border_2_second = this.add.sprite(canvas_width * 1.5, stageUpperBound, 'border_water');
+        this.border_2_second = this.add.sprite(canvas_width * 1.5, stageLowerBound, 'border_water');
         this.border_2_second.setDepth(8);
-        this.border_2_second.play('sway_water');
+        this.border_2_second.play('a_border_water');
 
         //MUSIC
         this.bgm = this.sound.add('bgm', bgmConfig);
@@ -158,21 +146,21 @@ class Water extends Phaser.Scene {
         this.isInvincible = false;
 
         //FALLER ANIMATIONS
-        this.a_faller_default_r = this.anims.create({
-            key: 'a_faller_default',
+        this.a_faller_r_default = this.anims.create({
+            key: 'a_faller_r_default',
             frames: this.anims.generateFrameNumbers('faller_r_default'),
             frameRate: 4,
             repeat: 999
         });
 
-        this.a_faller_hurt_r = this.anims.create({
-            key: 'a_faller_hurt',
+        this.a_faller_r_hurt = this.anims.create({
+            key: 'a_faller_r_hurt',
             frames: this.anims.generateFrameNumbers('faller_r_hurt'),
             frameRate: 4,
             repeat: 999
         });
 
-        this.faller_instance.anims.play(this.a_faller_default_r);
+        this.faller_instance.anims.play(this.a_faller_r_default);
 
         //REWIND
         this.a_rewind = this.anims.create({
@@ -232,6 +220,7 @@ class Water extends Phaser.Scene {
 
         //OTHER
         this.resetHit = false;
+        this.resetHit_bg = false;
         this.deaccelerationLength = 60;
         this.barrierSpeedDeacceleration = this.barrierSpeed / this.deaccelerationLength;
         this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / this.deaccelerationLength;
@@ -248,8 +237,6 @@ class Water extends Phaser.Scene {
             this, canvas_width + obstacleWidth, 
             Phaser.Math.Between(stageUpperBound + obstacleHeight/2, stageLowerBound - obstacleHeight/2), //or obstacle_height if horizontal stage
             this.barrierSpeed * 1.2, 0, 4, false, 'water_obstacle');
-
-
         this.obstacleGroup.add(obstacle);
     }
 
@@ -292,7 +279,7 @@ class Water extends Phaser.Scene {
         }
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
-        if (!this.resetHit) {
+        if (!this.resetHit_bg) {
             if (this.bg_water_1.x <= -(canvas_width / 2) ) 
             {
                 this.bg_water_1.x = canvas_height * 1.5;
@@ -357,14 +344,12 @@ class Water extends Phaser.Scene {
             }
         }
 
-
         //BARRIER MOVEMENT
         if (this.barrierPlaced) 
         {
             this.barrier.x -= this.barrierSpeed;
             this.box_below_barrier.x -= this.barrierSpeed;
         }
-
 
         //SCROLLING
         this.border_1_first.x -= this.barrierSpeed;
@@ -402,22 +387,25 @@ class Water extends Phaser.Scene {
     }
 
     worldSwap() {
-        console.log("world swapped");
-        this.barrierTouched = true;
-        //ENTRY EFFECTS
-        this.cameras.main.shake(200); // this at start of scene
-        this.cameras.main.flash(0xFFFFFF, 500);        
+        if (!this.resetHit)
+        {
+            console.log("world swapped");
+            this.barrierTouched = true;
+            //ENTRY EFFECTS
+            this.cameras.main.shake(200); // this at start of scene
+            this.cameras.main.flash(0xFFFFFF, 500);        
 
-        //AUDIO
-        this.bgm.stop();
+            //AUDIO
+            this.bgm.stop();
 
-        //PlAYER
-        this.isInvincible = false;
+            //PlAYER
+            this.isInvincible = false;
 
-        this.scene.stop("waterScene");
+            this.scene.stop("waterScene");
 
-        this.sound.play('barrierSmash', {volume: 0.2});
-        shakeOnNextWorld = true;
+            this.sound.play('barrierSmash', {volume: 0.2});
+            shakeOnNextWorld = true;
+        }
 
         //FIRST OBSTACLE'S SPAWN SCALING
         if (playerstats.currStagesComplete >= 1) 
@@ -432,6 +420,8 @@ class Water extends Phaser.Scene {
             playerstats.currStagesComplete = 1;
         }
 
+        this.faller_instance.anims.stop(null,true);
+
         //MANAGE SCENE
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scenemanager/
         this.scene.stop("waterScene");
@@ -442,6 +432,10 @@ class Water extends Phaser.Scene {
         //change to this.scene.stop("waterScene"); later
     }
 
+    reverseBgLoop() {
+        this.resetHit_bg = true;
+    }
+
     reset() {
 
         //pause animations
@@ -449,6 +443,8 @@ class Water extends Phaser.Scene {
 
         //this triggers all deacceleration slowdowns->stops
         this.resetHit = true;
+        
+        this.time.delayedCall(1000, () => { this.reverseBgLoop() });;
 
         //pause all moving objects and do like a screen freeze/rewind effect, and the player blips out
         this.bgm.stop();
@@ -470,7 +466,11 @@ class Water extends Phaser.Scene {
         this.faller_body.setEnable(false);
         
         //go to menu for debug
-        this.time.delayedCall(6000, () => { this.scene.start("menuScene") });;
+        this.time.delayedCall(6000, () => 
+        {
+            this.scene.stop("waterScene");
+            this.scene.start("menuScene");
+            });
 
     }
 }

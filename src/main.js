@@ -5,7 +5,7 @@ let canvas_height = 720;
 let physicsConfig = {
     default: 'arcade',
     arcade: {
-        debug: false //true if u wanna show bounding boxes
+        debug: true //true if u wanna show bounding boxes
     }
 }
 
@@ -21,7 +21,7 @@ let config = {
     height: canvas_height,
     physics: physicsConfig,
     transparent: true, //removes black background
-    scene: [ Boot, Menu, Air, Water], //array, order matters
+    scene: [ Boot, Menu, Air, Water, Fire, Earth], //array, order matters
 };
 
 let game = new Phaser.Game(config);
@@ -38,4 +38,4 @@ let playAirOnBoot = true;
 let shakeOnNextWorld = false;
 let bgmAir;
 let timeTillObstacles = 2500, obstacleWidth, obstacleHeight;
-let global_speed = 1;
+let global_speed = 2;
