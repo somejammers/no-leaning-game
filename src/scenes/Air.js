@@ -391,8 +391,6 @@ class Air extends Phaser.Scene {
                 playerstats.currStagesComplete = 1;
             }
 
-            if (playerstats.currStagesComplete % 2 == 0) bg_scroll_mod++;
-
             if (global_speed <= global_speed_max) global_speed += global_speed_scaling;
 
             //MANAGE SCENE
@@ -409,6 +407,7 @@ class Air extends Phaser.Scene {
     }
 
     reset() {
+        hasScore = 1;
 
         //pause animations
         this.rewind.anims.play(this.a_rewind);
@@ -431,7 +430,6 @@ class Air extends Phaser.Scene {
         this.cameras.main.fade(5000, 255, 255, 255);
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
-        playerstats.currStagesComplete = 0;
         playerstats.currHP = 3;
         this.faller_body.setEnable(false);
         

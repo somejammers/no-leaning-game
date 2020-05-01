@@ -107,7 +107,6 @@ class Water extends Phaser.Scene {
         this.bg_water_1_amnt_looped = 0;
         this.bg_water_2_amnt_looped = 0;
         this.bg_loop_max = 2;
-        this.bg_scroll_speed = 3 + bg_scroll_mod;
 
         //BARRIER
         this.barrierPlaced = false;
@@ -278,8 +277,7 @@ class Water extends Phaser.Scene {
             this.faller_instance.update();
             
         //PLAYER PARTICLES FOLLOW
-        this.emitter.setPosition(this.faller_instance.x + this.fallerOffsetX/2, this.faller_instance + this.fallerOffsetY/2);
-        //HP CHANGES
+        this.emitter.setPosition(this.faller_instance.x + this.fallerOffsetX/2, this.faller_instance.y + this.fallerOffsetY/2);        //HP CHANGES
         if (playerstats.currHP == 3) {
             this.emitter.setFrame("green");
         } 
@@ -376,8 +374,6 @@ class Water extends Phaser.Scene {
                 timeTillObstacles = 1000 / this.speed_modifier;
                 playerstats.currStagesComplete = 1;
             }
-            
-            if (playerstats.currStagesComplete % 2 == 0) bg_scroll_mod++;
 
             if (global_speed <= global_speed_max) global_speed += global_speed_scaling;
 
@@ -397,6 +393,7 @@ class Water extends Phaser.Scene {
     }
 
     reset() {
+        hasScore = 1;
 
         //pause animations
         this.rewind.anims.play(this.a_rewind);

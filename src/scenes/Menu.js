@@ -67,10 +67,6 @@ class Menu extends Phaser.Scene {
         this.load.audio('button_click', './assets/beep.wav');
         this.load.audio('wood_break', './assets/ES_Wood_Break.wav');
         
-        
-
-
-        
         // load images/tile sprites
         this.load.image('playButton', './assets/playButton.png');
         this.load.image('creditsButton', './assets/creditsButton.png');
@@ -89,8 +85,17 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-
         this.closeLoading();
+
+        //SCORE
+        var scoreStyle = { font: "32px Georgia", fill: "#000000", wordWrap: true, wordWrapWidth: 200, align: "center"};
+
+        if (hasScore) {
+            if (playerstats.currStagesComplete > playerstats.highScore) 
+                playerstats.highScore = playerstats.currStagesComplete;
+            this.text = this.add.text(canvas_width / 4 - 20, 400, "High Score: "+playerstats.highScore+"\nLast Score: "+playerstats.currStagesComplete, scoreStyle);
+            this.text.setDepth(11);
+        }
         
         //this.test = 4;
         //this.add.text(20, 20, "Rocket Patrol Play");
@@ -135,9 +140,6 @@ class Menu extends Phaser.Scene {
 
         boom.anims.play('menuBack');
 
-        //console.log("did Menu scene");
-        //this.scene.start("airScene");
-        //console.log("in play");
         let buttonOne = this.add.tileSprite(160, 340, 83, 38, 'playButton').setOrigin(0,0);
         let buttonTwo = this.add.tileSprite(293, 340, 110, 38, 'rulesButton').setOrigin(0,0);
         let buttonThree = this.add.tileSprite(453, 340, 120, 38, 'creditsButton').setOrigin(0,0);
@@ -161,7 +163,9 @@ class Menu extends Phaser.Scene {
             
 
             booom.on('animationcomplete', function(event){
+                playerstats.currStagesComplete = 0;
                 stageCycleDirection = Math.floor(Math.random());
+                this.scene.stop("menuScene");
                 this.scene.start("airScene");
             }, this);
                 

@@ -121,7 +121,6 @@ class Fire extends Phaser.Scene {
         this.bg_fire_1_amnt_looped = 0;
         this.bg_fire_2_amnt_looped = 0;
         this.bg_loop_max = 2;
-        this.bg_scroll_speed = 3 + bg_scroll_mod;
 
         //BARRIER
         this.barrierPlaced = false;
@@ -394,8 +393,6 @@ class Fire extends Phaser.Scene {
                 playerstats.currStagesComplete = 1;
             }
 
-            if (playerstats.currStagesComplete % 2 == 0) bg_scroll_mod++;
-
             if (global_speed <= global_speed_max) global_speed += global_speed_scaling;
 
             //MANAGE SCENE
@@ -412,6 +409,7 @@ class Fire extends Phaser.Scene {
     }
 
     reset() {
+        hasScore = 1;
 
         //pause animations
         this.rewind.anims.play(this.a_rewind);
