@@ -364,6 +364,7 @@ class Earth extends Phaser.Scene {
 
             this.sound.play('barrierSmash', {volume: 0.2});
             shakeOnNextWorld = true;
+            playerstats.currStagesComplete++;
 
             //FIRST OBSTACLE'S SPAWN SCALING
             if (playerstats.currStagesComplete >= 1) 

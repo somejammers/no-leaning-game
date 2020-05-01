@@ -24,7 +24,7 @@ class Air extends Phaser.Scene {
 
     create() {
 
-        this.bg_scroll_speed = -150 * global_speed;
+        this.bg_scroll_speed = -150 * global_speed^2;
 
         //OBSTACLE ANIMATION
         this.a_air_obstacle = this.anims.create({
@@ -376,6 +376,7 @@ class Air extends Phaser.Scene {
 
             this.sound.play('barrierSmash', {volume: 0.2});
             shakeOnNextWorld = true;
+            playerstats.currStagesComplete++;
 
             //DIFFICULTY SCALING
             //FIRST OBSTACLE'S SPAWN SCALING
