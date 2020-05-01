@@ -24,6 +24,8 @@ class Air extends Phaser.Scene {
 
     create() {
 
+        this.bg_scroll_speed = -150 * global_speed;
+
         //OBSTACLE ANIMATION
         this.a_air_obstacle = this.anims.create({
             key: 'a_air_obstacle',
@@ -36,6 +38,10 @@ class Air extends Phaser.Scene {
         this.fallerOffsetX = 48;
         this.fallerOffsetY = 28;
 
+        // //OBSTACLES
+        obstacleWidth = 80;
+        obstacleHeight = 80;
+
         //STAGE BOUNDS
         stageLeftBound = canvas_width / 4;
         stageRightBound = 3 * canvas_width / 4;
@@ -46,28 +52,22 @@ class Air extends Phaser.Scene {
         this.borderAnimation = this.anims.create({
             key: 'sway',
             frames: this.anims.generateFrameNumbers('border_air'),
-            frameRate: 60, //i think this is how many frames per sec
+            frameRate: 1, //i think this is how many frames per sec
             repeat: 999
         });
-        //Placing the animation
-        this.border_1_first = this.add.sprite(stageLeftBound, canvas_height / 2, 'border_air');
-        this.border_1_first.setDepth(8);
-        this.border_1_first.play('sway');
 
-        this.border_1_second = this.add.sprite(stageLeftBound, canvas_height * 1.5, 'border_air');
-        this.border_1_second.setDepth(8);
-        this.border_1_second.play('sway');
+        this.border_1 = this.physics.add.sprite(stageLeftBound-obstacleWidth/4, canvas_height / 2, 'border_air');
+        this.border_1.setVelocity(0, this.bg_scroll_speed/2);
+        this.border_1.setDepth(8);
+        this.border_1.play('sway');
 
-        this.border_2_first = this.add.sprite(stageRightBound, canvas_height / 2, 'border_air');
-        this.border_2_first.setDepth(8);
-        this.border_2_first.play('sway');
-
-        this.border_2_second = this.add.sprite(stageRightBound, canvas_height * 1.5, 'border_air');
-        this.border_2_second.setDepth(8);
-        this.border_2_second.play('sway');
+        this.border_2 = this.physics.add.sprite(stageRightBound+obstacleWidth/4, canvas_height / 2, 'border_air');
+        this.border_2.setVelocity(0, this.bg_scroll_speed/2);
+        this.border_2.setDepth(8);
+        this.border_2.play('sway');
 
         //MUSIC
-        this.bgm = this.sound.add('bgm', bgmConfig);
+        this.bgm = this.sound.add('bgm_air', bgmConfig);
         this.bgm.play();   
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
@@ -81,6 +81,10 @@ class Air extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         //STAGE-SPECIFIC MOVEMENT
         resistance_keyDOWN = 2;
@@ -99,22 +103,24 @@ class Air extends Phaser.Scene {
         );
         this.side_box_2.setDepth(7);
 
-        //have two backgrounds that loop 
-        this.bg_air_1 = this.add.sprite(
-            canvas_width / 2, -(canvas_height / 2), 'bg_air');
+        //have bg_1 wrap, bg_2 keeps time
+        this.bg_air_1 = this.physics.add.sprite(
+            canvas_width / 2, canvas_height / 2, 'bg_air');
+        this.bg_air_1.setVelocity(0, this.bg_scroll_speed);
+            
         this.bg_air_2 = this.add.sprite(
             canvas_width / 2, canvas_height / 2, 'bg_air');
+        this.bg_air_2.setDepth(-1);
 
         //BACKGROUND VARIABLE DEFINITIONS
         this.bg_air_1_amnt_looped = 0;
         this.bg_air_2_amnt_looped = 0;
         this.bg_loop_max = 2;
-        this.bg_scroll_speed = 3 * this.speed_modifier;
 
         //BARRIER
         this.barrierPlaced = false;
         this.barrierTouched = false;
-        this.barrierSpeed = this.bg_scroll_speed / 2;
+        this.barrierSpeed = (3 * global_speed) / 2;
         this.barrier = this.physics.add.sprite(canvas_width / 2, 1800, 'barrier'); //put off screen for now
         this.barrier.setDepth(2);
         //make barrier physics body
@@ -142,7 +148,7 @@ class Air extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, game.config.width/2, canvas_height/8, 'faller').setOrigin(0,0);
+            this, game.config.width/2 - this.fallerOffsetX/2, canvas_height/8, 'faller').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -219,11 +225,6 @@ class Air extends Phaser.Scene {
 
         this.time.delayedCall(timeTillObstacles, () => { this.addObstacle(); });
 
-
-        // //OBSTACLES
-        obstacleWidth = 80;
-        obstacleHeight = 80;
-
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
         });
@@ -247,13 +248,13 @@ class Air extends Phaser.Scene {
         
         let obstacle = new Obstacle(
             this, Phaser.Math.Between(stageLeftBound + 40, stageRightBound - 40),
-            canvas_height, //or obstacle_height if horizontal stage
-            0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle');
+            canvas_height+obstacleHeight, //or obstacle_height if horizontal stage
+            0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle', 27, 12.5, 10);
 
         //because when u destroy() the object it deletes the animation, apparently
-        // let obstacle_anim = this.a_air_obstacle;
+        let obstacle_anim = this.a_air_obstacle;
 
-        // obstacle.anims.play(obstacle_anim);
+        obstacle.anims.play(obstacle_anim);
 
 
         this.obstacleGroup.add(obstacle);
@@ -269,7 +270,9 @@ class Air extends Phaser.Scene {
 
     update() {
 
-        if (this.resetHit) console.log("no");
+        this.physics.world.wrap(this.border_1,0);
+        this.physics.world.wrap(this.border_2,0);
+        this.physics.world.wrap(this.bg_air_1,0);
 
         if (this.resetHit && 
             (this.deaccelerationFrame < this.deaccelerationLength * 2) ) {
@@ -277,6 +280,11 @@ class Air extends Phaser.Scene {
             this.bg_scroll_speed -= this.bg_scroll_speed_deacceleration;
             this.barrierSpeed -= this.barrierSpeedDeacceleration;
             this.deaccelerationFrame++;
+
+            this.border_1.setVelocity(0, this.bg_scroll_speed/2);
+            this.border_2.setVelocity(0, this.bg_scroll_speed/2);
+            this.bg_air_1.setVelocity(0, this.bg_scroll_speed);
+
         }
 
         //PLAYER MOVEMENT
@@ -301,11 +309,6 @@ class Air extends Phaser.Scene {
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
         if (!this.resetHit_bg) {
-            if (this.bg_air_1.y <= -(canvas_height / 2) ) 
-            {
-                this.bg_air_1.y = canvas_height * 1.5;
-                this.bg_air_1_amnt_looped += 1;
-            }
 
             if (this.bg_air_2.y <= -(canvas_height / 2) ) 
             {
@@ -318,53 +321,11 @@ class Air extends Phaser.Scene {
                     this.barrier.y = 2 * canvas_height; //canvas_height + barrier size
                     this.barrierPlaced = true;
 
-
                     this.box_below_barrier.y = this.barrier.y + canvas_height / 2;
                     this.box_below_barrier.setVisible(true);
                 }
             }
-
-            //BORDERS MOVEMENT
-            if (this.border_1_first.y <= -(canvas_height / 2)) {
-                this.border_1_first.y = canvas_height * 1.5;
-            }
-            if (this.border_1_second.y <= -(canvas_height / 2)) {
-                this.border_1_second.y = canvas_height * 1.5;
-            }
-    
-            if (this.border_2_first.y <= -(canvas_height / 2)) {
-                this.border_2_first.y = canvas_height * 1.5;
-            }
-            if (this.border_2_second.y <= -(canvas_height / 2)) {
-                this.border_2_second.y = canvas_height * 1.5;
-            }
         }
-        else //resetting: reverse background & borders
-        {
-            //REVERSE BG MOVEMENT
-            if (this.bg_air_1.y >= canvas_height * 1.5 ) {
-                this.bg_air_1.y = -(canvas_height / 2);
-            }
-            if (this.bg_air_2.y >= canvas_height * 1.5 ) {
-                this.bg_air_2.y = -(canvas_height / 2);
-            }
-            
-            //REVERSE BORDERS MOVEMENT
-            if (this.border_1_first.y >= canvas_height * 1.5) {
-                this.border_1_first.y = -(canvas_height) / 2;
-            }
-            if (this.border_1_second.y >= canvas_height * 1.5) {
-                this.border_1_second.y = -(canvas_height) / 2;
-            }
-    
-            if (this.border_2_first.y >= canvas_height * 1.5) {
-                this.border_2_first.y = -(canvas_height) / 2;
-            }
-            if (this.border_2_second.y >= canvas_height * 1.5) {
-                this.border_2_second.y = -(canvas_height) / 2;
-            }
-        }
-
 
         //BARRIER MOVEMENT
         if (this.barrierPlaced) 
@@ -372,19 +333,10 @@ class Air extends Phaser.Scene {
             this.barrier.y -= this.barrierSpeed;
             this.box_below_barrier.y -= this.barrierSpeed;
         }
-
-
-        //SCROLLING
-        this.border_1_first.y -= this.barrierSpeed;
-        this.border_1_second.y -= this.barrierSpeed;
-
-        this.border_2_first.y -= this.barrierSpeed;
-        this.border_2_second.y -= this.barrierSpeed;
         
         //Update Background
         //this.bg_air.tilePositionY += 5;
-        this.bg_air_1.y -= this.bg_scroll_speed;
-        this.bg_air_2.y -= this.bg_scroll_speed;
+        this.bg_air_2.y -= 3 * global_speed;
 
         //PLAYER COLLISIONS
         if (this.barrierTouched == false)
@@ -406,13 +358,11 @@ class Air extends Phaser.Scene {
 
     setInvincibility(bool) {
         this.isInvincible = bool;
-        console.log("no longer invinc");
     }
 
     worldSwap() {
         if (!this.resetHit)
         {
-            console.log("world swapped");
             this.barrierTouched = true;
             //ENTRY EFFECTS
             this.cameras.main.shake(200); // this at start of scene
@@ -424,11 +374,10 @@ class Air extends Phaser.Scene {
             //PlAYER
             this.isInvincible = false;
 
-            this.scene.stop("waterScene");
-
             this.sound.play('barrierSmash', {volume: 0.2});
             shakeOnNextWorld = true;
 
+            //DIFFICULTY SCALING
             //FIRST OBSTACLE'S SPAWN SCALING
             if (playerstats.currStagesComplete >= 1) 
             {    
@@ -442,14 +391,16 @@ class Air extends Phaser.Scene {
                 playerstats.currStagesComplete = 1;
             }
 
+            if (playerstats.currStagesComplete % 2 == 0) bg_scroll_mod++;
+
+            if (global_speed <= global_speed_max) global_speed += global_speed_scaling;
+
             //MANAGE SCENE
             //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scenemanager/
             this.scene.stop("airScene");
-            //even though this scene stops, worldSwap() is still carried out
-            //later order this better to make it more seamless
-            this.scene.start("waterScene");
-            // change to this.scene.start("fireScene");
-            //change to this.scene.stop("airScene"); later
+
+            if (stageCycleDirection == 0) this.scene.start("waterScene");
+            else this.scene.start("earthScene");
         }
     }
 
@@ -478,9 +429,6 @@ class Air extends Phaser.Scene {
 
         //fade to white
         this.cameras.main.fade(5000, 255, 255, 255);
-        console.log("fade?");
-
-        console.log("resetting");
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
         playerstats.currStagesComplete = 0;
@@ -489,8 +437,11 @@ class Air extends Phaser.Scene {
         
         //go to menu for debug
         this.time.delayedCall(6000, () => { 
-            this.scene.start("menuScene") 
+            this.scene.stop("airScene");
+            this.scene.start("menuScene");
         });
+
+        global_speed = global_speed_default;
 
     }
 }

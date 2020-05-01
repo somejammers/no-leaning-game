@@ -18,17 +18,17 @@ class Menu extends Phaser.Scene {
 
         this.load.image('bg_air', './assets/bg_air.png');
         this.load.image('bg_water', './assets/bg_water.png');
-        this.load.image('bg_fire', './assets/bg_fire.png');
-        this.load.image('bg_earth', './assets/bg_earth.png');
+        this.load.image('bg_fire', './assets/bg_fire_s.png');
+        this.load.image('bg_earth', './assets/bg_earth_s.png');
 
         this.load.image('barrier', './assets/barrier.png');
         this.load.image('barrier_water', './assets/barrier_water.png');
 
         this.load.image('barrier_broken', './assets/barrier_broken.png');
-        this.load.spritesheet('border_air', './assets/border_air.png', {frameWidth: 60, frameHeight: 720}); 
-        this.load.spritesheet('border_water', './assets/border_water.png', {frameWidth: 720, frameHeight: 60}); 
-        this.load.spritesheet('border_fire', './assets/border_fire.png', {frameWidth: 60, frameHeight: 720}); 
-        this.load.spritesheet('border_earth', './assets/border_earth.png', {frameWidth: 720, frameHeight: 60}); 
+        this.load.spritesheet('border_air', './assets/border_air.png', {frameWidth: 60, frameHeight: 1440}); 
+        this.load.spritesheet('border_water', './assets/border_water.png', {frameWidth: 1440, frameHeight: 60}); 
+        this.load.spritesheet('border_fire', './assets/border_fire.png', {frameWidth: 60, frameHeight: 1440}); 
+        this.load.spritesheet('border_earth', './assets/border_earth.png', {frameWidth: 1440, frameHeight: 60}); 
 
         this.load.spritesheet('rewind', './assets/rewind-Sheet.png', {frameWidth: 720, frameHeight: 720});
         
@@ -56,7 +56,10 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet('creditsP', './assets/menuScreenCredits.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
 
         
-        this.load.audio('bgm', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_air', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_fire', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_water', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_earth', './assets/ES_Free_Tonight.wav')
         this.load.audio('menu_bgm', './assets/ES_Free_Tonight_Menu.wav');
         this.load.audio('barrierSmash', './assets/barrier_break_sound3.wav');
         this.load.audio('obstacleCollision', './assets/explosion38.wav');
@@ -158,7 +161,7 @@ class Menu extends Phaser.Scene {
             
 
             booom.on('animationcomplete', function(event){
-                
+                stageCycleDirection = Math.floor(Math.random());
                 this.scene.start("airScene");
             }, this);
                 

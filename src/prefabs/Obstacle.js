@@ -1,7 +1,7 @@
 class Obstacle extends Phaser.Physics.Arcade.Sprite {
     constructor(
         scene, x_spawnFrom, y_spawnFrom, 
-        x_velocity, y_velocity, orientation, rotating, texture, frame
+        x_velocity, y_velocity, orientation, rotating, texture, circleSize, circleX, circleY, frame
         ) {
         // call Phaser Physics Sprite constructor
         super(scene, x_spawnFrom, y_spawnFrom, texture, frame);
@@ -17,7 +17,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setImmovable();
-        this.setCircle(25, 15, 10);
+        this.setCircle(circleSize, circleX, circleY);
 
         this.newObstacle = true;
         this.isRotating = rotating;
