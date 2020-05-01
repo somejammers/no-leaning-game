@@ -58,7 +58,6 @@ class Earth extends Phaser.Scene {
 
         //MUSIC
         this.bgm = this.sound.add('bgm_earth', bgmConfig);
-        this.bgm.play();   
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
         this.speed_modifier = global_speed;
@@ -237,10 +236,23 @@ class Earth extends Phaser.Scene {
         let obstacle = new Obstacle(
             this, 0 - obstacleWidth, 
             Phaser.Math.Between(stageUpperBound + obstacleHeight/2, stageLowerBound - obstacleHeight/2), //or obstacle_height if horizontal stage
-            -this.barrierSpeed * 1.2, 0, 3, false, 'earth_obstacle', 28, 19, 15);
+            -this.barrierSpeed * 1.2, 0, 3, false, 'earth_obstacle', 28, 19, 15, true);
         this.obstacleGroup.add(obstacle);
 
         let obstacle_anim = this.a_earth_obstacle;
+
+        let spawnMirror = 1 + (Math.floor(Math.random() * 4));
+        console.log(spawnMirror);
+        if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > obstacleWidth/2) {
+            let obstacleMirror = new Obstacle(
+                this, 0 - obstacleWidth, 
+                stageUpperBound + Math.abs(obstacle.y - stageLowerBound), //or obstacle_height if horizontal stage
+                -this.barrierSpeed * 1.2, 0, 3, false, 'earth_obstacle', 28, 19, 15, false);
+            
+            obstacleMirror.anims.play(obstacle_anim);
+
+            this.obstacleGroup.add(obstacleMirror);
+        }
 
         obstacle.anims.play(obstacle_anim);
     }
@@ -355,8 +367,6 @@ class Earth extends Phaser.Scene {
             this.cameras.main.flash(0xFFFFFF, 500);        
 
             //AUDIO
-            this.bgm.stop();
-
             //PlAYER
             this.isInvincible = false;
 
@@ -364,7 +374,6 @@ class Earth extends Phaser.Scene {
 
             this.sound.play('barrierSmash', {volume: 0.2});
             shakeOnNextWorld = true;
-            playerstats.currStagesComplete++;
 
             //FIRST OBSTACLE'S SPAWN SCALING
             if (playerstats.currStagesComplete >= 1) 
@@ -420,7 +429,6 @@ class Earth extends Phaser.Scene {
         this.cameras.main.fade(5000, 255, 255, 255);
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
-        playerstats.currStagesComplete = 0;
         playerstats.currHP = 3;
         this.faller_body.setEnable(false);
         

@@ -164,7 +164,7 @@ class Menu extends Phaser.Scene {
 
             booom.on('animationcomplete', function(event){
                 playerstats.currStagesComplete = 0;
-                stageCycleDirection = Math.floor(Math.random());
+                stageCycleDirection = Math.floor(Math.random() * 2);
                 this.scene.stop("menuScene");
                 this.scene.start("airScene");
             }, this);

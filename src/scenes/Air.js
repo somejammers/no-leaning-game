@@ -249,12 +249,24 @@ class Air extends Phaser.Scene {
         let obstacle = new Obstacle(
             this, Phaser.Math.Between(stageLeftBound + 40, stageRightBound - 40),
             canvas_height+obstacleHeight, //or obstacle_height if horizontal stage
-            0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle', 27, 12.5, 10);
+            0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle', 27, 12.5, 10, true);
 
         //because when u destroy() the object it deletes the animation, apparently
         let obstacle_anim = this.a_air_obstacle;
 
         obstacle.anims.play(obstacle_anim);
+
+        let spawnMirror = 1 + (Math.floor(Math.random() * 4));
+        if (spawnMirror == 4 && Math.abs(obstacle.x - canvas_width/2) > obstacleWidth/2) {
+            let obstacleMirror = new Obstacle(
+                this, stageLeftBound + Math.abs(obstacle.x - stageRightBound),
+                canvas_height+obstacleHeight, //or obstacle_height if horizontal stage
+                0, this.barrierSpeed * 1.2, 1, false, 'air_obstacle', 27, 12.5, 10, false);
+            
+            obstacleMirror.anims.play(obstacle_anim);
+
+            this.obstacleGroup.add(obstacleMirror);
+        }
 
 
         this.obstacleGroup.add(obstacle);
@@ -369,14 +381,12 @@ class Air extends Phaser.Scene {
             this.cameras.main.flash(0xFFFFFF, 500);        
 
             //AUDIO
-            this.bgm.stop();
 
             //PlAYER
             this.isInvincible = false;
 
             this.sound.play('barrierSmash', {volume: 0.2});
             shakeOnNextWorld = true;
-            playerstats.currStagesComplete++;
 
             //DIFFICULTY SCALING
             //FIRST OBSTACLE'S SPAWN SCALING

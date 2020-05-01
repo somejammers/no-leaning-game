@@ -73,8 +73,7 @@ class Fire extends Phaser.Scene {
         this.border_2.play('a_border_fire');
 
         //MUSIC
-        this.bgm = this.sound.add('bgm_fire', bgmConfig);
-        this.bgm.play();   
+        this.bgm = this.sound.add('bgm_fire', bgmConfig); 
 
         //CONTROLS
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/keyboardevents/
@@ -228,6 +227,7 @@ class Fire extends Phaser.Scene {
             this.cameras.main.shake(1000, 0.03, 0.00, 0, false); 
         }
 
+        
         this.time.delayedCall(timeTillObstacles, () => { this.addObstacle(); });
 
         this.obstacleGroup = this.add.group({
@@ -254,11 +254,24 @@ class Fire extends Phaser.Scene {
         let obstacle = new Obstacle(
             this, Phaser.Math.Between(stageLeftBound + 40, stageRightBound - 40),
             0, //or obstacle_height if horizontal stage
-            0, -this.barrierSpeed * 1.2, 2, false, 'fire_obstacle', 28, 13, 19);
+            0, -this.barrierSpeed * 1.2, 2, false, 'fire_obstacle', 28, 13, 19, true);
+
 
         let obstacle_anim = this.a_fire_obstacle;
 
         obstacle.anims.play(obstacle_anim);
+
+        let spawnMirror = 1 + (Math.floor(Math.random() * 4));
+        if (spawnMirror == 4 && Math.abs(obstacle.x - canvas_width/2) > obstacleWidth/2) {
+            let obstacleMirror = new Obstacle(
+                this, stageLeftBound + Math.abs(obstacle.x - stageRightBound),
+                0, //or obstacle_height if horizontal stage
+                0, -this.barrierSpeed * 1.2, 2, false, 'fire_obstacle', 28, 13, 19, false);
+            
+            obstacleMirror.anims.play(obstacle_anim);
+
+            this.obstacleGroup.add(obstacleMirror);
+        }
 
 
         this.obstacleGroup.add(obstacle);
@@ -372,14 +385,12 @@ class Fire extends Phaser.Scene {
             this.cameras.main.flash(0xFFFFFF, 500);        
 
             //AUDIO
-            this.bgm.stop();
 
             //PlAYER
             this.isInvincible = false;
 
             this.sound.play('barrierSmash', {volume: 0.2});
             shakeOnNextWorld = true;
-            playerstats.currStagesComplete++;
 
             //FIRST OBSTACLE'S SPAWN SCALING
             if (playerstats.currStagesComplete >= 1) 
@@ -432,7 +443,6 @@ class Fire extends Phaser.Scene {
         this.cameras.main.fade(5000, 255, 255, 255);
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
-        playerstats.currStagesComplete = 0;
         playerstats.currHP = 3;
         this.faller_body.setEnable(false);
         
