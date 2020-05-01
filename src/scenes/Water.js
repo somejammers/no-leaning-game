@@ -12,7 +12,7 @@ class Water extends Phaser.Scene {
 
     create() {
 
-        this.bg_scroll_speed = -150 * global_speed;
+        this.bg_scroll_speed = -150 * global_speed * global_speed;
 
         //OBSTACLE ANIMATION
         this.a_water_obstacle = this.anims.create({
