@@ -67,12 +67,12 @@ class Water extends Phaser.Scene {
         //Placing the animation
         //starts on frame
 
-        this.border_1 = this.physics.add.sprite(canvas_width / 2, stageUpperBound-obstacleWidth/4, 'border_water');
+        this.border_1 = this.physics.add.sprite(canvas_width / 2, stageUpperBound-obstacleWidth/2, 'border_water');
         this.border_1.setVelocity(this.bg_scroll_speed/2, 0);
         this.border_1.setDepth(8);
         this.border_1.play('a_border_water');
 
-        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/4, 'border_water');
+        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/2, 'border_water');
         this.border_2.setVelocity(this.bg_scroll_speed/2, 0);
         this.border_2.setDepth(8);
         this.border_2.play('a_border_water');
