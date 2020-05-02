@@ -5,7 +5,8 @@ let canvas_height = 720;
 let physicsConfig = {
     default: 'arcade',
     arcade: {
-        debug: true //true if u wanna show bounding boxes
+        debug: true, //true if u wanna show bounding boxes
+        fps: 60
     }
 }
 
