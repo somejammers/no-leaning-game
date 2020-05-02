@@ -1,18 +1,5 @@
-//TO DO:
-//  xx add placeholder bgm and sfx
-// add obstacles, see nathans
-// add horizontal world
-// do start scene
-// add barrier breaking particles
-// add broken barrer to new levels
-// better game feel movement
-// add start scene
-//rotate obstacles in ran direction slowly at center
-// add another thing to make gameplay more engaging, like an end 
-//screen w dimension hop count, like individual level obstacles. I like the
-// idea of a "laser" that goes in the non-scrolling direction, to cover player up/down vs left/right
-// add collectible
-// add pause
+//pillar
+// every 3/globalspeed sec , a sign that flashes for 2/globalspeed sec, and fire that geysers for 3gs/sec
 
 class Fire extends Phaser.Scene {
     constructor() {
@@ -31,6 +18,27 @@ class Fire extends Phaser.Scene {
             key: 'a_fire_obstacle',
             frames: this.anims.generateFrameNumbers('fire_obstacle'),
             frameRate: 1,
+            repeat: 999
+        });
+
+        this.a_geyser_l = this.anims.create({
+            key: 'a_geyser_l',
+            frames: this.anims.generateFrameNumbers('geyser_l'),
+            frameRate: 3,
+            repeat: 999
+        });
+
+        this.a_geyser_r = this.anims.create({
+            key: 'a_geyser_r',
+            frames: this.anims.generateFrameNumbers('geyser_r'),
+            frameRate: 3,
+            repeat: 999
+        });
+
+        this.a_warning = this.anims.create({
+            key: 'a_warning',
+            frames: this.anims.generateFrameNumbers('warning'),
+            frameRate: 2,
             repeat: 999
         });
 
@@ -227,10 +235,19 @@ class Fire extends Phaser.Scene {
             this.cameras.main.shake(1000, 0.03, 0.00, 0, false); 
         }
 
-        
+        //OBSTACLE GROUPS
         this.time.delayedCall(timeTillObstacles, () => { this.addObstacle(); });
 
         this.obstacleGroup = this.add.group({
+            runChildUpdate: true
+        });
+
+        this.geyserToWarningIntervals = 3000 / global_speed;
+        this.warningToGeyserIntervals = 2000 / global_speed;
+
+        //SPAWN FIRST GEYSER
+        this.time.delayedCall(timeTillObstacles + 800, () => { this.addWarning(); });
+        this.geyserGroup = this.add.group({
             runChildUpdate: true
         });
 
@@ -242,6 +259,54 @@ class Fire extends Phaser.Scene {
         this.barrierSpeedDeacceleration = this.barrierSpeed / this.deaccelerationLength;
         this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / this.deaccelerationLength;
         this.deaccelerationFrame = 0;
+    }
+
+    addWarning() {
+        if (!this.resetHit) {
+            let warningAndGeyserY = Phaser.Math.Between(stageUpperBound, stageLowerBound);
+            let orientation = Math.floor(Math.random() * 2);
+            let warningX;
+
+            if (orientation == 0) 
+                warningX = stageLeftBound + 40;
+            else
+                warningX = stageRightBound - 40;
+
+            let warning = new Warning_Vertical(this, warningX, warningAndGeyserY, orientation,
+                'warning');
+
+            warning.anims.play(this.a_warning);
+
+            this.time.delayedCall(this.warningToGeyserIntervals, () => {
+                this.addGeyser(warningAndGeyserY, orientation); 
+            });
+        }
+    }
+
+    addGeyser(geyserY, orientation) {
+        if (!this.resetHit) {
+            this.time.delayedCall(this.geyserToWarningIntervals, () => { 
+                this.addWarning(); 
+            });
+
+            let geyser;
+            if (orientation == 0) {
+                geyser = new Geyser(this, stageLeftBound - 600, 
+                    geyserY, orientation,
+                    'geyser_l');
+
+                let anim = this.a_geyser_l;
+                geyser.anims.play(anim);
+            }
+            else {
+                geyser = new Geyser(this, stageRightBound + 600, 
+                    geyserY, orientation,
+                    'geyser_r');
+                let anim = this.a_geyser_r;
+                geyser.anims.play(anim);
+            }
+            this.geyserGroup.add(geyser);
+        }
     }
 
     addObstacle() {
@@ -429,7 +494,7 @@ class Fire extends Phaser.Scene {
         //this triggers all deacceleration slowdowns->stops
         this.resetHit = true;
 
-        this.time.delayedCall(1000, () => { this.reverseBgLoop() });;
+        this.time.delayedCall(1000, () => { this.reverseBgLoop() });
 
         //pause all moving objects and do like a screen freeze/rewind effect, and the player blips out
         this.bgm.stop();
