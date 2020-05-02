@@ -22,16 +22,16 @@ class Faller extends Phaser.GameObjects.Sprite {
        
         //Controls
         if ((keyLEFT.isDown || keyA.isDown) && this.x > stageLeftBound) {
-            this.x -= 2 / resistance_keyLEFT;
+            this.x -= 2.5 / resistance_keyLEFT;
         }
         if ((keyRIGHT.isDown || keyD.isDown) && this.x < stageRightBound - this.scene.fallerOffsetX) {
-            this.x += 2 / resistance_keyRIGHT;
+            this.x += 2.5 / resistance_keyRIGHT;
         }
         if ((keyUP.isDown || keyW.isDown) && this.y > stageUpperBound) {
-            this.y -= 2 / resistance_keyUP;
+            this.y -= 2.5 / resistance_keyUP;
         }
         if ((keyDOWN.isDown || keyS.isDown) && this.y < stageLowerBound - this.scene.fallerOffsetY) {
-            this.y += 2 / resistance_keyDOWN;
+            this.y += 2.5 / resistance_keyDOWN;
         }
     }
 
