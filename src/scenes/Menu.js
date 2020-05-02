@@ -51,6 +51,10 @@ class Menu extends Phaser.Scene {
 
         this.load.spritesheet('geyser_l', './assets/geyser_l.png', {frameWidth: 600, frameHeight: 80});
         this.load.spritesheet('geyser_r', './assets/geyser_r.png', {frameWidth: 600, frameHeight: 80});
+        this.load.spritesheet('eel_u', './assets/eel_u.png', {frameWidth: 80, frameHeight: 1200});
+        this.load.spritesheet('eel_d', './assets/eel_d.png', {frameWidth: 80, frameHeight: 1200});
+
+
 
         this.load.spritesheet('warning', './assets/warning.png', {frameWidth: 80, frameHeight: 80});
 
@@ -90,6 +94,8 @@ class Menu extends Phaser.Scene {
 
     create() {
         this.closeLoading();
+
+        levelMusicStarted = false;
 
         //SCORE
         var scoreStyle = { font: "32px Georgia", fill: "#000000", wordWrap: true, wordWrapWidth: 200, align: "center"};
@@ -170,7 +176,7 @@ class Menu extends Phaser.Scene {
                 playerstats.currStagesComplete = 0;
                 stageCycleDirection = Math.floor(Math.random() * 2);
                 this.scene.stop("menuScene");
-                this.scene.start("fireScene");
+                this.scene.start("waterScene");
             }, this);
                 
 

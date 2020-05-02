@@ -251,7 +251,6 @@ class Fire extends Phaser.Scene {
             runChildUpdate: true
         });
 
-
         //OTHER
         this.resetHit = false;
         this.resetHit_bg = false;

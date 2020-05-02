@@ -43,6 +43,27 @@ class Water extends Phaser.Scene {
             frameRate: 1, //i think this is how many frames per sec
             repeat: 999
         });
+
+        this.a_eel_d = this.anims.create({
+            key: 'a_eel_d',
+            frames: this.anims.generateFrameNumbers('eel_d'),
+            frameRate: 3,
+            repeat: 999
+        });
+
+        this.a_eel_u = this.anims.create({
+            key: 'a_eel_u',
+            frames: this.anims.generateFrameNumbers('eel_u'),
+            frameRate: 3,
+            repeat: 999
+        });
+
+        this.a_warning = this.anims.create({
+            key: 'a_warning',
+            frames: this.anims.generateFrameNumbers('warning'),
+            frameRate: 2,
+            repeat: 999
+        });
         //Placing the animation
         //starts on frame
 
@@ -220,6 +241,15 @@ class Water extends Phaser.Scene {
             runChildUpdate: true
         });
 
+        this.eelToWarningIntervals = 3000 / global_speed;
+        this.warningToEelIntervals = 2000 / global_speed;
+
+        //SPAWN FIRST EEL
+        this.time.delayedCall(timeTillObstacles + 800, () => { this.addWarning(); });
+        this.eelGroup = this.add.group({
+            runChildUpdate: true
+        });
+
 
         //OTHER
         this.resetHit = false;
@@ -228,6 +258,56 @@ class Water extends Phaser.Scene {
         this.barrierSpeedDeacceleration = this.barrierSpeed / this.deaccelerationLength;
         this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / this.deaccelerationLength;
         this.deaccelerationFrame = 0;
+    }
+
+    addWarning() {
+        if (!this.resetHit) {
+            let warningAndEelX = Phaser.Math.Between(stageLeftBound, stageRightBound);
+            let orientation = Math.floor(Math.random() * 2);
+            let warningY;
+
+            if (orientation == 0) 
+                warningY = stageLowerBound - 40;
+            else
+                warningY = stageUpperBound + 40;
+
+            let warning = new Warning_Horizontal(this, warningAndEelX, warningY, orientation,
+                'warning');
+
+            warning.setDepth(12);
+
+            warning.anims.play(this.a_warning);
+
+            this.time.delayedCall(this.warningToEelIntervals, () => {
+                this.addEel(warningAndEelX, orientation); 
+            });
+        }
+    }
+
+    addEel(eelX, orientation) {
+        if (!this.resetHit) {
+            this.time.delayedCall(this.eelToWarningIntervals, () => { 
+                this.addWarning(); 
+            });
+
+            let eel;
+            if (orientation == 0) {
+                eel = new Eel(this, eelX, stageLowerBound + 600, 
+                    orientation,
+                    'eel_d');
+
+                let anim = this.a_eel_d;
+                eel.anims.play(anim);
+            }
+            else {
+                eel = new Eel(this, eelX, stageUpperBound - 600, 
+                    orientation,
+                    'eel_u');
+                let anim = this.a_eel_u;
+                eel.anims.play(anim);
+            }
+            this.eelGroup.add(eel);
+        }
     }
 
     addObstacle() {

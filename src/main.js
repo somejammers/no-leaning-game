@@ -47,3 +47,4 @@ let stageCycleDirection = 0; //0 is clockwise, 1 counterclockwise
                              // Clockwise: Air->Water->Fire->Earth
 
 let hasScore = 0;
+let levelMusicStarted = false;

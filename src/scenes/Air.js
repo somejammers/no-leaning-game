@@ -67,8 +67,12 @@ class Air extends Phaser.Scene {
         this.border_2.play('sway');
 
         //MUSIC
+
         this.bgm = this.sound.add('bgm_air', bgmConfig);
-        this.bgm.play();   
+        if (!levelMusicStarted) {
+            this.bgm.play(); 
+            levelMusicStarted = true;
+        } 
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
         this.speed_modifier = global_speed;

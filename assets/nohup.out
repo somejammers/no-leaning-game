@@ -615,4 +615,175 @@ Gtk-Message: 14:38:16.921: GtkDialog mapped without a transient parent. This is 
    "Sprite-0001 0.": {
     "frame": { "x": 0, "y": 0, "w": 720, "h": 60 },
     "rotated": false,
-    "trimmed": 
+    "trimmed": { "frames": {
+   "geyser 0.png": {
+    "frame": { "x": 0, "y": 0, "w": 600, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 600, "h": 80 },
+    "sourceSize": { "w": 600, "h": 80 },
+    "duration": 100
+   },
+   "geyser 1.png": {
+    "frame": { "x": 600, "y": 0, "w": 600, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 600, "h": 80 },
+    "sourceSize": { "w": 600, "h": 80 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "format": "I8",
+  "size": { "w": 1200, "h": 80 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
+{ "frames": {
+   "geyser 0.png": {
+    "frame": { "x": 0, "y": 0, "w": 600, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 600, "h": 80 },
+    "sourceSize": { "w": 600, "h": 80 },
+    "duration": 100
+   },
+   "geyser 1.png": {
+    "frame": { "x": 600, "y": 0, "w": 600, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 600, "h": 80 },
+    "sourceSize": { "w": 600, "h": 80 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "format": "I8",
+  "size": { "w": 1200, "h": 80 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
+{ "frames": {
+   "warning 0.png": {
+    "frame": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
+    "duration": 120
+   },
+   "warning 1.png": {
+    "frame": { "x": 80, "y": 0, "w": 80, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
+    "duration": 120
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "format": "I8",
+  "size": { "w": 160, "h": 80 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
+{ "frames": {
+   "warning 0.png": {
+    "frame": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
+    "duration": 120
+   },
+   "warning 1.png": {
+    "frame": { "x": 80, "y": 0, "w": 80, "h": 80 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
+    "duration": 120
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "format": "I8",
+  "size": { "w": 160, "h": 80 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
+{ "frames": {
+   "geyser 0.png": {
+    "frame": { "x": 0, "y": 0, "w": 80, "h": 600 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 600 },
+    "sourceSize": { "w": 80, "h": 600 },
+    "duration": 100
+   },
+   "geyser 1.png": {
+    "frame": { "x": 80, "y": 0, "w": 80, "h": 600 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 600 },
+    "sourceSize": { "w": 80, "h": 600 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "format": "I8",
+  "size": { "w": 160, "h": 600 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
+{ "frames": {
+   "geyser 0.png": {
+    "frame": { "x": 0, "y": 0, "w": 80, "h": 600 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 600 },
+    "sourceSize": { 
