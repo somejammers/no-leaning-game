@@ -92,13 +92,16 @@ class Menu extends Phaser.Scene {
         this.closeLoading();
 
         //SCORE
-        var scoreStyle = { font: "32px Georgia", fill: "#000000", wordWrap: true, wordWrapWidth: 200, align: "center"};
+        var scoreStyle = { font: "32px Arial Black", fill: "#000000", wordWrap: true, wordWrapWidth: 200, align: "center"};
 
         if (hasScore) {
             if (playerstats.currStagesComplete > playerstats.highScore) 
                 playerstats.highScore = playerstats.currStagesComplete;
-            this.text = this.add.text(canvas_width / 4 - 20, 400, "High Score: "+playerstats.highScore+"\nLast Score: "+playerstats.currStagesComplete, scoreStyle);
-            this.text.setDepth(11);
+            this.textOne = this.add.text(canvas_width / 6 - 30, 650, "High Score: "+playerstats.highScore, scoreStyle);
+            this.textOne.setDepth(11);
+            this.textTwo = this.add.text(canvas_width / 6 + 300, 650, "Last Score: "+playerstats.currStagesComplete, scoreStyle);
+            this.textTwo.setDepth(11);
+
         }
         
         //this.test = 4;
