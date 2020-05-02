@@ -9942,3 +9942,7 @@ Falling back to node net library..
 (electron) 'setBadgeCount function' is deprecated and will be removed. Please use 'badgeCount property' instead.
 [Modules] Failed fetching module discord_krisp@0: Error: HTTP Error: Status Code 403
 [Modules] Finished module downloads. [success: 0] [failure: 1]
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.

@@ -164,7 +164,7 @@ class Water extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, 2 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_r_default').setOrigin(0,0);
+            this, canvas_width/2, canvas_height/2 - this.fallerOffsetY/2, 'faller_r_default').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -245,7 +245,7 @@ class Water extends Phaser.Scene {
             runChildUpdate: true
         });
 
-        this.eelToWarningIntervals = 2000 / global_speed;
+        this.eelToWarningIntervals = 1500 / global_speed;
         this.warningToHazardIntervals = 2000 / global_speed;
 
         //SPAWN FIRST EEL
@@ -460,7 +460,7 @@ class Water extends Phaser.Scene {
             //FIRST OBSTACLE'S SPAWN SCALING
             if (playerstats.currStagesComplete >= 1) 
             {    
-                timeTillObstacles = 1000 / playerstats.currStagesComplete * this.speed_modifier;
+                timeTillObstacles = 1000 / this.speed_modifier;
                 playerstats.currStagesComplete++;
             } 
             else

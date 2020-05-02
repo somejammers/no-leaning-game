@@ -18,6 +18,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setImmovable();
         this.setCircle(circleSize, circleX, circleY);
+        this.toDestroy = false;
 
         this.newObstacle = newObstacle;
         this.isRotating = rotating;
@@ -93,21 +94,26 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
             {
                 this.newObstacle = false;
                 this.scene.addObstacle();
+                if (this.y < 0 + 80) this.toDestroy = true;
             } 
             else if (this.orientation == 2 && this.y > (canvas_height / 2 ) - 60*this.scene.speed_modifier) 
             {
                 this.newObstacle = false;
                 this.scene.addObstacle();
+                if (this.y > canvas_height + 80) this.toDestroy = true;
             }
             else if (this.orientation == 3 && this.x > (canvas_width / 2 ) - 60*this.scene.speed_modifier) 
             {
                 this.newObstacle = false;
                 this.scene.addObstacle();
+                if (this.x > canvas_width + 80) this.toDestroy = true;
             }
             else if (this.orientation == 4 && this.x < (canvas_width / 2 ) + 60*this.scene.speed_modifier)
             {
                 this.newObstacle = false;
                 this.scene.addObstacle();
+                if (this.x < 0 - 80) this.toDestroy = true;
+
             }
         }
 
@@ -117,6 +123,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         //this can do a function from the scene or here
         this.scene.physics.add.overlap(this, this.scene.faller_instance, this.explode, null, this);
         
+        if (this.toDestroy == true) this.destroy();
     }
 
 

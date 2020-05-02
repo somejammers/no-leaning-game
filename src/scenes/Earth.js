@@ -153,7 +153,7 @@ class Earth extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, 6 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_l').setOrigin(0,0);
+            this, canvas_width/2, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_l').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -298,7 +298,7 @@ class Earth extends Phaser.Scene {
         let obstacle_anim = this.a_earth_obstacle;
 
         let spawnMirror = 1 + (Math.floor(Math.random() * 4));
-        if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > 49) {
+        if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > 55) {
             let obstacleMirror = new Obstacle(
                 this, 0 - obstacleWidth, 
                 stageUpperBound + Math.abs(obstacle.y - stageLowerBound), //or obstacle_height if horizontal stage
@@ -433,7 +433,7 @@ class Earth extends Phaser.Scene {
             //FIRST OBSTACLE'S SPAWN SCALING
             if (playerstats.currStagesComplete >= 1) 
             {    
-                timeTillObstacles = 1000 / playerstats.currStagesComplete * this.speed_modifier;
+                timeTillObstacles = 1000 / this.speed_modifier;
                 playerstats.currStagesComplete++;
             } 
             else
