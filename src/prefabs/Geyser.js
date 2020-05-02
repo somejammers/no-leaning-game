@@ -24,7 +24,7 @@ class Geyser extends Phaser.Physics.Arcade.Sprite {
 
         this.timeIntervals = 1000 / global_speed;
         this.distanceMoved = 550;
-        this.distanceMovedPerTime = this.distanceMoved / 60; //divided by how long in seconds each phase lasts
+        this.distanceMovedPerTime = this.distanceMoved * global_speed / 60; //divided by how long in seconds each phase lasts
 
         //for 1s geyser moves in, 2s stays in place, 1s moves out
         this.scene.time.delayedCall(this.timeIntervals, () => 
