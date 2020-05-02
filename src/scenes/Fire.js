@@ -275,6 +275,8 @@ class Fire extends Phaser.Scene {
             let warning = new Warning_Vertical(this, warningX, warningAndGeyserY, orientation,
                 'warning');
 
+            warning.setDepth(12);
+
             warning.anims.play(this.a_warning);
 
             this.time.delayedCall(this.warningToGeyserIntervals, () => {
