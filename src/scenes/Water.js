@@ -79,6 +79,10 @@ class Water extends Phaser.Scene {
 
         //MUSIC
         this.bgm = this.sound.add('bgm_water', bgmConfig);
+        if (!levelMusicStarted) {
+            this.bgm.play(); 
+            levelMusicStarted = true;
+        } 
         
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
@@ -160,7 +164,7 @@ class Water extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_r').setOrigin(0,0);
+            this, 2 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_r').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -241,8 +245,8 @@ class Water extends Phaser.Scene {
             runChildUpdate: true
         });
 
-        this.eelToWarningIntervals = 3000 / global_speed;
-        this.warningToEelIntervals = 2000 / global_speed;
+        this.eelToWarningIntervals = 2000 / global_speed;
+        this.warningToHazardIntervals = 2000 / global_speed;
 
         //SPAWN FIRST EEL
         this.time.delayedCall(timeTillObstacles + 800, () => { this.addWarning(); });
@@ -271,14 +275,14 @@ class Water extends Phaser.Scene {
             else
                 warningY = stageUpperBound + 40;
 
-            let warning = new Warning_Horizontal(this, warningAndEelX, warningY, orientation,
+            let warning = new Warning(this, warningAndEelX, warningY, orientation,
                 'warning');
 
             warning.setDepth(12);
 
             warning.anims.play(this.a_warning);
 
-            this.time.delayedCall(this.warningToEelIntervals, () => {
+            this.time.delayedCall(this.warningToHazardIntervals, () => {
                 this.addEel(warningAndEelX, orientation); 
             });
         }
@@ -325,7 +329,7 @@ class Water extends Phaser.Scene {
         let obstacle_anim = this.a_water_obstacle;
 
         let spawnMirror = 1 + (Math.floor(Math.random() * 4));
-        if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > obstacleWidth/2) {
+        if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > 49) {
             let obstacleMirror = new Obstacle(
                 this, canvas_width + obstacleWidth, 
                 stageUpperBound + Math.abs(obstacle.y - stageLowerBound), //or obstacle_height if horizontal stage

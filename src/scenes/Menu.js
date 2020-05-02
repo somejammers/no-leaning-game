@@ -53,7 +53,8 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet('geyser_r', './assets/geyser_r.png', {frameWidth: 600, frameHeight: 80});
         this.load.spritesheet('eel_u', './assets/eel_u.png', {frameWidth: 80, frameHeight: 1200});
         this.load.spritesheet('eel_d', './assets/eel_d.png', {frameWidth: 80, frameHeight: 1200});
-
+        this.load.spritesheet('meteor', './assets/meteor.png', {frameWidth: 80, frameHeight: 80});
+        this.load.spritesheet('rolyPoly', './assets/rolyPoly.png', {frameWidth: 80, frameHeight: 80});
 
 
         this.load.spritesheet('warning', './assets/warning.png', {frameWidth: 80, frameHeight: 80});
@@ -64,10 +65,10 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet('creditsP', './assets/menuScreenCredits.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
 
         
-        this.load.audio('bgm_air', './assets/ES_Free_Tonight.wav');
-        this.load.audio('bgm_fire', './assets/ES_Free_Tonight.wav');
-        this.load.audio('bgm_water', './assets/ES_Free_Tonight.wav');
-        this.load.audio('bgm_earth', './assets/ES_Free_Tonight.wav')
+        this.load.audio('bgm_air', './assets/ES_Free_Tonight_original.mp3');
+        this.load.audio('bgm_fire', './assets/ES_Free_Tonight_original.mp3');
+        this.load.audio('bgm_water', './assets/ES_Free_Tonight_original.mp3');
+        this.load.audio('bgm_earth', './assets/ES_Free_Tonight_original.mp3')
         this.load.audio('menu_bgm', './assets/ES_Free_Tonight_Menu.wav');
         this.load.audio('barrierSmash', './assets/barrier_break_sound3.wav');
         this.load.audio('obstacleCollision', './assets/explosion38.wav');
@@ -179,7 +180,16 @@ class Menu extends Phaser.Scene {
                 playerstats.currStagesComplete = 0;
                 stageCycleDirection = Math.floor(Math.random() * 2);
                 this.scene.stop("menuScene");
-                this.scene.start("waterScene");
+
+                if (isFirstPlaythrough == true) {
+                    this.scene.start("airScene");
+                } else {
+                    let stagePicker = 1 + Math.floor(Math.random() * 3);
+                    if (stagePicker == 1) this.scene.start("airScene");
+                    else if (stagePicker == 2) this.scene.start("fireScene");
+                    else if (stagePicker == 3) this.scene.start("earthScene");
+                    else if (stagePicker == 4) this.scene.start("waterScene");
+                }
             }, this);
                 
 

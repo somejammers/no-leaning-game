@@ -21,6 +21,20 @@ class Earth extends Phaser.Scene {
             frameRate: 1,
             repeat: 999
         });
+        
+        this.a_warning = this.anims.create({
+            key: 'a_warning',
+            frames: this.anims.generateFrameNumbers('warning'),
+            frameRate: 2,
+            repeat: 999
+        });
+
+        this.a_rolyPoly = this.anims.create({
+            key: 'a_rolyPoly',
+            frames: this.anims.generateFrameNumbers('rolyPoly'),
+            frameRate: 1,
+            repeat: 999
+        });
 
         //WIDTH AND LENGTH OF FALLER SPRITE
         this.fallerOffsetX = 28;
@@ -58,6 +72,10 @@ class Earth extends Phaser.Scene {
 
         //MUSIC
         this.bgm = this.sound.add('bgm_earth', bgmConfig);
+        if (!levelMusicStarted) {
+            this.bgm.play(); 
+            levelMusicStarted = true;
+        } 
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
         this.speed_modifier = global_speed;
@@ -135,7 +153,7 @@ class Earth extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, 7 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_l').setOrigin(0,0);
+            this, 6 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_l').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -217,6 +235,13 @@ class Earth extends Phaser.Scene {
             runChildUpdate: true
         });
 
+        this.rolyPolyToWarningIntervals = 2000 / global_speed;
+        this.warningToHazardIntervals = 2000 / global_speed;
+
+        this.time.delayedCall(timeTillObstacles, () => { this.addWarning(); });
+        this.rolyPolyGroup = this.add.group({
+            runChildUpdate: true
+        });
 
         //OTHER
         this.resetHit = false;
@@ -225,6 +250,37 @@ class Earth extends Phaser.Scene {
         this.barrierSpeedDeacceleration = this.barrierSpeed / this.deaccelerationLength;
         this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / this.deaccelerationLength;
         this.deaccelerationFrame = 0;
+    }
+
+    addWarning() {
+        if (!this.resetHit) {
+            let warningAndRolyPolyY = Phaser.Math.Between(stageLowerBound - 40, stageUpperBound + 40); 
+
+            let warning = new Warning(this, stageRightBound - 40, warningAndRolyPolyY,
+                'warning');
+
+            warning.setDepth(12);
+
+            warning.anims.play(this.a_warning);
+
+            this.time.delayedCall(this.warningToHazardIntervals, () => {
+                this.addRolyPoly(warningAndRolyPolyY); 
+            });
+        }
+    }
+
+    addRolyPoly(rolyPolyY) {
+        if (!this.resetHit) {
+            this.time.delayedCall(this.rolyPolyToWarningIntervals, () => { 
+                this.addWarning(); 
+            });
+
+            let rolyPoly = new RolyPoly(this, stageRightBound + 80, rolyPolyY, 'rolyPoly');
+
+            let anim = this.a_rolyPoly;
+            rolyPoly.anims.play(anim);
+            this.rolyPolyGroup.add(rolyPoly);
+        }
     }
 
     addObstacle() {
@@ -243,7 +299,7 @@ class Earth extends Phaser.Scene {
 
         let spawnMirror = 1 + (Math.floor(Math.random() * 4));
         console.log(spawnMirror);
-        if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > obstacleWidth/2) {
+        if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > 49) {
             let obstacleMirror = new Obstacle(
                 this, 0 - obstacleWidth, 
                 stageUpperBound + Math.abs(obstacle.y - stageLowerBound), //or obstacle_height if horizontal stage

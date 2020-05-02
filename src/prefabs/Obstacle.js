@@ -129,6 +129,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
             this.scene.cameras.main.shake(100, 0.01, 0.00, 0, false);
 
+
             this.scene.sound.play('obstacleCollision', {volume: 0.2});
             this.phys_body.enable = false;
             this.visible = false;

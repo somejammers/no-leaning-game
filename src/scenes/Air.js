@@ -24,12 +24,28 @@ class Air extends Phaser.Scene {
 
     create() {
 
+        isFirstPlaythrough = false;
+        
+        this.a_warning = this.anims.create({
+            key: 'a_warning',
+            frames: this.anims.generateFrameNumbers('warning'),
+            frameRate: 2,
+            repeat: 999
+        });
+
         this.bg_scroll_speed = -150 * global_speed * global_speed;
 
         //OBSTACLE ANIMATION
         this.a_air_obstacle = this.anims.create({
             key: 'a_air_obstacle',
             frames: this.anims.generateFrameNumbers('air_obstacle'),
+            frameRate: 1,
+            repeat: 999
+        });
+
+        this.a_meteor = this.anims.create({
+            key: 'a_meteor',
+            frames: this.anims.generateFrameNumbers('meteor'),
             frameRate: 1,
             repeat: 999
         });
@@ -152,7 +168,7 @@ class Air extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, game.config.width/2 - this.fallerOffsetX/2, canvas_height/8, 'faller').setOrigin(0,0);
+            this, game.config.width/2 - this.fallerOffsetX/2, 2 * canvas_height/8, 'faller').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -233,6 +249,13 @@ class Air extends Phaser.Scene {
             runChildUpdate: true
         });
 
+        this.meteorToWarningIntervals = 2000 / global_speed;
+        this.warningToHazardIntervals = 2000 / global_speed;
+
+        this.time.delayedCall(timeTillObstacles, () => { this.addWarning(); });
+        this.meteorGroup = this.add.group({
+            runChildUpdate: true
+        });
 
         //OTHER
         this.resetHit = false;
@@ -241,6 +264,37 @@ class Air extends Phaser.Scene {
         this.barrierSpeedDeacceleration = this.barrierSpeed / this.deaccelerationLength;
         this.bg_scroll_speed_deacceleration = this.bg_scroll_speed / this.deaccelerationLength;
         this.deaccelerationFrame = 0;
+    }
+
+    addWarning() {
+        if (!this.resetHit) {
+            let warningAndMeteorX = Phaser.Math.Between(stageLeftBound + 40, stageRightBound - 40); 
+
+            let warning = new Warning(this, warningAndMeteorX, stageUpperBound + 40,
+                'warning');
+
+            warning.setDepth(12);
+
+            warning.anims.play(this.a_warning);
+
+            this.time.delayedCall(this.warningToHazardIntervals, () => {
+                this.addMeteor(warningAndMeteorX); 
+            });
+        }
+    }
+
+    addMeteor(meteorX) {
+        if (!this.resetHit) {
+            this.time.delayedCall(this.meteorToWarningIntervals, () => { 
+                this.addWarning(); 
+            });
+
+            let meteor = new Meteor(this, meteorX, stageUpperBound - 40, 'meteor');
+
+            let anim = this.a_meteor;
+            meteor.anims.play(anim);
+            this.meteorGroup.add(meteor);
+        }
     }
 
     addObstacle() {
@@ -261,7 +315,7 @@ class Air extends Phaser.Scene {
         obstacle.anims.play(obstacle_anim);
 
         let spawnMirror = 1 + (Math.floor(Math.random() * 4));
-        if (spawnMirror == 4 && Math.abs(obstacle.x - canvas_width/2) > obstacleWidth/2) {
+        if (spawnMirror == 4 && Math.abs(obstacle.x - canvas_width/2) > 49) {
             let obstacleMirror = new Obstacle(
                 this, stageLeftBound + Math.abs(obstacle.x - stageRightBound),
                 canvas_height+obstacleHeight, //or obstacle_height if horizontal stage

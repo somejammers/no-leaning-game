@@ -17,77 +17,16 @@ class Warning extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setImmovable();
-
-        this.movingIn = true;
-        this.movingNot = false;
-        this.movingOut = false;
-
-        this.timeIntervals = 1000 / global_speed;
-        this.distanceMoved = 550;
-        this.distanceMovedPerTime = this.distanceMoved / 60; //divided by how long in seconds each phase lasts
-
+        
         //for 1s geyser moves in, 2s stays in place, 1s moves out
-        this.scene.time.delayedCall(this.timeIntervals, () => 
+        this.scene.time.delayedCall(this.scene.warningToHazardIntervals, () => 
         {
-            this.movingIn = false;
-            this.movingNot = true;
-            this.scene.time.delayedCall(this.timeIntervals * 2, () => 
-            {
-                this.movingNot = false;
-                this.movingOut = true;
-                this.scene.time.delayedCall(this.timeIntervals, () => 
-                {
-                    this.destroy();
-                });
-            });
+            this.destroy();
         });
     }
 
     update() {
         super.update();
-        
-        if (this.movingIn) {    
-            if(this.orientation == 0)
-                this.x += this.distanceMovedPerTime;
-            else   
-                this.x -= this.distanceMovedPerTime;
-        }
-
-        if (this.movingOut) {    
-            if(this.orientation == 0)
-                this.x -= this.distanceMovedPerTime;
-            else   
-                this.x += this.distanceMovedPerTime;
-        }
-
-        //this can do a function from the scene or here
-        this.scene.physics.add.overlap(this, this.scene.faller_instance, this.explode, null, this);
-        
-    }
-
-
-
-    explode() {
-        //do animation of being destroyed here
-        if (!this.scene.isInvincible) 
-        {    
-            this.scene.isInvincible = true;
-
-            this.scene.cameras.main.shake(100, 0.01, 0.00, 0, false);
-
-            this.scene.sound.play('obstacleCollision', {volume: 0.2});
-            playerstats.currHP--;
-
-            this.scene.fallerCollidesObstacle();
-
-            this.scene.time.delayedCall(1000, () => { this.disableInvincibility(false); });
-
-        }
-    }
-
-    disableInvincibility(bool) {
-        this.scene.isInvincible = bool;
-        this.scene.fallerSetDefault();
     }
 
 }

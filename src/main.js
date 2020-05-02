@@ -11,7 +11,7 @@ let physicsConfig = {
 
 //SOUND CONFIG
 let bgmConfig = {
-    volume: 0.7,
+    volume: 0.5,
     loop: true,
 }
 
@@ -48,3 +48,4 @@ let stageCycleDirection = 0; //0 is clockwise, 1 counterclockwise
 
 let hasScore = 0;
 let levelMusicStarted = false;
+let isFirstPlaythrough = true;

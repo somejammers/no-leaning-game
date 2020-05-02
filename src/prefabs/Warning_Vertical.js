@@ -1,4 +1,4 @@
-class Warning_Vertical extends Phaser.Physics.Arcade.Sprite {
+class Warning extends Phaser.Physics.Arcade.Sprite {
     constructor(
         scene, x_spawnFrom, y_spawnFrom, 
         orientation, texture, frame
@@ -19,7 +19,7 @@ class Warning_Vertical extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable();
         
         //for 1s geyser moves in, 2s stays in place, 1s moves out
-        this.scene.time.delayedCall(this.scene.warningToGeyserIntervals, () => 
+        this.scene.time.delayedCall(this.scene.warningToHazardIntervals, () => 
         {
             this.destroy();
         });
@@ -27,31 +27,6 @@ class Warning_Vertical extends Phaser.Physics.Arcade.Sprite {
 
     update() {
         super.update();
-    }
-
-
-
-    explode() {
-        //do animation of being destroyed here
-        if (!this.scene.isInvincible) 
-        {    
-            this.scene.isInvincible = true;
-
-            this.scene.cameras.main.shake(100, 0.01, 0.00, 0, false);
-
-            this.scene.sound.play('obstacleCollision', {volume: 0.2});
-            playerstats.currHP--;
-
-            this.scene.fallerCollidesObstacle();
-
-            this.scene.time.delayedCall(1000, () => { this.disableInvincibility(false); });
-
-        }
-    }
-
-    disableInvincibility(bool) {
-        this.scene.isInvincible = bool;
-        this.scene.fallerSetDefault();
     }
 
 }

@@ -81,7 +81,11 @@ class Fire extends Phaser.Scene {
         this.border_2.play('a_border_fire');
 
         //MUSIC
-        this.bgm = this.sound.add('bgm_fire', bgmConfig); 
+        this.bgm = this.sound.add('bgm_fire', bgmConfig);
+        if (!levelMusicStarted) {
+            this.bgm.play(); 
+            levelMusicStarted = true;
+        } 
 
         //CONTROLS
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/keyboardevents/
@@ -160,7 +164,7 @@ class Fire extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, game.config.width/2 - this.fallerOffsetX/2, 7 * canvas_height/8, 'faller').setOrigin(0,0);
+            this, game.config.width/2 - this.fallerOffsetX/2, 6 * canvas_height/8, 'faller').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -242,8 +246,8 @@ class Fire extends Phaser.Scene {
             runChildUpdate: true
         });
 
-        this.geyserToWarningIntervals = 3000 / global_speed;
-        this.warningToGeyserIntervals = 2000 / global_speed;
+        this.geyserToWarningIntervals = 2000 / global_speed;
+        this.warningToHazardIntervals = 2000 / global_speed;
 
         //SPAWN FIRST GEYSER
         this.time.delayedCall(timeTillObstacles + 800, () => { this.addWarning(); });
@@ -271,14 +275,14 @@ class Fire extends Phaser.Scene {
             else
                 warningX = stageRightBound - 40;
 
-            let warning = new Warning_Vertical(this, warningX, warningAndGeyserY, orientation,
+            let warning = new Warning(this, warningX, warningAndGeyserY, orientation,
                 'warning');
 
             warning.setDepth(12);
 
             warning.anims.play(this.a_warning);
 
-            this.time.delayedCall(this.warningToGeyserIntervals, () => {
+            this.time.delayedCall(this.warningToHazardIntervals, () => {
                 this.addGeyser(warningAndGeyserY, orientation); 
             });
         }
@@ -328,7 +332,7 @@ class Fire extends Phaser.Scene {
         obstacle.anims.play(obstacle_anim);
 
         let spawnMirror = 1 + (Math.floor(Math.random() * 4));
-        if (spawnMirror == 4 && Math.abs(obstacle.x - canvas_width/2) > obstacleWidth/2) {
+        if (spawnMirror == 4 && Math.abs(obstacle.x - canvas_width/2) > 49) {
             let obstacleMirror = new Obstacle(
                 this, stageLeftBound + Math.abs(obstacle.x - stageRightBound),
                 0, //or obstacle_height if horizontal stage
