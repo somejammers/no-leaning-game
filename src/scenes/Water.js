@@ -67,12 +67,12 @@ class Water extends Phaser.Scene {
         //Placing the animation
         //starts on frame
 
-        this.border_1 = this.physics.add.sprite(canvas_width / 2, stageUpperBound-obstacleWidth/2, 'border_water');
+        this.border_1 = this.physics.add.sprite(canvas_width / 2, stageUpperBound-obstacleWidth/4, 'border_water');
         this.border_1.setVelocity(this.bg_scroll_speed/2, 0);
         this.border_1.setDepth(8);
         this.border_1.play('a_border_water');
 
-        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/2, 'border_water');
+        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/4, 'border_water');
         this.border_2.setVelocity(this.bg_scroll_speed/2, 0);
         this.border_2.setDepth(8);
         this.border_2.play('a_border_water');
@@ -105,7 +105,7 @@ class Water extends Phaser.Scene {
         resistance_keyDOWN = 1.3;
         resistance_keyUP = 1.3;
         resistance_keyLEFT = 1.3;
-        resistance_keyRIGHT = 2;
+        resistance_keyRIGHT = 1.3;
 
         //BACKGROUND
         this.side_box_1 = this.add.rectangle( 
@@ -164,7 +164,7 @@ class Water extends Phaser.Scene {
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, 2 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_r').setOrigin(0,0);
+            this, 2 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_r_default').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -344,11 +344,11 @@ class Water extends Phaser.Scene {
     }
 
     play_a_faller_default() {
-        this.faller_instance.anims.play(this.a_faller_default_r);
+        this.faller_instance.anims.play(this.a_faller_r_default);
     }
 
     faller_hurt() {
-        this.faller_instance.anims.play(this.a_faller_hurt_r);
+        this.faller_instance.anims.play(this.a_faller_r_hurt);
     }
 
     update() {
@@ -428,11 +428,11 @@ class Water extends Phaser.Scene {
     }
 
     fallerCollidesObstacle() {
-        this.faller_instance.anims.play(this.a_faller_hurt_r);
+        this.faller_instance.anims.play(this.a_faller_r_hurt);
     }
 
     fallerSetDefault() {
-        this.faller_instance.anims.play(this.a_faller_default_r);
+        this.faller_instance.anims.play(this.a_faller_r_default);
     }
 
     setInvincibility(bool) {

@@ -35,7 +35,7 @@ class Meteor extends Phaser.Physics.Arcade.Sprite {
         
         if (this.x <= stageLeftBound + 34) {            
             this.velocityX = -this.velocityX;
-            this.scene.cameras.main.shake(100, 0.005, 0.00, 0, false);
+            this.scene.cameras.main.shake(100, 0.002, 0.00, 0, false);
 
         }
         else if(this.x >= stageRightBound - 34) {

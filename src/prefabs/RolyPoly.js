@@ -18,8 +18,7 @@ class RolyPoly extends Phaser.Physics.Arcade.Sprite {
         
         let posOrNeg = Math.random() < 0.5? -1 : 1;
         this.velocityX = -this.scene.barrierSpeed * 1.2 * Math.sqrt(global_speed);
-        this.velocityY = posOrNeg * (1 + Math.random()) * global_speed
-        console.log(this.velocityY);
+        this.velocityY = posOrNeg * (1 + Math.random()) * global_speed;
         
         this.rotationAngle = posOrNeg * (Math.random() * 0.05);
 
@@ -36,12 +35,12 @@ class RolyPoly extends Phaser.Physics.Arcade.Sprite {
         
         if (this.y >= stageLowerBound - 34) {            
             this.velocityY = -this.velocityY;
-            this.scene.cameras.main.shake(100, 0.00, 0.005, 0, false);
+            this.scene.cameras.main.shake(100, 0.01, 0.00, 0, false);
 
         }
         else if(this.y <= stageUpperBound + 34) {
             this.velocityY = -this.velocityY;
-            this.scene.cameras.main.shake(100, 0.00, 0.005, 0, false);
+            this.scene.cameras.main.shake(100, 0.01, 0.00, 0, false);
         } 
 
         this.x += this.velocityX;
@@ -63,7 +62,7 @@ class RolyPoly extends Phaser.Physics.Arcade.Sprite {
         {    
             this.scene.isInvincible = true;
 
-            this.scene.cameras.main.shake(100, 0.005, 0.00, 0, false);
+            this.scene.cameras.main.shake(100, 0.002, 0.00, 0, false);
 
             this.scene.sound.play('obstacleCollision', {volume: 0.2});
             playerstats.currHP--;

@@ -96,7 +96,7 @@ class Earth extends Phaser.Scene {
         //STAGE-SPECIFIC MOVEMENT
         resistance_keyDOWN = 1.3;
         resistance_keyUP = 1.3;
-        resistance_keyLEFT = 2;
+        resistance_keyLEFT = 1.3;
         resistance_keyRIGHT = 1.3;
 
         //BACKGROUND
@@ -112,7 +112,7 @@ class Earth extends Phaser.Scene {
 
         //have two backgrounds that loop 
         this.bg_earth_1 = this.physics.add.sprite(
-            -canvas_width / 2, canvas_height / 2, 'bg_earth');
+            canvas_width / 2, canvas_height / 2, 'bg_earth');
         this.bg_earth_1.setVelocity(this.bg_scroll_speed, 0);
 
         this.bg_earth_2 = this.add.sprite(
@@ -298,7 +298,6 @@ class Earth extends Phaser.Scene {
         let obstacle_anim = this.a_earth_obstacle;
 
         let spawnMirror = 1 + (Math.floor(Math.random() * 4));
-        console.log(spawnMirror);
         if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > 49) {
             let obstacleMirror = new Obstacle(
                 this, 0 - obstacleWidth, 
@@ -314,11 +313,11 @@ class Earth extends Phaser.Scene {
     }
 
     play_a_faller_default() {
-        this.faller_instance.anims.play(this.a_faller_default_r);
+        this.faller_instance.anims.play(this.a_faller_l_default);
     }
 
     faller_hurt() {
-        this.faller_instance.anims.play(this.a_faller_hurt_r);
+        this.faller_instance.anims.play(this.a_faller_l_hurt);
     }
 
     update() {
@@ -403,11 +402,11 @@ class Earth extends Phaser.Scene {
     }
 
     fallerCollidesObstacle() {
-        this.faller_instance.anims.play(this.a_faller_hurt_r);
+        this.faller_instance.anims.play(this.a_faller_l_hurt);
     }
 
     fallerSetDefault() {
-        this.faller_instance.anims.play(this.a_faller_default_r);
+        this.faller_instance.anims.play(this.a_faller_l_default);
     }
 
     setInvincibility(bool) {

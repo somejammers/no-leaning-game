@@ -102,7 +102,7 @@ class Fire extends Phaser.Scene {
 
         //STAGE-SPECIFIC MOVEMENT
         resistance_keyDOWN = 1.3;
-        resistance_keyUP = 2;
+        resistance_keyUP = 1.3;
         resistance_keyLEFT = 1.3;
         resistance_keyRIGHT = 1.3;
 
@@ -246,7 +246,7 @@ class Fire extends Phaser.Scene {
             runChildUpdate: true
         });
 
-        this.geyserToWarningIntervals = 2000 / global_speed;
+        this.geyserToWarningIntervals = 1500 / global_speed;
         this.warningToHazardIntervals = 2000 / global_speed;
 
         //SPAWN FIRST GEYSER
@@ -435,11 +435,11 @@ class Fire extends Phaser.Scene {
     }
 
     fallerCollidesObstacle() {
-        this.faller_instance.anims.play(this.a_faller_hurt);
+        this.faller_instance.anims.play(this.a_faller_u_hurt);
     }
 
     fallerSetDefault() {
-        this.faller_instance.anims.play(this.a_faller_default);
+        this.faller_instance.anims.play(this.a_faller_u_default);
     }
 
     setInvincibility(bool) {

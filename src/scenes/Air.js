@@ -107,7 +107,7 @@ class Air extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         //STAGE-SPECIFIC MOVEMENT
-        resistance_keyDOWN = 2;
+        resistance_keyDOWN = 1.3;
         resistance_keyUP = 1.3;
         resistance_keyLEFT = 1.3;
         resistance_keyRIGHT = 1.3;
