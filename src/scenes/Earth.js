@@ -2,9 +2,9 @@
 //  fix sprite
 // borders
 
-class Water extends Phaser.Scene {
+class Earth extends Phaser.Scene {
     constructor() {
-        super("waterScene");
+        super("earthScene");
     }
 
     preload() {
@@ -12,12 +12,12 @@ class Water extends Phaser.Scene {
 
     create() {
 
-        this.bg_scroll_speed = -150 * global_speed * global_speed;
+        this.bg_scroll_speed = 150 * global_speed * global_speed;
 
         //OBSTACLE ANIMATION
-        this.a_water_obstacle = this.anims.create({
-            key: 'a_water_obstacle',
-            frames: this.anims.generateFrameNumbers('water_obstacle'),
+        this.a_earth_obstacle = this.anims.create({
+            key: 'a_earth_obstacle',
+            frames: this.anims.generateFrameNumbers('earth_obstacle'),
             frameRate: 1,
             repeat: 999
         });
@@ -38,27 +38,26 @@ class Water extends Phaser.Scene {
 
        //ANIMATION
         this.borderAnimation = this.anims.create({
-            key: 'a_border_water',
-            frames: this.anims.generateFrameNumbers('border_water'),
+            key: 'a_border_earth',
+            frames: this.anims.generateFrameNumbers('border_earth'),
             frameRate: 1, //i think this is how many frames per sec
             repeat: 999
         });
         //Placing the animation
         //starts on frame
 
-        this.border_1 = this.physics.add.sprite(canvas_width / 2, stageUpperBound-obstacleWidth/4, 'border_water');
+        this.border_1 = this.physics.add.sprite(canvas_width / 2, stageUpperBound-obstacleWidth/4, 'border_earth');
         this.border_1.setVelocity(this.bg_scroll_speed/2, 0);
         this.border_1.setDepth(8);
-        this.border_1.play('a_border_water');
+        this.border_1.play('a_border_earth');
 
-        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/4, 'border_water');
+        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/4, 'border_earth');
         this.border_2.setVelocity(this.bg_scroll_speed/2, 0);
         this.border_2.setDepth(8);
-        this.border_2.play('a_border_water');
+        this.border_2.play('a_border_earth');
 
         //MUSIC
-        this.bgm = this.sound.add('bgm_water', bgmConfig);
-        
+        this.bgm = this.sound.add('bgm_earth', bgmConfig);
 
         //SPEED MOD FOR ALL ENVIRONMENTAL OBJECTS
         this.speed_modifier = global_speed;
@@ -79,8 +78,8 @@ class Water extends Phaser.Scene {
         //STAGE-SPECIFIC MOVEMENT
         resistance_keyDOWN = 1.3;
         resistance_keyUP = 1.3;
-        resistance_keyLEFT = 1.3;
-        resistance_keyRIGHT = 2;
+        resistance_keyLEFT = 2;
+        resistance_keyRIGHT = 1.3;
 
         //BACKGROUND
         this.side_box_1 = this.add.rectangle( 
@@ -94,25 +93,24 @@ class Water extends Phaser.Scene {
         this.side_box_2.setDepth(7);
 
         //have two backgrounds that loop 
-        this.bg_water_1 = this.physics.add.sprite(
-            canvas_width / 2, canvas_height / 2, 'bg_water');
-        this.bg_water_1.setVelocity(this.bg_scroll_speed, 0);
-        this.bg_water_1.setDepth(0);
+        this.bg_earth_1 = this.physics.add.sprite(
+            -canvas_width / 2, canvas_height / 2, 'bg_earth');
+        this.bg_earth_1.setVelocity(this.bg_scroll_speed, 0);
 
-        this.bg_water_2 = this.add.sprite(
-            canvas_width / 2, canvas_height / 2, 'bg_water');
-        this.bg_water_2.setDepth(-1);
+        this.bg_earth_2 = this.add.sprite(
+            canvas_width / 2, canvas_height / 2, 'bg_earth');
+        this.bg_earth_2.setVisible(false);
 
         //BACKGROUND VARIABLE DEFINITIONS
-        this.bg_water_1_amnt_looped = 0;
-        this.bg_water_2_amnt_looped = 0;
+        this.bg_earth_1_amnt_looped = 0;
+        this.bg_earth_2_amnt_looped = 0;
         this.bg_loop_max = 2;
 
         //BARRIER
         this.barrierPlaced = false;
         this.barrierTouched = false;
         this.barrierSpeed = (3 * global_speed) / 2;
-        this.barrier = this.physics.add.sprite(1800, canvas_height / 2, 'barrier_water'); //put off screen for now
+        this.barrier = this.physics.add.sprite(-1800, canvas_height / 2, 'barrier_water'); //put off screen for now
         this.barrier.setDepth(2);
         //make barrier physics body
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-world/
@@ -128,18 +126,16 @@ class Water extends Phaser.Scene {
         this.box_below_barrier.setVisible(false);
             
         //TRIMMING
-        this.trimming_behind = this.add.image(50, canvas_height / 2, 'trimming_behind_r');
+        this.trimming_behind = this.add.image(canvas_width - 50, canvas_height / 2, 'trimming_behind_l');
         this.trimming_behind.setDepth(9);
-        this.trimming_front = this.add.image(canvas_width - 50, canvas_height / 2, 'trimming_front_r');
-        this.trimming_front.setScale(1, -1);
-        this.trimming_front.setDepth(9);
+        this.trimming_front = this.add.image(50, canvas_height / 2, 'trimming_front_l');        this.trimming_front.setDepth(9);
 
         //PLAYER CHARACTER
         //Basically, the faller_instance is the sprite, faller_phys is the physics version,
         //faller_body is the physics body(the box around the sprite)
         //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/arcade-body/#collision-bound
         this.faller_instance = new Faller(
-            this, game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_r').setOrigin(0,0);
+            this, 7 * game.config.width/8, canvas_height/2 - this.fallerOffsetY/2, 'faller_default_l').setOrigin(0,0);
 
         //to change animation do https://www.phaser.io/examples/v2/animation/change-frame
 
@@ -154,21 +150,21 @@ class Water extends Phaser.Scene {
         this.isInvincible = false;
 
         //FALLER ANIMATIONS
-        this.a_faller_r_default = this.anims.create({
-            key: 'a_faller_r_default',
-            frames: this.anims.generateFrameNumbers('faller_r_default'),
+        this.a_faller_l_default = this.anims.create({
+            key: 'a_faller_l_default',
+            frames: this.anims.generateFrameNumbers('faller_l_default'),
             frameRate: 4,
             repeat: 999
         });
 
-        this.a_faller_r_hurt = this.anims.create({
-            key: 'a_faller_r_hurt',
-            frames: this.anims.generateFrameNumbers('faller_r_hurt'),
+        this.a_faller_l_hurt = this.anims.create({
+            key: 'a_faller_l_hurt',
+            frames: this.anims.generateFrameNumbers('faller_l_hurt'),
             frameRate: 4,
             repeat: 999
         });
 
-        this.faller_instance.anims.play(this.a_faller_r_default);
+        this.faller_instance.anims.play(this.a_faller_l_default);
 
         //REWIND
         this.a_rewind = this.anims.create({
@@ -192,8 +188,8 @@ class Water extends Phaser.Scene {
                 scale: { start: 0.5, end: 2.5 },
                 //tint: { start: 0xff945e, end: 0xff945e },
                 speed: { min: 200, max: 400},
-                accelerationX: -400,
-                angle: { min: 160, max: 200 },
+                accelerationX: 400,
+                angle: { min: -20, max: 20 },
                 rotate: { min: -180, max: 180 },
                 lifespan: { min: 1000, max: 1100 },
                 blendMode: 'ADD',
@@ -216,6 +212,7 @@ class Water extends Phaser.Scene {
 
         this.time.delayedCall(timeTillObstacles, () => { this.addObstacle(); });
 
+
         this.obstacleGroup = this.add.group({
             runChildUpdate: true
         });
@@ -237,19 +234,20 @@ class Water extends Phaser.Scene {
         // )
         
         let obstacle = new Obstacle(
-            this, canvas_width + obstacleWidth, 
+            this, 0 - obstacleWidth, 
             Phaser.Math.Between(stageUpperBound + obstacleHeight/2, stageLowerBound - obstacleHeight/2), //or obstacle_height if horizontal stage
-            this.barrierSpeed * 1.2, 0, 4, false, 'water_obstacle', 30, 10, 13, true);
+            -this.barrierSpeed * 1.2, 0, 3, false, 'earth_obstacle', 28, 19, 15, true);
         this.obstacleGroup.add(obstacle);
 
-        let obstacle_anim = this.a_water_obstacle;
+        let obstacle_anim = this.a_earth_obstacle;
 
         let spawnMirror = 1 + (Math.floor(Math.random() * 4));
+        console.log(spawnMirror);
         if (spawnMirror == 4 && Math.abs(obstacle.y - canvas_width/2) > obstacleWidth/2) {
             let obstacleMirror = new Obstacle(
-                this, canvas_width + obstacleWidth, 
+                this, 0 - obstacleWidth, 
                 stageUpperBound + Math.abs(obstacle.y - stageLowerBound), //or obstacle_height if horizontal stage
-                this.barrierSpeed * 1.2, 0, 4, false, 'water_obstacle', 30, 10, 13, false);
+                -this.barrierSpeed * 1.2, 0, 3, false, 'earth_obstacle', 28, 19, 15, false);
             
             obstacleMirror.anims.play(obstacle_anim);
 
@@ -268,9 +266,10 @@ class Water extends Phaser.Scene {
     }
 
     update() {
-        this.physics.world.wrap(this.border_1,-canvas_width);
-        this.physics.world.wrap(this.border_2,-canvas_width);
-        this.physics.world.wrap(this.bg_water_1,-canvas_width);
+
+        this.physics.world.wrap(this.border_1,0); 
+        this.physics.world.wrap(this.border_2,0);
+        this.physics.world.wrap(this.bg_earth_1,0);
 
         if (this.resetHit && 
             (this.deaccelerationFrame < this.deaccelerationLength * 2) ) {
@@ -281,7 +280,8 @@ class Water extends Phaser.Scene {
 
             this.border_1.setVelocity(this.bg_scroll_speed/2, 0);
             this.border_2.setVelocity(this.bg_scroll_speed/2, 0);
-            this.bg_water_1.setVelocity(this.bg_scroll_speed, 0);
+            this.bg_earth_1.setVelocity(this.bg_scroll_speed, 0);
+
         }
 
         //PLAYER MOVEMENT
@@ -289,7 +289,8 @@ class Water extends Phaser.Scene {
             this.faller_instance.update();
             
         //PLAYER PARTICLES FOLLOW
-        this.emitter.setPosition(this.faller_instance.x + this.fallerOffsetX/2, this.faller_instance.y + this.fallerOffsetY/2);        //HP CHANGES
+        this.emitter.setPosition(this.faller_instance.x + this.fallerOffsetX/2, this.faller_instance.y + this.fallerOffsetY/2);
+        //HP CHANGES
         if (playerstats.currHP == 3) {
             this.emitter.setFrame("green");
         } 
@@ -305,18 +306,20 @@ class Water extends Phaser.Scene {
 
         //BACKGROUND LOOP: If 1 of the 2 backgrounds fall off screen, put them back at start
         if (!this.resetHit_bg) {
-            if (this.bg_water_2.x <= -(canvas_height / 2) ) 
+
+            if (this.bg_earth_2.x >= canvas_height * 1.5 ) 
             {
-                this.bg_water_2.x = canvas_height * 1.5;
-                this.bg_water_2_amnt_looped ++;
+                this.bg_earth_2.x = -(canvas_height / 2);
+                this.bg_earth_2_amnt_looped ++;
 
                 //CONDITION: finished looping, place barrier and cover the background
-                if (this.bg_water_2_amnt_looped == this.bg_loop_max)
+                if (this.bg_earth_2_amnt_looped == this.bg_loop_max)
                 {
-                    this.barrier.x = 2 * canvas_height; //canvas_height + barrier size
+                    this.barrier.x = 2 * -canvas_height; //canvas_height + barrier size
                     this.barrierPlaced = true;
 
-                    this.box_below_barrier.x = this.barrier.x + canvas_height / 2;
+
+                    this.box_below_barrier.x = this.barrier.x - canvas_height / 2;
                     this.box_below_barrier.setVisible(true);
                 }
             }
@@ -325,14 +328,14 @@ class Water extends Phaser.Scene {
         //BARRIER MOVEMENT
         if (this.barrierPlaced) 
         {
-            this.barrier.x -= this.barrierSpeed;
-            this.box_below_barrier.x -= this.barrierSpeed;
+            this.barrier.x += this.barrierSpeed;
+            this.box_below_barrier.x += this.barrierSpeed;
         }
         
         //Update Background
-        //this.bg_water.tilePositionY += 5;
-        this.bg_water_2.x -= 3 * global_speed;
-
+        //this.bg_earth.tilePositionY += 5;
+        this.bg_earth_2.x += 3 * global_speed;
+        
         //PLAYER COLLISIONS
         if (this.barrierTouched == false)
         {
@@ -364,11 +367,10 @@ class Water extends Phaser.Scene {
             this.cameras.main.flash(0xFFFFFF, 500);        
 
             //AUDIO
-
             //PlAYER
             this.isInvincible = false;
 
-            this.scene.stop("waterScene");
+            this.scene.stop("earthScene");
 
             this.sound.play('barrierSmash', {volume: 0.2});
             shakeOnNextWorld = true;
@@ -392,10 +394,11 @@ class Water extends Phaser.Scene {
 
             //MANAGE SCENE
             //see https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scenemanager/
-            this.scene.stop("waterScene");
-
-            if (stageCycleDirection == 0) this.scene.start("fireScene");
-            else this.scene.start("airScene");
+            this.scene.stop("earthScene");
+            
+            if (stageCycleDirection == 0) this.scene.start("airScene");
+            else this.scene.start("fireScene");
+            
         }
     }
 
@@ -430,13 +433,11 @@ class Water extends Phaser.Scene {
         this.faller_body.setEnable(false);
         
         //go to menu for debug
-        this.time.delayedCall(6000, () => 
-        {
-            this.scene.stop("waterScene");
+        this.time.delayedCall(6000, () => { 
+            this.scene.stop("earthScene");
             this.scene.start("menuScene");
         });
 
         global_speed = global_speed_default;
-
     }
 }

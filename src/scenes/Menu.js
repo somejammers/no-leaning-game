@@ -7,7 +7,6 @@ class Menu extends Phaser.Scene {
         //play loading image
         this.loading = this.add.image(canvas_width/2, canvas_height/2, 'loading');
 
-
         this.load.spritesheet('faller_default', './assets/faller.png', {frameWidth: 48, frameHeight: 28});
         this.load.spritesheet('faller_hurt', './assets/faller_hurt.png', {frameWidth: 48, frameHeight: 28});
         this.load.spritesheet('faller_r_default', './assets/faller_r_default.png', {frameWidth: 28, frameHeight: 48});
@@ -19,41 +18,58 @@ class Menu extends Phaser.Scene {
 
         this.load.image('bg_air', './assets/bg_air.png');
         this.load.image('bg_water', './assets/bg_water.png');
+        this.load.image('bg_fire', './assets/bg_fire_s.png');
+        this.load.image('bg_earth', './assets/bg_earth_s.png');
 
         this.load.image('barrier', './assets/barrier.png');
         this.load.image('barrier_water', './assets/barrier_water.png');
 
-
         this.load.image('barrier_broken', './assets/barrier_broken.png');
-        this.load.spritesheet('border_air', './assets/border_air.png', {frameWidth: 60, frameHeight: 720}); 
-        this.load.spritesheet('border_water', './assets/border_water.png', {frameWidth: 720, frameHeight: 60}); 
+        this.load.spritesheet('border_air', './assets/border_air.png', {frameWidth: 60, frameHeight: 1440}); 
+        this.load.spritesheet('border_water', './assets/border_water.png', {frameWidth: 1440, frameHeight: 60}); 
+        this.load.spritesheet('border_fire', './assets/border_fire.png', {frameWidth: 60, frameHeight: 1440}); 
+        this.load.spritesheet('border_earth', './assets/border_earth.png', {frameWidth: 1440, frameHeight: 60}); 
 
         this.load.spritesheet('rewind', './assets/rewind-Sheet.png', {frameWidth: 720, frameHeight: 720});
         
         this.load.image('trimming_behind', './assets/trimming_behind.png');
         this.load.image('trimming_behind_l', './assets/trimming_behind_l.png');
         this.load.image('trimming_behind_r', './assets/trimming_behind_r.png');
+        this.load.image('trimming_behind_u', './assets/trimming_behind_u.png');
 
         this.load.image('trimming_front', './assets/trimming_front.png');
         this.load.image('trimming_front_l', './assets/trimming_front_l.png');
         this.load.image('trimming_front_r', './assets/trimming_front_r.png');
+        this.load.image('trimming_front_u', './assets/trimming_u.png');
 
         this.load.spritesheet('air_obstacle', './assets/air_obstacle.png', {frameWidth: 80, frameHeight: 80});
         this.load.spritesheet('water_obstacle', './assets/water_obstacle.png', {frameWidth: 80, frameHeight: 80});
+        this.load.spritesheet('fire_obstacle', './assets/fire_obstacle.png', {frameWidth: 80, frameHeight: 80});
+        this.load.spritesheet('earth_obstacle', './assets/earth_obstacle.png', {frameWidth: 80, frameHeight: 80});
 
-        this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
+        this.load.atlas('flares', './assets/flares.png', 'assets/flares.json');
+
+        this.load.spritesheet('geyser_l', './assets/geyser_l.png', {frameWidth: 600, frameHeight: 80});
+        this.load.spritesheet('geyser_r', './assets/geyser_r.png', {frameWidth: 600, frameHeight: 80});
+
+        this.load.spritesheet('warning', './assets/warning.png', {frameWidth: 80, frameHeight: 80});
+
+        // load spritesheet
+        this.load.spritesheet('menuBG', './assets/menuScreen.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
+        this.load.spritesheet('menuP', './assets/menuScreenPlay.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
+        this.load.spritesheet('creditsP', './assets/menuScreenCredits.png', {frameWidth: 720, frameHeight: 720, startFrame: 0, endFrame: 15});
+
         
-        this.load.audio('bgm', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_air', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_fire', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_water', './assets/ES_Free_Tonight.wav');
+        this.load.audio('bgm_earth', './assets/ES_Free_Tonight.wav')
         this.load.audio('menu_bgm', './assets/ES_Free_Tonight_Menu.wav');
         this.load.audio('barrierSmash', './assets/barrier_break_sound3.wav');
         this.load.audio('obstacleCollision', './assets/explosion38.wav');
         this.load.audio('sfx_rewind', './assets/sfx_rewind.wav');
         this.load.audio('button_click', './assets/beep.wav');
         this.load.audio('wood_break', './assets/ES_Wood_Break.wav');
-        
-        
-
-
         
         // load images/tile sprites
         this.load.image('playButton', './assets/playButton.png');
@@ -73,8 +89,17 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-
         this.closeLoading();
+
+        //SCORE
+        var scoreStyle = { font: "32px Georgia", fill: "#000000", wordWrap: true, wordWrapWidth: 200, align: "center"};
+
+        if (hasScore) {
+            if (playerstats.currStagesComplete > playerstats.highScore) 
+                playerstats.highScore = playerstats.currStagesComplete;
+            this.text = this.add.text(canvas_width / 4 - 20, 400, "High Score: "+playerstats.highScore+"\nLast Score: "+playerstats.currStagesComplete, scoreStyle);
+            this.text.setDepth(11);
+        }
         
         //this.test = 4;
         //this.add.text(20, 20, "Rocket Patrol Play");
@@ -119,9 +144,6 @@ class Menu extends Phaser.Scene {
 
         boom.anims.play('menuBack');
 
-        //console.log("did Menu scene");
-        //this.scene.start("airScene");
-        //console.log("in play");
         let buttonOne = this.add.tileSprite(160, 340, 83, 38, 'playButton').setOrigin(0,0);
         let buttonTwo = this.add.tileSprite(293, 340, 110, 38, 'rulesButton').setOrigin(0,0);
         let buttonThree = this.add.tileSprite(453, 340, 120, 38, 'creditsButton').setOrigin(0,0);
@@ -145,8 +167,10 @@ class Menu extends Phaser.Scene {
             
 
             booom.on('animationcomplete', function(event){
-                
-                this.scene.start("airScene");
+                playerstats.currStagesComplete = 0;
+                stageCycleDirection = Math.floor(Math.random() * 2);
+                this.scene.stop("menuScene");
+                this.scene.start("fireScene");
             }, this);
                 
 

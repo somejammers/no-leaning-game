@@ -13,9 +13,6 @@ class Boot extends Phaser.Scene {
         this.add.image(canvas_width/2, canvas_height/2, 'loading');
 
         this.scene.start("menuScene");
-
-        console.log("did boot scene");
-        //this.scene.start("menuScene");
     }
 
     test() {

@@ -5,7 +5,7 @@ let canvas_height = 720;
 let physicsConfig = {
     default: 'arcade',
     arcade: {
-        debug: false //true if u wanna show bounding boxes
+        debug: true //true if u wanna show bounding boxes
     }
 }
 
@@ -21,7 +21,7 @@ let config = {
     height: canvas_height,
     physics: physicsConfig,
     transparent: true, //removes black background
-    scene: [ Boot, Menu, Air, Water], //array, order matters
+    scene: [ Boot, Menu, Air, Water, Fire, Earth], //array, order matters
 };
 
 let game = new Phaser.Game(config);
@@ -30,12 +30,20 @@ let playerstats = new PlayerStats();
 
 //reserve some keyboard variables
 let keyLEFT, keyRIGHT, keyUP, keyDOWN;
+let keyA, keyD, keyW, keyS;
+
 let resistance_keyDOWN, resistance_keyUP, 
     resistance_keyLEFT, resistance_keyRIGHT;
+
+let global_speed = 1, global_speed_default = 1, global_speed_scaling = 0.10, global_speed_max = 1.9;
 let stageLeftBound, stageRightBound, stageUpperBound, stageLowerBound;
 let faller_x_on_barrier, faller_y_on_barrier;
 let playAirOnBoot = true;
 let shakeOnNextWorld = false;
-let bgmAir;
 let timeTillObstacles = 2500, obstacleWidth, obstacleHeight;
-let global_speed = 1;
+let playerLeftBound, playerRightBound, playerUpperBoumd, playerLowerBound;
+
+let stageCycleDirection = 0; //0 is clockwise, 1 counterclockwise
+                             // Clockwise: Air->Water->Fire->Earth
+
+let hasScore = 0;

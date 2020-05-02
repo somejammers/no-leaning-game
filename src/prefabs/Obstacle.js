@@ -1,7 +1,7 @@
 class Obstacle extends Phaser.Physics.Arcade.Sprite {
     constructor(
         scene, x_spawnFrom, y_spawnFrom, 
-        x_velocity, y_velocity, orientation, rotating, texture, frame
+        x_velocity, y_velocity, orientation, rotating, texture, circleSize, circleX, circleY, newObstacle, frame
         ) {
         // call Phaser Physics Sprite constructor
         super(scene, x_spawnFrom, y_spawnFrom, texture, frame);
@@ -17,9 +17,9 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setImmovable();
-        this.setCircle(25, 15, 10);
+        this.setCircle(circleSize, circleX, circleY);
 
-        this.newObstacle = true;
+        this.newObstacle = newObstacle;
         this.isRotating = rotating;
         this.rotationAngle = (Math.random() * 0.1) - 0.05;
         
@@ -28,7 +28,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         //             3 = player falling left, 4 = player falling right
         switch(orientation) {
             case 1:
-                if (this.y >= scene.barrier.y) {
+                if (this.y >= this.scene.barrier.y) {
                     this.x_velocity = 0;
                     this.y_velocity = 0;
                     this.visible = false;
@@ -36,7 +36,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
                 }
                 break;
             case 2: 
-                if (this.y <= scene.barrier.y) {
+                if (this.y <= this.scene.barrier.y) {
                     this.x_velocity = 0;
                     this.y_velocity = 0;
                     this.visible = false;
@@ -44,7 +44,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
                 }
                 break;
             case 3: 
-                if (this.y <= scene.barrier.x) {
+                if (this.x <= this.scene.barrier.x) {
                     this.x_velocity = 0;
                     this.y_velocity = 0;
                     this.visible = false;
@@ -52,7 +52,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
                 }
                 break;
             case 4: 
-                if (this.y >= scene.barrier.x) {
+                if (this.x >= this.scene.barrier.x) {
                     this.x_velocity = 0;
                     this.y_velocity = 0;
                     this.visible = false;
@@ -89,14 +89,25 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
         if (this.newObstacle) {
 
-            if (this.orientation == 1 && this.y < (canvas_height / 2 ) / this.scene.speed_modifier) {
+            if (this.orientation == 1 && this.y < (canvas_height / 2 ) + 60*this.scene.speed_modifier)
+            {
                 this.newObstacle = false;
                 this.scene.addObstacle();
             } 
-            else if (this.orientation == 4 && this.x < (canvas_width / 2 ) / this.scene.speed_modifier) {
+            else if (this.orientation == 2 && this.y > (canvas_height / 2 ) - 60*this.scene.speed_modifier) 
+            {
                 this.newObstacle = false;
                 this.scene.addObstacle();
-                console.log("ob spawned");
+            }
+            else if (this.orientation == 3 && this.x > (canvas_width / 2 ) - 60*this.scene.speed_modifier) 
+            {
+                this.newObstacle = false;
+                this.scene.addObstacle();
+            }
+            else if (this.orientation == 4 && this.x < (canvas_width / 2 ) + 60*this.scene.speed_modifier)
+            {
+                this.newObstacle = false;
+                this.scene.addObstacle();
             }
         }
 
