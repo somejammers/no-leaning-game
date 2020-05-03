@@ -62,7 +62,7 @@ class Meteor extends Phaser.Physics.Arcade.Sprite {
         {    
             this.scene.isInvincible = true;
 
-            this.scene.cameras.main.shake(100, 0.005, 0.00, 0, false);
+            this.scene.cameras.main.shake(100, 0.01, 0.00, 0, false);
 
             this.scene.sound.play('obstacleCollision', {volume: 0.2});
             playerstats.currHP--;

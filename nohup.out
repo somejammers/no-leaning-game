@@ -9995,3 +9995,64 @@ Falling back to node net library..
 
 (discord:27934): libnotify-WARNING **: 17:19:40.351: Failed to connect to proxy
 [743:951] [28167] (audio_device_pulse_linux.cc:1855): Can't query latency
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:27934): libnotify-WARNING **: 18:07:47.183: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:07:47.192: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:07:47.194: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:10:11.265: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:10:11.268: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:10:11.273: Failed to connect to proxy
+[27990:0502/181109.454970:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181115.329117:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181120.324875:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181122.586713:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181132.530512:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181134.775718:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181136.506973:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181139.588118:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[27990:0502/181149.810437:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+
+(discord:27934): libnotify-WARNING **: 18:17:12.087: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:17:12.090: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:17:12.093: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:20:52.834: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:20:52.837: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:20:52.841: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:20:57.942: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:20:57.949: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:20:57.956: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:21:01.910: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:21:01.913: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:21:01.917: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:21:09.379: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:21:09.382: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:21:09.384: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:22:36.257: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:22:36.261: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:22:36.264: Failed to connect to proxy
