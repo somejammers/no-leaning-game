@@ -9994,3 +9994,4 @@ Falling back to node net library..
 (discord:27934): libnotify-WARNING **: 17:19:40.348: Failed to connect to proxy
 
 (discord:27934): libnotify-WARNING **: 17:19:40.351: Failed to connect to proxy
+[743:951] [28167] (audio_device_pulse_linux.cc:1855): Can't query latency

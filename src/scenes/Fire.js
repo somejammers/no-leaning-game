@@ -266,7 +266,13 @@ class Fire extends Phaser.Scene {
 
     addWarning() {
         if (!this.resetHit) {
-            let warningAndGeyserY = Phaser.Math.Between(stageUpperBound, stageLowerBound);
+            let maxUpperDistFromPlayer = this.faller_instance.y - 220;
+            if (maxUpperDistFromPlayer < 0) maxUpperDistFromPlayer = 0;
+
+            let maxLowerDistFromPlayer = this.faller_instance.y + 220;
+            if (maxLowerDistFromPlayer > canvas_height) maxLowerDistFromPlayer = canvas_height;            
+
+            let warningAndGeyserY = Phaser.Math.Between(maxUpperDistFromPlayer, maxLowerDistFromPlayer);
             let orientation = Math.floor(Math.random() * 2);
             let warningX;
 

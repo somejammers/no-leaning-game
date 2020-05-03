@@ -51,7 +51,7 @@ class Earth extends Phaser.Scene {
         stageLowerBound = 3 * canvas_height / 4;
 
        //ANIMATION
-        this.borderAnimation = this.anims.create({
+        this.borderAnimation_earth = this.anims.create({
             key: 'a_border_earth',
             frames: this.anims.generateFrameNumbers('border_earth'),
             frameRate: 1, //i think this is how many frames per sec

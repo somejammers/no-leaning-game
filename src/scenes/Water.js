@@ -37,7 +37,7 @@ class Water extends Phaser.Scene {
         stageLowerBound = 3 * canvas_height / 4;
 
        //ANIMATION
-        this.borderAnimation = this.anims.create({
+        this.borderAnimation_water = this.anims.create({
             key: 'a_border_water',
             frames: this.anims.generateFrameNumbers('border_water'),
             frameRate: 1, //i think this is how many frames per sec
@@ -266,7 +266,14 @@ class Water extends Phaser.Scene {
 
     addWarning() {
         if (!this.resetHit) {
-            let warningAndEelX = Phaser.Math.Between(stageLeftBound, stageRightBound);
+
+            let maxLeftDistFromPlayer = this.faller_instance.x - 220;
+            if (maxLeftDistFromPlayer < 0) maxLeftDistFromPlayer = 0;
+
+            let maxRightDistFromPlayer = this.faller_instance.x + 220;
+            if (maxRightDistFromPlayer > canvas_width) maxRightDistFromPlayer = canvas_width;   
+
+            let warningAndEelX = Phaser.Math.Between(maxLeftDistFromPlayer, maxRightDistFromPlayer);
             let orientation = Math.floor(Math.random() * 2);
             let warningY;
 
