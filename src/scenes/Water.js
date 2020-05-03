@@ -267,10 +267,10 @@ class Water extends Phaser.Scene {
     addWarning() {
         if (!this.resetHit) {
 
-            let maxLeftDistFromPlayer = this.faller_instance.x - 220;
+            let maxLeftDistFromPlayer = this.faller_instance.x - 220 * Math.sqrt(global_speed);
             if (maxLeftDistFromPlayer < 0) maxLeftDistFromPlayer = 0;
 
-            let maxRightDistFromPlayer = this.faller_instance.x + 220;
+            let maxRightDistFromPlayer = this.faller_instance.x + 220 * Math.sqrt(global_speed);
             if (maxRightDistFromPlayer > canvas_width) maxRightDistFromPlayer = canvas_width;   
 
             let warningAndEelX = Phaser.Math.Between(maxLeftDistFromPlayer, maxRightDistFromPlayer);

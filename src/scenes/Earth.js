@@ -65,7 +65,7 @@ class Earth extends Phaser.Scene {
         this.border_1.setDepth(8);
         this.border_1.play('a_border_earth');
 
-        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/4, 'border_earth');
+        this.border_2 = this.physics.add.sprite(canvas_width / 2, stageLowerBound+obstacleWidth/4, 'border_earth'); 
         this.border_2.setVelocity(this.bg_scroll_speed/2, 0);
         this.border_2.setDepth(8);
         this.border_2.play('a_border_earth');
@@ -116,7 +116,7 @@ class Earth extends Phaser.Scene {
         this.bg_earth_1.setVelocity(this.bg_scroll_speed, 0);
 
         this.bg_earth_2 = this.add.sprite(
-            canvas_width / 2, canvas_height / 2, 'bg_earth');
+            canvas_width / 2, canvas_height / 2, 'bg_earth_temp'); //make sure this is 1440
         this.bg_earth_2.setVisible(false);
 
         //BACKGROUND VARIABLE DEFINITIONS

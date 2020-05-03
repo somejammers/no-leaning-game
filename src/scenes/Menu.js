@@ -20,6 +20,7 @@ class Menu extends Phaser.Scene {
         this.load.image('bg_water', './assets/bg_water.png');
         this.load.image('bg_fire', './assets/bg_fire_s.png');
         this.load.image('bg_earth', './assets/bg_earth_s.png');
+        this.load.image('bg_earth_temp', './assets/bg_earth_temp.png');
 
         this.load.image('barrier', './assets/barrier.png');
         this.load.image('barrier_water', './assets/barrier_water.png');
