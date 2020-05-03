@@ -9946,3 +9946,33 @@ Falling back to node net library..
 [Modules] Host is up to date.
 [Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
 [Modules] No module updates available.
+
+(discord:27934): libnotify-WARNING **: 17:09:32.259: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:09:32.260: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:09:32.262: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:10:24.073: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:10:24.077: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:10:24.080: Failed to connect to proxy
+17:10:25 INFO: Yanked URL to clipboard: https://thisisteamswag.github.io/endless_runner/endless_runner.html
+[27990:0502/171028.141899:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+[000:000] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[000:052] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[000:052] [28163] (audio_device_generic.cc:31): BuiltInAECIsAvailable: Not supported on this platform
+[000:099] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+
+(discord:27934): libnotify-WARNING **: 17:16:01.342: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:16:01.344: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:16:01.346: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:16:48.306: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:16:48.312: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 17:16:48.314: Failed to connect to proxy
