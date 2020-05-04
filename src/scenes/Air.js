@@ -266,6 +266,11 @@ class Air extends Phaser.Scene {
         this.deaccelerationFrame = 0;
     }
 
+    allerSetDefault() {
+        this.isInvincible = false;
+        this.faller_instance.anims.play(this.a_faller_default);
+    }
+
     addWarning() {
         if (!this.resetHit) {
             let warningAndMeteorX = Phaser.Math.Between(stageLeftBound + 40, stageRightBound - 40); 
@@ -422,10 +427,6 @@ class Air extends Phaser.Scene {
         this.faller_instance.anims.play(this.a_faller_hurt);
     }
 
-    fallerSetDefault() {
-        this.isInvincible = false;
-        this.faller_instance.anims.play(this.a_faller_default);
-    }
 
     setInvincibility(bool) {
         this.isInvincible = bool;

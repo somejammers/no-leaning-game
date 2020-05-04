@@ -264,6 +264,11 @@ class Water extends Phaser.Scene {
         this.deaccelerationFrame = 0;
     }
 
+    fallerSetDefault() {
+        this.isInvincible = false;
+        this.faller_instance.anims.play(this.a_faller_r_default);
+    }
+
     addWarning() {
         if (!this.resetHit) {
 
@@ -436,11 +441,6 @@ class Water extends Phaser.Scene {
 
     fallerCollidesObstacle() {
         this.faller_instance.anims.play(this.a_faller_r_hurt);
-    }
-
-    fallerSetDefault() {
-        this.isInvincible = false;
-        this.faller_instance.anims.play(this.a_faller_r_default);
     }
 
     setInvincibility(bool) {

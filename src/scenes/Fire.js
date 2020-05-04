@@ -264,6 +264,11 @@ class Fire extends Phaser.Scene {
         this.deaccelerationFrame = 0;
     }
 
+    fallerSetDefault() {
+        this.isInvincible = false;
+        this.faller_instance.anims.play(this.a_faller_u_default);
+    }
+
     addWarning() {
         if (!this.resetHit) {
             let maxUpperDistFromPlayer = this.faller_instance.y - 220;
@@ -442,11 +447,6 @@ class Fire extends Phaser.Scene {
 
     fallerCollidesObstacle() {
         this.faller_instance.anims.play(this.a_faller_u_hurt);
-    }
-
-    fallerSetDefault() {
-        this.isInvincible = false;
-        this.faller_instance.anims.play(this.a_faller_u_default);
     }
 
     setInvincibility(bool) {

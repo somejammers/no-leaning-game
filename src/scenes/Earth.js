@@ -252,6 +252,11 @@ class Earth extends Phaser.Scene {
         this.deaccelerationFrame = 0;
     }
 
+    fallerSetDefault() {
+        this.isInvincible = false;
+        this.faller_instance.anims.play(this.a_faller_l_default);
+    }
+
     addWarning() {
         if (!this.resetHit) {
             let warningAndRolyPolyY = Phaser.Math.Between(stageLowerBound - 40, stageUpperBound + 40); 
@@ -403,11 +408,6 @@ class Earth extends Phaser.Scene {
 
     fallerCollidesObstacle() {
         this.faller_instance.anims.play(this.a_faller_l_hurt);
-    }
-
-    fallerSetDefault() {
-        this.isInvincible = false;
-        this.faller_instance.anims.play(this.a_faller_l_default);
     }
 
     setInvincibility(bool) {
