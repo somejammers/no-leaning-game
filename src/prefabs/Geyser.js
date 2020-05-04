@@ -35,9 +35,10 @@ class Geyser extends Phaser.Physics.Arcade.Sprite {
             {
                 this.movingNot = false;
                 this.movingOut = true;
-                this.scene.time.delayedCall(this.timeIntervals, () => 
+                this.scene.time.delayedCall(this.timeIntervals + 1000, () => 
                 {
                     this.destroy();
+
                 });
             });
         });
