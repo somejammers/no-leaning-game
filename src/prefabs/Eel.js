@@ -65,7 +65,6 @@ class Eel extends Phaser.Physics.Arcade.Sprite {
     }
 
     disableInvincibility(bool) {
-        this.scene.isInvincible = bool;
         this.scene.fallerSetDefault();
     }
 
