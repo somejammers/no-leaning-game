@@ -1,3 +1,19 @@
+//NO LEANING!!!
+//A game by Ari Iramanesh, Aurelia Swift, and Simone Barie
+//completed 5/3/2020
+
+//Create tilt
+// This game twists the endless runner genre by randomly changing the orientation of player
+// movement as you fall through differently themed worlds
+//We wanted to make something different then just having a character run from left to right!
+
+
+//Visual style
+//All visual art assets were created by members of the team. We tried to have a basic cartoony style for our game :)
+//the sound effects and background music were taken from free use websites looperman.com and EpidemicSound.com
+    // The main background music is "Free Tonight by Xack"
+
+
 // https://aithehuman.github.io/sicksite/rocket.html
 let canvas_width = 720;
 let canvas_height = 720;
