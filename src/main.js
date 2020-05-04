@@ -1,4 +1,4 @@
-//NO LEANING
+//NO LEANING!!!
 //A game by Ari Iramanesh, Aurelia Swift, and Simone Barie
 //completed 5/3/2020
 
@@ -10,7 +10,8 @@
 
 //Visual style
 //All visual art assets were created by members of the team. We tried to have a basic cartoony style for our game :)
-//the sound effects and background music were taken from free use websites looperman.com 
+//the sound effects and background music were taken from free use websites looperman.com and EpidemicSound.com
+    // The main background music is "Free Tonight by Xack"
 
 
 // https://aithehuman.github.io/sicksite/rocket.html
