@@ -10056,3 +10056,119 @@ Falling back to node net library..
 (discord:27934): libnotify-WARNING **: 18:22:36.261: Failed to connect to proxy
 
 (discord:27934): libnotify-WARNING **: 18:22:36.264: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:25:14.634: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:25:14.638: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:25:14.640: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:25:18.963: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:25:18.967: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:25:18.969: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:28:24.057: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:28:24.060: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:28:24.065: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:30:11.177: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:30:11.180: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:30:11.185: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:32:42.141: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:32:42.143: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:32:42.147: Failed to connect to proxy
+[4950:067] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[4950:118] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[4950:119] [28163] (audio_device_generic.cc:31): BuiltInAECIsAvailable: Not supported on this platform
+[4950:286] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[4956:735] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[4956:760] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[4956:762] [28163] (audio_device_generic.cc:31): BuiltInAECIsAvailable: Not supported on this platform
+
+(discord:27934): libnotify-WARNING **: 18:36:44.878: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:36:44.885: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:36:44.889: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:36:51.210: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:36:51.215: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:36:51.219: Failed to connect to proxy
+[5200:727] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[5200:754] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[5200:755] [28163] (audio_device_generic.cc:31): BuiltInAECIsAvailable: Not supported on this platform
+[5200:799] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[5215:459] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[5215:482] [28163] (audio_send_stream.cc:285): Failed to set up send codec state.
+[5215:482] [28163] (audio_device_generic.cc:31): BuiltInAECIsAvailable: Not supported on this platform
+[OpenH264] this = 0x0x28945246c420, Warning:ParamValidation(), AdaptiveQuant(1) is not supported yet for screen content, auto turned off
+[OpenH264] this = 0x0x28945246c420, Warning:ParamValidation(), AdaptiveQuant(1) is not supported yet for screen content, auto turned off
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x28945246c420, Warning:Actual input framerate 21.000000 is different from framerate in setting 30.000000, suggest to use other rate control modes
+
+(discord:27934): libnotify-WARNING **: 18:39:12.070: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:39:12.077: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:39:12.088: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:39:40.716: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:39:40.719: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:39:40.725: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:44:04.422: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:44:04.426: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:44:04.428: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:44:32.475: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:44:32.478: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:44:32.481: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:45:47.314: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:45:47.317: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:45:47.318: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+
+(discord:27934): libnotify-WARNING **: 18:54:15.055: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:54:15.057: Failed to connect to proxy
+
+(discord:27934): libnotify-WARNING **: 18:54:15.059: Failed to connect to proxy
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+[Modules] Checking for host updates.
+[Modules] Host is up to date.
+[Modules] Checking for module updates at https://discordapp.com/api/modules/stable/versions.json
+[Modules] No module updates available.
+[27934:0502/213705.620042:FATAL:bus.cc(1218)] D-Bus connection was disconnected. Aborting.

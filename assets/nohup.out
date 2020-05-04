@@ -882,3 +882,14 @@ Gtk-Message: 14:38:16.921: GtkDialog mapped without a transient parent. This is 
 
 ###!!! [Parent][MessageChannel] Error: (msgtype=0x370131,name=PContent::Msg_DetachBrowsingContext) Channel error: cannot send/recv
 
+Extensions server started at http://localhost:45653/
+Checking for updates...
+[19:17:13:0340] [info] Checking for update
+[19:17:13:0420] [error] Error: Error: ENOENT: no such file or directory, open '/snap/standard-notes/8/resources/app-update.yml'
+(node:14386) UnhandledPromiseRejectionWarning: Error: ENOENT: no such file or directory, open '/snap/standard-notes/8/resources/app-update.yml'
+(node:14386) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:14386) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+Finished checking for updates. Latest version: 
+        3.3.5 Current version: 3.3.5
+Syncing components: 2
+Data backup succesfully saved:  2020-05-03T02-17-19.948Z.txt

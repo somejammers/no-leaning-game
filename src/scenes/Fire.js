@@ -445,6 +445,7 @@ class Fire extends Phaser.Scene {
     }
 
     fallerSetDefault() {
+        this.isInvincible = false;
         this.faller_instance.anims.play(this.a_faller_u_default);
     }
 
@@ -497,6 +498,8 @@ class Fire extends Phaser.Scene {
     }
 
     reset() {
+        this.faller_body.setEnable(false);
+
         hasScore = 1;
 
         //pause animations
@@ -520,7 +523,6 @@ class Fire extends Phaser.Scene {
         shakeOnNextWorld = false;
         timeTillObstacles = 2500;
         playerstats.currHP = 3;
-        this.faller_body.setEnable(false);
         
         //go to menu for debug
         this.time.delayedCall(6000, () => { 

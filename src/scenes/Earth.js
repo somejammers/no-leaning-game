@@ -406,6 +406,7 @@ class Earth extends Phaser.Scene {
     }
 
     fallerSetDefault() {
+        this.isInvincible = false;
         this.faller_instance.anims.play(this.a_faller_l_default);
     }
 

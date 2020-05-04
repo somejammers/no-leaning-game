@@ -439,6 +439,7 @@ class Water extends Phaser.Scene {
     }
 
     fallerSetDefault() {
+        this.isInvincible = false;
         this.faller_instance.anims.play(this.a_faller_r_default);
     }
 
