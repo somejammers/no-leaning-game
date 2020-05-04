@@ -35,10 +35,9 @@ class Geyser extends Phaser.Physics.Arcade.Sprite {
             {
                 this.movingNot = false;
                 this.movingOut = true;
-                this.scene.time.delayedCall(this.timeIntervals + 1000, () => 
+                this.scene.time.delayedCall(this.timeIntervals, () => 
                 {
                     this.destroy();
-
                 });
             });
         });
@@ -87,6 +86,7 @@ class Geyser extends Phaser.Physics.Arcade.Sprite {
     }
 
     disableInvincibility(bool) {
+        this.scene.isInvincible = bool;
         this.scene.fallerSetDefault();
     }
 
