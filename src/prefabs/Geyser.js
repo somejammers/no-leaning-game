@@ -80,13 +80,13 @@ class Geyser extends Phaser.Physics.Arcade.Sprite {
 
             this.scene.fallerCollidesObstacle();
 
-            this.scene.time.delayedCall(1000, () => { this.disableInvincibility(false); });
+            this.scene.time.delayedCall(1000, () => { this.scene.fallerSetDefault(); });
 
         }
     }
 
     disableInvincibility(bool) {
-        this.scene.fallerSetDefault();
+        
     }
 
 }

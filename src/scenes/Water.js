@@ -531,4 +531,3 @@ class Water extends Phaser.Scene {
         global_speed = global_speed_default;
 
     }
-}
