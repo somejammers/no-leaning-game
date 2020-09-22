@@ -1,5 +1,5 @@
 
-## [No Leaning!!!](https://thisisteamswag.github.io/endless_runner/endless_runner.html  
+## [No Leaning!!!](https://thisisteamswag.github.io/endless_runner/endless_runner.html)  
 Class: CMPM/ARTG 120 Game 1 of 2, Spring 2020  
 Assigned Theme: Endless Runner  
 Build time: 2 weeks
