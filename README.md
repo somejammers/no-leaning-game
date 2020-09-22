@@ -1,14 +1,11 @@
-https://github.com/thisIsTeamSwag/endless_runner.git
 
-instructions to push:
+## [No Leaning!!!](https://thisisteamswag.github.io/endless_runner/endless_runner.html  
+Class: CMPM/ARTG 120 Game 1 of 2, Spring 2020  
+Assigned Theme: Endless Runner  
+Build time: 2 weeks
+[Play here!](https://thisisteamswag.github.io/endless_runner/endless_runner.html)  
 
-git add (file) //or you can do 'git add .' to add every file in your current directory
-
-git commit -am "message"
-
-git push origin master
-
-
-before u push u need to get files that u dont have 
-
-git pull origin master
+### Credits:
+- Ari Iramanesh - Concept, Gameplay, & Programming  
+- Aurelia Swift - Animation & Art  
+- Simone Barie  - Animation, Art, Sound, & Menu  
