@@ -39,6 +39,10 @@ let config = {
     physics: physicsConfig,
     transparent: true, //removes black background
     scene: [ Boot, Menu, Air, Water, Fire, Earth], //array, order matters
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
 };
 
 let game = new Phaser.Game(config);
